@@ -1,0 +1,16 @@
+/* 
+.선언한 class명
+#선언한 id명
+*/
+
+.one{
+  color: blue;
+}
+
+.orange{
+  color: orange;
+}
+
+#name{
+  background-color: red;
+}

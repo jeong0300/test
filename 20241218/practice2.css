@@ -1,0 +1,44 @@
+* {
+    color: white;
+    background-color: gray;
+}
+
+.hello{
+    background-color: red;
+}
+
+#first{
+    background-color: blue;
+}
+
+.second{
+    background-color: green;
+}
+
+.red{
+    color: red;
+}
+
+.orange{
+    color: orange;
+}
+
+.yellow{
+    color: yellow;
+}
+
+.green{
+    color: green;
+}
+
+.blue{
+    color: blue;
+}
+
+.navy{
+    color: navy;
+}
+
+.purple{
+    color: purple;
+}
