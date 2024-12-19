@@ -13,50 +13,70 @@
     <div class="box">
       <div class="header">
         <h1 class="title"> 설문조사 </h1>
+        <p> 아래에 정보를 기입하여 주세요. </p>
       </div>
 
+      <!-- 이름, 이메일 - input -->
       <div class="content">
-        <h3 class="title"> 이름 </h3> <input type="text" placeholder="이름을 입력해 주세요."/>
+        <h3 class="title"> 이름 </h3> 
+        <div class="input">
+          <input type="text" placeholder="이름을 입력해 주세요."/>
+        </div>
         <br/>
-        <h3 class="title"> 이메일 </h3> <input type="text" placeholder="love@example.com"/>
+        <h3 class="title"> 이메일 </h3> 
+        <div class="input">
+          <input type="text" placeholder="love@example.com"/>
+        </div>
       </div>
 
+      <!-- 나이 - radio -->
       <div class="content">
         <h3 class="title"> 나이 </h3>
-        <input type="radio" name="age" value="10대" checked>10대</input> <br/>
-        <input type="radio" name="age" value="20대">20대</input> <br/>
-        <input type="radio" name="age" value="30대">30대</input> <br/>
-        <input type="radio" name="age" value="40대">40대</input> <br/>
-        <input type="radio" name="age" value="50대">50대</input> <br/>
-        <input type="radio" name="age" value="60대">60대 이상</input>
+        <div class="input">
+          <input type="radio" name="age" value="10대" checked>10대</input> <br/>
+          <input type="radio" name="age" value="20대">20대</input> <br/>
+          <input type="radio" name="age" value="30대">30대</input> <br/>
+          <input type="radio" name="age" value="40대">40대</input> <br/>
+          <input type="radio" name="age" value="50대">50대</input> <br/>
+          <input type="radio" name="age" value="60대">60대 이상</input>
+        </div>
       </div>
 
+      <!-- 카테고리 - select -->
       <div class="content">
         <h3 class="title">설문조사 카테고리</h3>
-        <select name="category" id="category">
+        <div class="input">
+          <select name="category" id="category">
             <option>사회</option>
             <option>경제</option>
             <option>스포츠</option>
             <option>예능</option>
             <option>동물</option>
-        </select>
+          </select>
+        </div>
       </div>
       
+      <!-- 강의 택 - checkbox -->
       <div class="content">
         <h3 class="title"> 원하는 강의 (복수 응답 가능합니다.)</h3>
-        <input type="checkbox" checked> html </input>
-        <br/>
-        <input type="checkbox"> JavaScript </input>
-        <br/>
-        <input type="checkbox"> css </input>
+        <div class="input">
+          <input type="checkbox" checked> html </input>
+          <br/>
+          <input type="checkbox"> JavaScript </input>
+          <br/>
+          <input type="checkbox"> css </input>
+        </div>
       </div>
 
+      <!-- 자유 - textarea -->
       <div class="content">
         <textarea placeholder="하고 싶은 말을 써주세요 :)"></textarea>
-        <br/>
       </div>
-  
-      <input type="button" value="제출"/>
+
+      <!-- 제출 버튼 -->
+      <div class="button">
+        <input type="button" value="제출"/>
+      </div>
 
     </div>
 
