@@ -1,0 +1,11 @@
+[disabled] {
+    color: red;
+}
+
+[type="password"] {
+    color: red;
+}
+
+[value="HEROPY"]{
+    color: blue;
+}

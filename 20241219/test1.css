@@ -1,0 +1,36 @@
+/* 
+
+.fruits :first-child {
+  color: red;
+}
+
+fruits의 첫번째 자식이 div가 아니라서 적용이 안 됨
+.fruits div:first-child {
+  color: blue;
+}
+
+.fruits h3:last-child {
+  color: red;
+}
+
+.fruits *:nth-child(2){
+  color: red;
+}
+
+.fruits *:nth-child(4){
+  color: red;
+} 
+
+.fruits *:nth-child(2n){
+  color: red;
+}
+
+.fruits *:nth-child(2n+1){
+  color: blue;
+}
+
+*/
+
+.fruits *:not(span){
+  color: red;
+}

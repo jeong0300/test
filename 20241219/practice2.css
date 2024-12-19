@@ -1,0 +1,13 @@
+.box{
+    color: orange;
+}
+
+.box::before{
+    content: "택시 ";
+    color: red;
+}
+
+.box::after{
+    content: " 빨리";
+    color: blue;
+}

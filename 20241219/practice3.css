@@ -1,0 +1,21 @@
+[disabled]{
+    background-color: red;
+}
+
+[placeholder="이름"]{
+    background-color: orange;
+}
+
+input:not([placeholder]) {
+    background-color: blue;
+}
+
+/*
+[value="pw"]{
+    background-color: blue;
+}
+
+[value="000-0000-0000"]{
+    background-color: blue;
+}
+*/
