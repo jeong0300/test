@@ -1,0 +1,17 @@
+.box{
+    width: 100px;
+    height: 100px;
+    background-color: beige;
+    border-radius: 0 0 10px 0;
+    /*
+    border: 1px solid red;
+    border-bottom: 1px solid red;
+    border-top: 1px solid red;
+    */
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

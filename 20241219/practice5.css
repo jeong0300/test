@@ -1,0 +1,17 @@
+.box{
+  background-color: beige;
+  height: 100px;
+  display: flex; /* 수직 정렬 */
+  justify-content: center; /* 공백 분배 */ 
+}
+.box2{
+  text-align: center; /* 글자 정렬 */
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+}
+
+p{
+  color: white;
+  line-height: 70px;
+}

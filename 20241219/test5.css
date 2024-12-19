@@ -1,0 +1,25 @@
+.box{
+    width: 100%;
+}
+
+.boxWrap{
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px auto;
+}
+
+.red{
+    width: 100%;
+    background-color: red;
+}
+
+.blue{
+    width: 100%;
+    background-color: blue;
+}
+
+.black{
+    width: 100%;
+    background-color: black;
+}
