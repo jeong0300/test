@@ -1,0 +1,226 @@
+/* 화면 수평 정렬 */
+.container{
+  display: flex;
+}
+
+.circle{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.eye{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.pupil{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+
+.legbody{
+  position: relative;
+}
+
+.tail{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.red{
+  position: relative;
+  left: 100px;
+  top: 100px;
+  background-color: red;
+}
+
+.red1{
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.red2{
+  position: absolute;
+  left: 25px;
+  top: 21px;
+}
+
+.orange{
+  position: relative;
+  left: 60px;
+  top: 130px;
+  background-color: orange;
+  z-index: 10;
+}
+
+.orange1{
+  position: absolute;
+  left: 20px;
+  top: 45px;
+}
+
+.orange2{
+  position: absolute;
+  left: 37px;
+  top: 49px;
+}
+
+.leg1{
+  position: absolute;
+  width: 15px;
+  height: 40px;
+  top: 270px;
+  left: 285px;
+  z-index: 1;
+  background-color: black;
+}
+
+.yellow{
+  position: relative;
+  left: 20px;
+  top: 170px;
+  background-color: yellow;
+  z-index: 2;
+}
+
+.yellow1{
+  position: absolute;
+  left: 48px;
+  top: 55px;
+}
+
+.yellow2{
+  position: absolute;
+  left: 52px;
+  top: 75px;
+}
+
+.leg2{
+  position: absolute;
+  width: 15px;
+  height: 40px;
+  top: 305px;
+  left: 90px;
+  z-index: 1;
+  background-color: black;
+}
+
+.green{
+  position: relative;
+  left: -5px;
+  top: 180px;
+  background-color: green;
+  z-index: 5;
+}
+
+.green1{
+  position: absolute;
+  left: 48px;
+  top: 5px;
+}
+
+.green2{
+  position: absolute;
+  left: 57px;
+  top: 5px;
+}
+
+.leg3{
+  position: absolute;
+  width: 15px;
+  height: 40px;
+  top: 320px;
+  left: 65px;
+  z-index: 1;
+  background-color: black;
+}
+
+.navy{
+  position: relative;
+  left: -45px;
+  top: 220px;
+  background-color: navy;
+  z-index: 3;
+}
+
+.navy1{
+  position: absolute;
+  left: 50px;
+  top: 50px;
+}
+
+.navy2{
+  position: absolute;
+  left: 70px;
+  top: 65px;
+}
+
+.leg4{
+  position: absolute;
+  width: 15px;
+  height: 40px;
+  top: 360px;
+  left: 26px;
+  z-index: 1;
+  background-color: black;
+}
+
+.purple{
+  position: relative;
+  left: -95px;
+  top: 170px;
+  background-color: purple;
+  z-index: 3;
+}
+
+.purple1{
+  position: absolute;
+  left: 50px;
+  top: 50px;
+}
+
+.purple2{
+  position: absolute;
+  left: 67px;
+  top: 50px;
+}
+
+.tred{
+  position: relative;
+  z-index: 1;
+  top: 180px;
+  left: -120px;
+  background-color: red;
+}
+
+.torange{
+  position: relative;
+  z-index: 2;
+  top: 160px;
+  left: -140px;
+  background-color: orange;
+}
+
+.tyellow{
+  position: relative;
+  z-index: 1;
+  top: 140px;
+  left: -160px;
+  background-color: yellow;
+}
+
+.tgreen{
+  position: relative;
+  z-index: 2;
+  top: 120px;
+  left: -180px;
+  background-color: green;
+}

@@ -1,0 +1,42 @@
+.container{
+  border: 5px solid black;
+  width: 500px;
+  height: 500px;
+  position: relative;
+}
+
+.fixation{
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+
+.box1{
+  background-color: orange;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  position: relative;
+  top: 30px;
+  left: 50px;
+}
+
+.box2{
+  background-color: yellow;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  position: absolute;
+  right: 30px;
+  bottom:100px;
+}
+
+.box3{
+  background-color: green;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  position: fixed;
+  right: 100px;
+  top: 100px;
+}

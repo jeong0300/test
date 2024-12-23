@@ -1,0 +1,82 @@
+.box{
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.circle1{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: purple;
+    position: relative;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+}
+
+.eye{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    z-index: 2;
+}
+
+.eye2{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: black;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    z-index: 3;
+}
+
+.circle2{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgb(206, 78, 206);
+    position: relative;
+    top: -10px;
+    left: 120px;
+    z-index: 2;
+}
+
+.circle3{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgb(230, 82, 230);
+    position: relative;
+    top: -70px;
+    left: 180px;
+    z-index: 3;
+}
+
+.circle4{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgb(193, 145, 193);
+    position: relative;
+    top: -170px;
+    left: 240px;
+    z-index: 4;
+}
+
+.circle5{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgb(245, 216, 245);
+    position: relative;
+    top: -260px;
+    left: 300px;
+    z-index: 5;
+}

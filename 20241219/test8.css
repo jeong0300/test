@@ -1,0 +1,10 @@
+.box{
+  width: 100px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.text{
+  display: flex;
+  flex-wrap: wrap;
+}
