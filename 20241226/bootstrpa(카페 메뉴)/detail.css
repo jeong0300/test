@@ -1,0 +1,15 @@
+.menu{
+  max-width: 1280px;
+  width: 1280px;
+  margin: 30px auto;
+}
+
+img{
+  height: 500px;
+  object-fit: contain;
+}
+
+textarea{
+  max-width: 1000px;
+  width: 1000px;
+}

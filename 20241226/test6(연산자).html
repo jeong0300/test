@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script>
+
+      //console.log(0 == "0"); true
+      //console.log(0 === "0"); false
+      
+      let num = 5;
+      num += 5;
+
+      let result1, result2;
+      let num1 = 10
+      let num2 = 20;
+
+      result1 = ++num;
+      result1 = ++num;
+      result1 = ++num;
+
+      console.log(result1);
+
+      const name = "뽀로로";
+      const age = 18;
+      const adult = age > 19; //false
+      const data = "";
+      
+      // OR 연산자
+      // 이름이 뽀로로이거나, 성인이면 통과
+      if(name === '뽀로로' || age > 19){
+        console.log("통과");
+      };
+
+      //AND
+      if(name === '뽀로로' && age > 19){
+        console.log("통과");
+      } else {
+        console.log("돌아가");
+      }
+
+      //NOT
+      if(!adult){
+        console.log("돌아가");
+      }else{
+        console.log("통과");
+      }
+
+      if(!!data){
+        console.log("데이터 없음");
+      }else{
+        console.log("데이터 있음");
+      }
+
+    </script>
+
+  </head>
+  <body>
+    
+  </body>
+</html>

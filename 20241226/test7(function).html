@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+      function say(){
+        //여기에 함수 실행 시 동작을 넣음
+        console.log("안녕하세요.");
+      }
+
+      // 자주 쓰임! const 함수명 ( 매개변수(파라미터) ) => { }
+      const sayHello = (name, age) => {
+        
+        //여기에 함수 실행 시 동작을 넣음
+        console.log(`제 이름은 ${name}입니다. 나이는 ${age}입니다.`);
+
+      };
+
+      //계산기 예시
+      const sayHello2 = (number1, number2, type) => {
+        
+        const plus = number1 + number2;
+        const m = number1 - number2;
+        const x = number1 * number2;
+        const n = number1 / number2;
+
+        if(type === "+"){
+          return plus;
+        }
+
+        if(type === "-"){
+          return m;
+        }
+
+        if(type === "x"){
+          return x;
+        }
+
+        if(type === "n"){
+          return n;
+        }
+
+      };
+
+      console.log(sayHello2(5,10, "-"));
+
+    </script>
+
+  </head>
+  <body>
+
+    <button onclick="sayHello('남생이',10)"> 눌러! </button>
+    <button onclick="sayHello('김밥',15)"> 눌러2! </button>
+
+    
+  </body>
+</html>
