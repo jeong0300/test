@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+      let num = [];
+      let sum = 0;
+
+      for( let i = 1; i <= 100; i++){
+
+        num[i] = i;
+        sum += num[i];
+
+      }
+
+      console.log("for문 : ", sum);
+
+      let num2 = [];
+      let sum2 = 0;
+
+      for (let i = 1; i <= 100; i++) {
+
+          num2.push(i);
+
+      }
+
+      for (const value of num2) {
+
+          sum2 += value;
+
+      }
+
+      console.log("for-of문 : ", sum2);
+
+      let numbers = [];
+      let sum3 = 0;
+
+      for( let i = 1; i <= 100; i++){
+
+        numbers[i] = i;
+
+      }
+
+      numbers.forEach((num, i)=>{
+
+        sum3 += num;
+
+      });
+
+      console.log("forEach : ", sum3);
+
+    </script>
+
+  </head>
+  <body>
+    
+  </body>
+</html>

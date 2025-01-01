@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      .box{
+        display : inline-block;
+      }
+
+      .green{
+        background-color: green;
+      }
+
+      .red{
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="hello"> 안녕하세요. </div>
+    <!-- <div id="hello"> 안녕하세요2. </div> id명 중복 시 document에 포함 안 됨 -->
+     
+    <div class="box green"> 클래스 선택 초록 </div>
+    <div class="box red"> 클래스 선택 빨강 </div>
+
+    <input type="text" name="phone" />
+
+    <div><span> hello </span></div>
+
+    <script>
+
+      // 요소 선택하는 메서드
+      
+      // getElementById : id를 이용하여 요소 단 1개 선택 ex ) hello 라는 id를 가진 요소 단 1개를 선택 -> element라서.
+      console.log(document.getElementById("hello")); 
+
+      // getElementsByClassName : css 이름을 이용하여 모든 요소 선택 ( elements 특징 : 여러개 선택, 하나만 있어도 배열에 담아서 선택됨. )
+      // ex ) box라는 css 이름을 가진 요소 선택.
+      console.log(document.getElementsByClassName("box"));
+
+      // getElementsByTagName : 태그 이름을 이용하여 모든 요소 선택 ( 여러개 선택. 하나만 있어도 배열에 담아서 선택됨. )
+      console.log(document.getElementsByTagName("div"));
+
+      // getElementsByName : input의 name 속성 이름을 이용해 요소 선택 ( '' )
+      console.log(document.getElementsByName("phone"));
+
+      // querySelector : 하나만 선택. 여러 개 있어도 처음 하나만 선택.
+      console.log("querySelector : ", document.querySelector("#hello"));
+      console.log("querySelector : ", document.querySelector(".box"));
+      console.log("querySelector : ", document.querySelector("[name=phone]"));
+      console.log("querySelector : ", document.querySelector("div>span"));
+
+      // querySelectorAll : 여러개 선택. 하나만 있어도 배열에 담어서 선택.
+      console.log("querySelectorAll : ", document.querySelectorAll("#hello"));
+      console.log("querySelectorAll : ", document.querySelectorAll(".box"));
+      console.log("querySelectorAll : ", document.querySelectorAll("[name=phone]"));
+      console.log("querySelectorAll : ", document.querySelectorAll("div > span"));
+      
+    </script>
+
+  </body>
+</html>

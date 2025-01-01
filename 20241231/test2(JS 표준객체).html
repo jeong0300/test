@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+
+    <script>
+      
+      const object = { a: 1, b: 2, c: 3 };
+
+      const now = new Date(); // 코드가 읽히는 시간을 반환 (중요)
+      const date = new Date(2016, 5, 25, 15, 40); //년, 월, 일, 시, 분, 초 설정 가능
+      const date2 = new Date('2016-05-25');
+      const date3 = new Date('2016/05/25');
+      const date4 = new Date(1231541); // date 객체가 기준으로 삼는 날짜 : 1970년 1월 1일 -> 이 날짜 기준으로 1231541ms 이후의 날짜를 반환.
+
+      //2024-12-31 (화) 기준
+      console.log(now.getFullYear()); // 년도 반환 ex) 2024
+      console.log(now.getDate()); // 일 반환 ex) 31
+      console.log(now.getDay()); // 요일을 숫자로 반환 ex) 2 -> 일(0), 월(1), 화(2), 수(3), 목(4), 금(5), 토(6)
+      console.log(now.getTime()); // 1970년 1월 1일로 부터 몇 ms가 흘렀는지 숫자로 반환 -> 만료일 비교할 때 사용 
+
+      //만료일이 2025-12-31 이고, 현재 2025-11-1일 경우
+      const expiredDate = new Date('2025-12-31');
+      // if now.getTime() > expiredDate.getTime() => 만료가 된 강의
+      // else => 만료되지 않음
+
+      console.log(now.getHours()); // 시간
+      console.log(now.getMinutes()); // 분
+      console.log(now.getSeconds()); // 초
+      
+      const year = now.getFullYear();
+      const month = now.getMonth()+1; //+1 해야 함
+      const datee = now.getDate();
+
+      console.log(`${year}-${month}-${datee}`);
+
+      // JavaScript class
+      // class : 객체를 만드는 틀 (붕어빵 기계)
+      // 객체 : class로 만들어진 것 (붕어빵)
+
+      console.log(Math.PI); //3.14...
+      console.log(Math.E); //2.17...
+      console.log(Math.min(2,3,4,5,1)); //최솟값 반환
+      console.log(Math.max(7,2,3,4,5)); //최댓값 반환
+      console.log(Math.random()); //0 <= x < 1 사이 값 반환
+      console.log(Math.floor(3.9)); // 무조건 내림 (소수점 제거)
+      console.log(Math.ceil(3.1)); // 무조건 올림
+      console.log(Math.round(3.5)); // 반올림
+
+      // 1 ~ 10 사이 랜덤하게
+      // Math.random() * 10 + 1 : 1 <= x < 11 -> 실수도 포함이라 floor을 해줌.
+      console.log(Math.floor(Math.random() * 10 + 1)); // 1 <= x < 11
+
+    </script>
+  
+</body>
+</html>

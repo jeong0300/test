@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+      // 반복문 - for문 (for of/in), while (do-while)
+
+      // for(초기화; 조건문; 증감문){ // (얼마나 반복할지)
+      //   // 반복하고 싶은 명령어
+
+      // }
+
+      for (let i = 0; i < 10; i++){ // (i 변수 초기화 (0) ; i가 10보다 작을 때까지 ; i를 1씩 증가)
+        
+        //"안녕하세요" 10번 출력하기
+        console.log(i + "번째 안녕하세요."); // 반복하고자 하는 명령문
+
+        for(let j = 0; j < 5; j++){
+
+          console.log("안쪽 반복문: " + j);
+
+        }
+
+      }
+
+      for (let i = 10; i > 0; i-=2){ 
+
+        console.log("-2씩 감소 : ", i);
+
+      }
+
+      for (let i = 0; i < 10; i+=3){
+
+        console.log("+3씩 증가 : ", i);
+      }
+      
+      //           for              vs               while
+      // 반복 횟수를 구조적으로 지정        주로 반복 횟수를 모를 때 사용 
+
+      // while(조건문){}
+
+      // while(true){  // 무한 루프
+        
+      // }
+
+      let i = 0; // 초기화
+      while (i < 10){ // 조건문
+
+        console.log(i + "번째 안녕하세요.");
+        i++; // 증감문
+
+      }
+
+      // 방법 1
+
+      while(true){
+        let number = Number(prompt("어떤 게임을 할지 골라주세요. 1) 묵찌바 2) 딱지치기 3) 무궁화 꽃이 피었습니다. 0) 종료"));
+        
+        if(number === 0) break;
+        else console.log(number, "번 게임을 선택하셨습니다.");
+      }
+
+      // 방법 2
+
+      let number = Number(prompt("어떤 게임을 할지 골라주세요. 1) 묵찌바 2) 딱지치기 3) 무궁화 꽃이 피었습니다. 0) 종료"));
+
+      while(number !== 0){
+        console.log(number, "번 게임을 선택하셨습니다.");
+
+        number = Number(prompt("어떤 게임을 할지 골라주세요. 1) 묵찌바 2) 딱지치기 3) 무궁화 꽃이 피었습니다. 0) 종료"));
+      }
+
+      // do-while문 -> while의 조건이 거짓이더라도 최초 한 번은 무조건 실행하게 됨. 그 이후는 while의 조건에 따라 실행 여부 결정
+
+      let j = 0; // 초기화
+      do { 
+        console.log(j + "번째 안녕하세요.(do-while문)"); //반복할 명령어
+        j++;
+      }
+      while( j < 10 )
+
+      //break, continue -> 반복문에서 많이 쓰이는 키워드.
+
+      for(let i=1; i<=10; i++){
+        if(i%3===0) break; // 이 순간에 반복문을 완전히 깬다.
+        console.log("break 확인 : ", i);
+      }
+
+      for(let i = 1; i <= 10; i++){
+        if( i % 2 !== 0 ) continue; // 이 순간에 다음 반복으로 넘긴다.
+        console.log("continue 확인 : ", i);
+      }
+
+      for(let i = 1; i <= 10; i++){
+        if( i % 2 === 0 ) console.log(i);
+      }
+
+      // for문의 변형
+      // for-of : 배열의 반복에서 많이 쓰임.
+
+      const fruits = ["apple", "banana", "grape", "melon"];
+      for( let i = 0; i < fruits.length; i++ ){
+        console.log("for문", fruits[i]);
+      }
+
+      // for(const 변수명 of 탐색하고자 하는 배열명){}
+      for(const fru of fruits){
+        // 첫번째 반복 : fru = "apple" 할당
+        console.log("for-of문", fru);
+      }
+
+      // for-in : object 반복에서 많이 쓰임.
+      // for (const 변수명 in 탐색하고자하는 object)
+
+      const object = { a:1, b:2, c:3};
+      for(const property in object){
+
+        console.log(`${property}:${object[property]}`);
+      }
+
+    </script>
+  </body>
+</html>

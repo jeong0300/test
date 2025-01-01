@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      
+      console.log("----------- 문자열 관련 메소드 -----------")
+      //문자열 관련 메소드
+
+      let str = "Happy day~! ";
+
+      //str의 원형이 바뀌지는 않음.
+      console.log("문자열 길이 : ", str.length); //공백 포함
+      console.log("문자열 대문자로 : ", str.toUpperCase()); // 대문자, 검색 최적화를 위해 사용
+      console.log("문자열 소문자로 : ", str.toLowerCase()); // 소문자
+      console.log("문자열 p의 인덱스 찾기 : ", str.indexOf('p'));
+
+      //str.slice([startIdx(필수), endIdx-1(생략 가능)])
+
+      console.log("문자열 인덱스 1부터 출력 : ", str.slice(1)); // 인덱스 1~ 출력
+      console.log("문자열 인덱스 1~3까지 출력 : ", str.slice(1,4)); // 인덱스 1~3 출력
+
+      //str.replace("변경할 문자", "이걸로 변경됨");
+      console.log("문자열 p가 a로 변경(첫번째 p만) : ", str.replace("p", "a"));
+      console.log("문자열 모든 p가 a로 변경 : ", str.replaceAll("p", "a"));
+      // console.log(phone.replace("-", "")); '-'를 없앰 ex) 010-1111-1111 -> 0101111-1111
+      // console.log(phone.replaceAll("-", "")); ex) 010-1111-1111 -> 01011111111
+
+      console.log("문자열 반복 : ", str.repeat(3)); //반복
+
+      //저장하고 싶을 때 -> str의 원형이 바뀌지는 않음
+      const trimStr = str.trim();
+      console.log("문자열 앞뒤 공백 제거 :", trimStr); //앞뒤 공백 제거
+
+      // 자주 사용 : str.trim().toLowerCase(); -> 검색 최적화를 위함.
+
+      console.log("문자열의 문자 하나씩 배열에 저장 : ",str.split('')); //한 글자씩 끊어서 배열에 저장.
+      console.log("문자열 단어 기준 배열에 저장 : ", str.split(' ')); // 공백 기준, 즉 단어 기준으로 끊어서 배열에 저장. (공백은 삭제됨)
+      console.log("문자열 a 기준 끊어서 배열에 저장 : ", str.split("a")); // a 문자열을 기준으로 끊어서 배열에 저장. (a는 삭제됨)
+
+      // 자주 사용 : str.split('\n'); -> 엔터 기준으로 잘라서 저장
+      // str = "안녕하세요. \n 안녕하세요."
+      // str.split('\n') -> ["안녕하세요", "안녕하세요"]
+      // for -> 적절한 위치에 br 태그 넣기
+
+      str.toUpperCase();
+      console.log(str); //원형이 안 바뀐 걸 알 수 있음.
+
+      console.log("----------- 배열 관련 메소드 -----------")
+
+      // 배열 관련 메소드
+      let days = ["월", "화", "수"];
+      console.log("원본 : ", days);
+
+      days.push("목"); //배열의 가장 마지막에 원소 추가
+      console.log("push : ",days); //days의 원형이 바뀜.
+
+      days.pop(); //배열의 마지막 원소를 제거하는 함수.
+      console.log("pop : ",days);
+
+      days.unshift("일"); //push와 비슷, 배열의 첫번째에 원소를 추가
+      console.log("unshift : ", days);
+
+      days.shift(); //배열의 첫번째 원소를 제거
+      console.log("shift : ", days);
+
+      let numbers = [1,2,3,4,5,6];
+      console.log("배열 원본 : ", numbers);
+      console.log("3 포함 유무 (includes) : ", numbers.includes(3));
+      console.log("7 포함 유무 (includes) : ", numbers.includes(7));
+      //numbers.length(); //6
+      console.log("3의 인덱스 (indexOf) : ", numbers.indexOf(3)); //2
+
+      numbers.reverse(); // 원형도 변경되고, 값도 반환한다.
+      console.log("reverse : ", numbers);
+      console.log("원형 : ", numbers);
+
+      const str4 = "abcd";
+      console.log("문자열 원본 : ", str4);
+      console.log("문자열 내 a 포함 유무 : ", str4.includes('a'));
+      console.log("문자열 내 e 포함 유무 : ", str4.includes('e'));
+      console.log("문자열 내 ab 포함 유무 : ", str4.includes('ab'));  
+
+      const str4Split = str4.split(''); 
+      console.log("문자열 split : ", str4Split);
+      console.log("원소 사이 공백을 넣어 하나의 string으로 반환 : ", str4Split.join(' '));
+      console.log("원소 사이 -을 넣어 하나의 string으로 반환 : ", str4Split.join('-'));
+
+      console.log("----------- 메소드 체이닝 -----------");
+
+      const hello = "hello";
+      console.log(hello.split('').reverse().join('').toUpperCase());
+      
+      // hello.split('') -> ['h', 'e', 'l', 'l', 'o']
+      // hello.split('').reverse() -> ['o', 'l', 'l', 'e', 'h']
+      // hello.split('').reverse().join('') -> 'olleh'
+      // hello.split('').reverse().join('').toUpperCase() -> 'OLLEH'
+
+    </script>
+  </body>
+</html>

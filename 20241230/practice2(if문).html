@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 조건문 </title>
+  </head>
+  <body>
+    <script>
+      
+      const age = Number(prompt("나이를 입력하여 주세요."));
+      const a = prompt("성별을 입력하여 주세요. (woman, man)");
+
+      console.log("나이 : " + age);
+      console.log("성별 : " + a);
+      
+      if( age >= 20 && a === "woman" ){
+
+        console.log("성인 여자");
+
+      } else if (  age >= 20 && a === "man" ){
+
+        console.log("성인 남자");
+
+      } else if ( age >= 17 && a === "woman" ){
+
+        console.log("고딩 여학생");
+
+      } else if (  age >= 17 && a === "man" ){
+
+        console.log("고딩 남학생");
+
+      } else if ( age >= 14 && a === "woman" ){
+
+        console.log("중딩 여학생 ");
+
+      } else if (  age >= 14 && a === "man" ){
+
+        console.log("중딩 남학생");
+
+      } else if ( age >= 8 && a === "woman" ){
+
+        console.log("초딩 여학생");
+
+      } else if (  age >= 8 && a === "man" ){
+
+        console.log("초딩 남학생");
+
+      } else if ( a === "woman" ){
+
+        console.log("여아");
+
+      } else {
+        
+        console.log("남아");
+
+      }
+
+    </script>
+  </body>
+</html>

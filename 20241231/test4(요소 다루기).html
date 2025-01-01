@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      .box{
+        display : inline-block;
+      }
+
+      .green{
+        background-color: green;
+      }
+
+      .red{
+        background-color: red;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="container">
+      안녕하세요.
+      <b>^^</b>
+    </div>
+
+    <input type="text" name="email" id="email-input" />
+
+    <div>
+        ? <span class="test-parent"> Hello World </span> !
+    </div>
+
+    <div>
+      <span>
+        ?
+      </span>
+      <span class="test-parent2">
+        Hello World
+      </span>
+      <span>
+        !
+      </span>
+    </div>
+
+    <script>
+
+      const container = document.querySelector(".container");
+
+      // 선택된 요소 내의 텍스트에 접근
+      console.log(container.innerText);
+
+      // 선택된 요소 내의 모든 요소에 접근 ( 태그까지 모두 출력됨 )
+      console.log(container.innerHTML);
+
+      // innerText 이용해 선택된 요소의 내용을 바꿀 수 있음 (태그 사용 불가능->모두 텍스트로 출력됨)
+      //container.innerText = 'hello <b> ^^ <b>';
+      
+      // innerHTML을 이용해 선택된 태그의 요소의 내용을 바꿀 수 있음 (태그 사용 가능)
+      container.innerHTML = 'hello <b> ^^ <b>';
+
+      // 클래스 이름 출력
+      console.log(container.className);
+
+      // 클래스 이름 변경 가능
+      container.className = "container green";
+
+      // 클래스 이름이 배열로 들어감
+      console.log(container.classList);
+
+      // boolean 값으로 green 이라는 css를 포함하는지 반환
+      console.log(container.classList.contains("green"));
+      console.log(container.classList.contains("red"));
+
+      // 클래스에 green이 있으면 빼고 없으면 넣기
+      if (container.classList.contains("green")){
+        container.classList.remove("green");
+      } else {
+        container.classList.add("green");
+      }
+
+      //위의 if문을 축약해놓은 함수 : container.classList.toggle("green");
+
+      // innerText 와 비슷
+      console.log(container.textContent);
+      container.textContent = "hi";
+
+      const input = document.getElementById("email-input");
+      
+      // html 태그의 속성을 설정할 수 있는 함수
+      input.setAttribute("placeholder", "이메일을 입력해주세요.");
+
+      console.log(input.getAttribute("placeholder"));
+
+      // 1. 자식 노드에 접근
+      const body = document.querySelector("body");
+
+      console.log(body.children);
+      console.log(body.children[0]);
+
+      // 2. 부모 노드에 접근
+      const test = document.querySelector(".test-parent");
+
+      console.log(test.parentNode); // 요소 외도 반환 가능
+      console.log(test.parentElement); // 요소만 반환 가능 -> 요소가 없으면 null
+
+      // 3. 형제 노드에 접근 (이전, 다음)
+      console.log(test.nextElementSibling); // 요소의 다음 형제 요소 찾기
+      console.log(test.previousElementSibling); // 요소의 이전 형제 요소 찾기
+
+      const test2 = document.querySelector(".test-parent2");
+      console.log(test.nextSibling); // 요소의 다음 텍스트 찾기
+      console.log(test.previousSibling); // 요소의 이전 텍스트 찾기
+
+    </script>
+  </body>
+</html>
