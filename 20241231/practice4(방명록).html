@@ -29,11 +29,29 @@
         <th id="table-content"> 내용 </th>
         <th id="table-date"> 작성일 </th>
       </tr>
+      <tr>
+        <td id="table-num"> 1 </td>
+        <td id="table-user"> 김규리 </td>
+        <td id="table-content"> 여러분 반가워요 </td>
+        <td id="table-date"> 2022-7-2 15 : 3 </td>
+      </tr>
+      <tr>
+        <td id="table-num"> 2 </td>
+        <td id="table-user"> 김규리 </td>
+        <td id="table-content"> 오늘 수업도 열심히 해봐요 </td>
+        <td id="table-date"> 2022-7-2 15 : 3 </td>
+      </tr>
+      <tr>
+        <td id="table-num"> 3 </td>
+        <td id="table-user"> 홍길동 </td>
+        <td id="table-content"> 안뇽! </td>
+        <td id="table-date"> 2022-7-2 15 : 4 </td>
+      </tr>
     </table>
 
     <script>
       
-      let num = 1;
+      let num = 4;
 
       function addComment(){
 
@@ -43,7 +61,7 @@
         
         // 날짜 가져오기
         let now = new Date();
-        const date = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
+        const date = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()} : ${now.getMinutes()}`;
 
         // 테이블에 데이터 추가
         const table = document.getElementById("comment");
