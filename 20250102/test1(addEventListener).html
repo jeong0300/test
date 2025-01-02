@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+  </head>
+  <body>
+    
+    <div class="box"> 눌러보세요. </div>
+    <div class="box2"> 눌러보세요.2 </div>
+
+  </body>
+
+  <script>
+
+    // 클릭 시 실행 함수
+    const clickFunction = () => {
+      alert("클릭하셨습니다!");
+    };
+
+    const clickFunction2 = (url) => {
+      window.location.href(`.../.../`);
+    };
+
+    let boxEl = document.querySelector(".box");
+    let boxEl2 = document.querySelector(".box2");
+    
+    boxEl.addEventListener("click", clickFunction); // 변수명.addEventListener("행동", 함수명);
+    boxEl2.addEventListener("click", clickFunction);
+
+  </script>
+
+</html>

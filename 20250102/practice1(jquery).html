@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./practice1(dom, jquery).css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 과일 사진 </title>
+  </head>
+  <body>
+
+    <div class="wrap">
+      <img src="../images/과일(기본).png" alt="기본 사진">
+      <div class="btns">
+        <div class="btn" data-type="사과"> 사과 </div>
+        <div class="btn" data-type="바나나"> 바나나 </div>
+        <div class="btn" data-type="포도"> 포도 </div>
+        <div class="btn" data-type="복숭아"> 복숭아 </div>
+      </div>
+    </div>
+
+  </body>
+
+  <script>
+
+    $(document).ready(function() {
+      $('.btn').on('click', function() {
+        const type = $(this).data('type');
+
+        if (type === "사과") {
+          $('img').attr('src', '../images/사과.jpg').attr('alt', '사과 사진');
+        } else if (type === "바나나") {
+          $('img').attr('src', '../images/바나나.webp').attr('alt', '바나나 사진');
+        } else if (type === "포도") {
+          $('img').attr('src', '../images/포도.jpg').attr('alt', '포도 사진');
+        } else {
+          $('img').attr('src', '../images/복숭아.jpeg').attr('alt', '복숭아 사진');
+        }
+      });
+    });
+    
+  </script>
+</html>

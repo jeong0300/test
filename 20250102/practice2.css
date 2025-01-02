@@ -1,0 +1,58 @@
+/* 가운데 정렬 & 요소 주의 간격 일정 */
+
+body{
+  display: flex;
+  max-width: 1280px;
+  width: 1280px;
+  margin: 30px auto;
+  justify-content: space-around;
+}
+
+/* p태그 줄바꿈 없애기 */
+
+p{
+  display: inline-block;
+}
+
+/* 달력 정렬 및 글자 색 변경 */
+
+.date{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+
+.blue{
+  color: blue;
+}
+
+/* 버튼 */
+.write{
+  margin: 10px 0;
+  padding: 5px;
+  text-align: center;
+  width: 50px;
+  border : 1px solid rgb(46, 46, 46);
+  border-radius: 5px;
+  background-color: rgb(246, 246, 246);
+  cursor: pointer;
+}
+
+.write:hover{
+  background-color: rgb(213, 213, 213);
+}
+
+/* 테이블 크기 */
+
+td div{
+  height: 10px;
+  width: 50px;
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./practice2.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 달력 </title>
+  </head>
+  <body>
+
+    <div class="container">
+      
+      <div class="day">
+        <p> 날짜 : </p>
+        <input type = "text" id="date" />
+      </div>
+    
+      <div class="content">
+        <p> 내용 : </p>
+        <input type = "text" id="content"/>
+      </div>
+    
+      <div class="write" onclick="addData()">
+        작성
+      </div>
+    
+    </div>
+
+    <div class="date">
+      <h1 class="green"> 2025년 1월 </h1>
+      <table cellpadding="30">
+        <tr>
+          <th class="sun dayP">日</th>
+          <th class="dayP">月</th>
+          <th class="dayP">火</th>
+          <th class="dayP">水</th>
+          <th class="dayP">木</th>
+          <th class="dayP">金</th>
+          <th class="sat dayP">土</th>
+        </tr>
+        <tr>
+          <td class="sun dayP"></td>
+          <td></td>
+          <td></td>
+          <td class="dayP"><div>1</div><div></div></td>
+          <td class="dayP"><div>2</div><div></div></td>
+          <td class="dayP"><div>3</div><div></div></td>
+          <td class="sat dayP"><div>4</div><div></div></td>
+        </tr>
+        <tr>
+          <td class="sun dayP"><div>5</div><div></div></td>
+          <td class="dayP"><div>6</div><div></div></td>
+          <td class="dayP"><div>7</div><div></div></td>
+          <td class="dayP"><div>8</div><div></div></td>
+          <td class="dayP"><div>9</div><div></div></td>
+          <td class="dayP"><div>10</div><div></div></td>
+          <td class="sat datP"><div>11</div><div></div></td>
+        </tr>
+        <tr>
+          <td class="sun dayP"><div>12</div><div></div></td>
+          <td class="dayP"><div>13</div><div></div></td>
+          <td class="dayP"><div>14</div><div></div></td>
+          <td class="dayP"><div>15</div><div></div></td>
+          <td class="dayP"><div>16</div><div></div></td>
+          <td class="dayP"><div>17</div><div></div></td>
+          <td class="sat dayP"><div>18</div><div></div></td>
+        </tr>
+        <tr>
+          <td class="sun dayP"><div>19</div><div></div></td>
+          <td class="dayP"><div>20</div><div></div></td>
+          <td class="dayP"><div>21</div><div></div></td>
+          <td class="dayP"><div>22</div><div></div></td>
+          <td class="dayP"><div>23</div><div></div></td>
+          <td class="dayP"><div>24</div><div></div></td>
+          <td class="sat dayP"><div>25</div><div></div></td>
+        </tr>
+        <tr>
+          <td class="sun dayP"><div>26</div><div></div></td>
+          <td class="dayP"><div>27</div><div></div></td>
+          <td class="dayP"><div>28</div><div></div></td>
+          <td class="dayP"><div>29</div><div></div></td>
+          <td class="dayP"><div>30</div><div></div></td>
+          <td class="dayP"><div>31</div><div></div></td>
+          <td class="sat dayP"></td>
+        </tr>
+      </table>
+    </div>
+
+  </body>
+
+  <script>
+
+    // 토요일, 일요일 색상 클래스 추가 -> forEach문으로 반복
+    const days = document.querySelectorAll(".dayP");
+
+    days.forEach((day) => {
+
+      if (day.classList.contains("sun")) {
+        day.classList.add("red");
+      } else if (day.classList.contains("sat")) {
+        day.classList.add("blue");
+      }
+
+    });
+
+    // 작성 버튼 클릭 시 실행하는 함수
+    const addData = () => {
+
+      let date = document.getElementById("date").value;
+      let content = document.getElementById("content").value;
+
+      const tdFind = document.querySelectorAll("td");
+
+      tdFind.forEach((td) => {
+        
+        // td의 첫 번째 div가 입력한 날짜와 같은지 확인
+        const dateDiv = td.querySelector("div:first-child");
+
+        if (dateDiv && dateDiv.textContent.trim() === date) {
+          // td의 두 번째 div를 찾음
+          const contentDiv = td.querySelector("div:last-child");
+
+          if (contentDiv) {
+            // 기존 p 태그 제거
+            const existingP = contentDiv.querySelector("p");
+            if (existingP) {
+              existingP.remove();
+            }
+
+            // 새로운 p 태그 생성 및 추가
+            const p = document.createElement("p");
+            p.textContent = content;
+            contentDiv.appendChild(p);
+          }
+        }
+      });
+
+      // 추가 후 초기화
+      document.getElementById("date").value = '';
+      document.getElementById("content").value = '';
+
+    }
+
+  </script>
+
+</html>

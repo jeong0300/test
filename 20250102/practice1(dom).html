@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel = "stylesheet" href="./practice1(dom, jquery).css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 과일 사진 </title>
+  </head>
+  <body>
+    
+    <div class = "wrap">
+      <img src = "../images/과일(기본).png" alt = "기본 사진">
+      <div class="btns">
+        <div class="btn" onclick="changeImg('사과')"> 사과 </div>
+        <div class="btn" onclick="changeImg('바나나')"> 바나나 </div>
+        <div class="btn" onclick="changeImg('포도')"> 포도 </div>
+        <div class="btn" onclick="changeImg('복숭아')"> 복숭아 </div>
+      </div>
+    </div>
+
+  </body>
+
+  <script>
+
+    const changeImg = (type) => {
+      
+      if ( type === "사과" ){
+
+        document.querySelector("img").src = "../images/사과.jpg";
+        document.querySelector("img").alt = "사과 사진";
+
+      } else if ( type === "바나나" ){
+
+        document.querySelector("img").src = "../images/바나나.webp";
+        document.querySelector("img").alt = "바나나 사진";
+
+      } else if ( type === "포도" ){
+
+        document.querySelector("img").src = "../images/포도.jpg"
+        document.querySelector("img").alt = "포도 사진";
+        
+      } else {
+
+        document.querySelector("img").src = "../images/복숭아.jpeg"
+        document.querySelector("img").alt = "복숭아 사진";
+        
+      }
+    }
+
+  </script>
+</html>

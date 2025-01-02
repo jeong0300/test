@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel = "stylesheet" href="./practice1(dom, jquery).css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 과일 사진 </title>
+  </head>
+  <body>
+    
+    <div class = "wrap">
+      <img src = "../images/과일(기본).png" alt = "기본 사진">
+      <div class="btns">
+
+      </div>
+    </div>
+
+  </body>
+
+  <script>
+
+    const fruits = ["사과", "바나나", "포도", "복숭아"];
+    const btnContainer = document.querySelector(".btns");
+
+    fruits.forEach((fruit) => {
+      const btn = document.createElement("div");
+      btn.className = "btn";
+      btn.textContent = fruit;
+
+      // 클릭 시 이미지 변경
+      btn.addEventListener("click", () => changeImg(fruit));
+      btnContainer.appendChild(btn);
+    });
+
+    const changeImg = (type) => {
+      const img = document.querySelector("img");
+      if (type === "사과") {
+        img.src = "../images/사과.jpg";
+        img.alt = "사과 사진";
+      } else if (type === "바나나") {
+        img.src = "../images/바나나.webp";
+        img.alt = "바나나 사진";
+      } else if (type === "포도") {
+        img.src = "../images/포도.jpg";
+        img.alt = "포도 사진";
+      } else {
+        img.src = "../images/복숭아.jpeg";
+        img.alt = "복숭아 사진";
+      }
+    };
+
+  </script>
+</html>

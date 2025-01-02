@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./practice2.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 달력 </title>
+  </head>
+  <body>
+
+    <div class="container">
+      
+      <div class="day">
+        <p> 날짜 : </p>
+        <input type = "text" id="date" />
+      </div>
+    
+      <div class="content">
+        <p> 내용 : </p>
+        <input type = "text" id="content"/>
+      </div>
+    
+      <div class="write" onclick="addData()">
+        작성
+      </div>
+    
+    </div>
+
+    <div class="date">
+      <h1 class="green"> 2025년 1월 </h1>
+      <table cellpadding="50">
+        <tr>
+          <th class="sun">日</th>
+          <th>月</th>
+          <th>火</th>
+          <th>水</th>
+          <th>木</th>
+          <th>金</th>
+          <th class="sat">土</th>
+        </tr>
+        <tr>
+          <td class="sun"></td>
+          <td></td>
+          <td></td>
+          <td onclick="date('01')" class="dayP"><b>1</b></td>
+          <td onclick="date('02')" class="dayP"><b>2</b></td>
+          <td onclick="date('03')" class="dayP"><b>3</b></td>
+          <td class="sat dayP" onclick="date('04')"><b>4</b></td>
+        </tr>
+        <tr>
+          <td class="sun dayP" onclick="date('05')"><b>5</b></td>
+          <td onclick="date('06')" class="dayP"><b>6</b></td>
+          <td onclick="date('07')" class="dayP"><b>7</b></td>
+          <td onclick="date('08')" class="dayP"><b>8</b></td>
+          <td onclick="date('09')" class="dayP"><b>9</b></td>
+          <td onclick="date('10')" class="dayP"><b>10</b></td>
+          <td class="sat dayP" onclick="date('11')"><b>11</b></td>
+        </tr>
+        <tr>
+          <td class="sun dayP" onclick="date('12')"><b>12</b></td>
+          <td onclick="date('13')" class="dayP"><b>13</b></td>
+          <td onclick="date('14')" class="dayP"><b>14</b></td>
+          <td onclick="date('15')" class="dayP"><b>15</b></td>
+          <td onclick="date('16')" class="dayP"><b>16</b></td>
+          <td onclick="date('17')" class="dayP"><b>17</b></td>
+          <td class="sat dayP" onclick="date('18')"><b>18</b></td>
+        </tr>
+        <tr>
+          <td class="sun dayP" onclick="date('19')"><b>19</b></td>
+          <td onclick="date('20')" class="dayP"><b>20</b></td>
+          <td onclick="date('21')" class="dayP"><b>21</b></td>
+          <td onclick="date('22')" class="dayP"><b>22</b></td>
+          <td onclick="date('23')" class="dayP"><b>23</b></td>
+          <td onclick="date('24')" class="dayP"><b>24</b></td>
+          <td class="sat dayP" onclick="date('25')"><b>25</b></td>
+        </tr>
+        <tr>
+          <td class="sun dayP" onclick="date('26')"><b>26</b></td>
+          <td onclick="date('27')" class="dayP"><b>27</b></td>
+          <td onclick="date('28')" class="dayP"><b>28</b></td>
+          <td onclick="date('29')" class="dayP"><b>29</b></td>
+          <td onclick="date('30')" class="dayP"><b>30</b></td>
+          <td onclick="date('31')" class="dayP"><b>31</b></td>
+          <td class="sat"></td>
+        </tr>
+      </table>
+    </div>
+
+  </body>
+
+  <script>
+
+    // 토요일, 일요일 색상 클래스 추가 -> forEach문으로 반복
+    const days = document.querySelectorAll(".dayP");
+
+    days.forEach((day) => {
+
+      if (day.classList.contains("sun")) {
+        day.classList.add("red");
+      } else if (day.classList.contains("sat")) {
+        day.classList.add("blue");
+      }
+
+    });
+
+    // 날짜 누르면 실행되는 함수 (input에 날짜 넣기)
+    const date = (day) => {
+
+     const date = `2025-01-${day}`
+     document.getElementById("date").value = date;
+
+   }
+
+    // 작성 버튼 클릭 시 실행하는 함수
+    const addData = () => {
+
+      let date = document.getElementById("date").value;
+      let content = document.getElementById("content").value;
+
+      days.forEach((day) => {
+        const dayText = day.textContent.trim(); // td의 텍스트 가져오기
+
+        // 선택된 날짜와 td 텍스트가 일치하면
+        if (parseInt(dayText, 10) === dateNum) {
+          // <br> 태그 추가
+          const br = document.createElement('br');
+          day.appendChild(br); // td에 br 태그 추가
+
+          // <p> 태그 추가
+          const p = document.createElement('p');
+          p.textContent = content; // 내용 삽입
+          day.appendChild(p); // td에 p 태그 추가
+        }
+      });  
+
+      // 추가 후 초기화
+      document.getElementById("date").value = '';
+      document.getElementById("content").value = '';
+
+    }
+
+  </script>
+
+</html>

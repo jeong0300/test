@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+  </head>
+  <body>
+    
+    <input/>
+
+    <!-- 요소.empty는 .div1 안의 div를 없애줌 -->
+    <div class = "div1">
+      <div> pp </div>
+      <div> pp </div>
+    </div>
+
+  </body>
+
+  <script>
+
+    $("input").val("설정완료");
+    // JS -> document.querySelector("input").value = "설정완료";
+
+    const change = (tag, change) => {
+      
+      let p = document.querySelector("p");
+      return p.innerHTML = "<h3></h3>";
+
+    }
+
+  </script>
+
+</html>
