@@ -23,3 +23,36 @@
         background-color: green;
     }
 }
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    div{
+        height: 400px;
+    }
+}
+
+.left{
+    width: 50%;
+    background-color: red;
+}
+
+.right{
+    width: 50%;
+    background-color: blue;
+}
+
+@media screen and (max-width:768px){
+    
+    .menu{
+        display: block;
+
+        div{
+            width: 100%;
+        }
+    }
+
+}
