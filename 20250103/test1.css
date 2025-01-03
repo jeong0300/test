@@ -1,0 +1,25 @@
+.text{
+    font-size: 30px;
+    background-color: red;
+}
+
+.ham{
+    display: none;
+}
+/* 모바일 시에 */
+@media screen and (max-width: 768px){
+    .text{
+        font-size: 20px;
+        background-color: blue;
+    }
+
+    .ham{
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .text{
+        background-color: green;
+    }
+}
