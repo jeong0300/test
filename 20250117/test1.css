@@ -1,0 +1,83 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  #main-wrap {
+    padding: 40px;
+    width: 1200px;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;  /* 가운데 정렬 */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    margin: 0 auto; /* 테이블 중앙 정렬 */
+  }
+  
+  th, td {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  th {
+    background-color: #87a5b7;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  tr:hover {
+    background-color: #e0f7fa;
+    cursor: pointer; /* hover시 커서 포인터로 변경 */
+  }
+  
+  td[colspan="4"] {
+    background-color: #e0ebf2;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    padding: 18px 15px;
+    cursor: default; /* 머지된 셀에서는 커서 포인터 사용 안함 */
+  }
+  
+  td[colspan="4"]:hover {
+    transform: none; /* 머지된 셀에서 hover 효과 제거 */
+  }
+  
+  tr {
+    transition: all 0.3s ease;
+  }
+  
+  /* 작은 화면에서 테이블 스타일 변경 */
+  @media (max-width: 768px) {
+    table.main {
+      font-size: 14px;
+    }
+  
+    td, th {
+      padding: 14px;
+    }
+  
+    td[colspan="4"] {
+      font-size: 16px;
+      padding: 20px;
+    }
+  }
+  

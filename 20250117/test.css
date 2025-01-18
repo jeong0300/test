@@ -1,0 +1,94 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+#main-wrap {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table.main {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+th, td {
+  padding: 20px;
+  text-align: left;
+  font-size: 18px;
+  border-bottom: 2px solid #e0e0e0;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+th {
+  background-color: #87a5b7;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+tr {
+  transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+}
+
+td[colspan="4"]:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease-in-out;
+}
+
+td {
+  color: #333;
+}
+
+td[colspan="4"] {
+  background-color: #e3f2fd;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
+  padding: 25px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+td[colspan="4"] {
+  font-size: 18px;
+  padding: 18px 15px;
+  cursor: pointer;
+  text-align: center;
+  background-color: #e0ebf2;
+}
+
+@media (max-width: 768px) {
+  table.main {
+    font-size: 14px;
+  }
+
+  td, th {
+    padding: 14px;
+  }
+
+  td[colspan="4"] {
+    font-size: 16px;
+    padding: 20px;
+  }
+}
