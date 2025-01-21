@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./test1.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="input-wrap">
+
+    <!-- 아이디는 숫자 중복 불가 -->
+    <input type = "number" id = "idNum" placeholder="아이디를 입력해 주세요." />
+    <div id="idAlert"></div>
+
+    <!-- 이름 중복 가능 -->
+    <input id ="name" placeholder="이름을 입력해 주세요." />
+    <div id="nameAlert"></div>
+
+    <!-- 나이 숫자 -->
+    <input type = "number" id="age" placeholder="나이를 입력해 주세요." />
+    <div id="ageAlert"></div>
+
+    <!-- 경력사항 최소 15자리 이상 -->
+    <input id="carrer" placeholder="경력을 입력해 주세요." />
+    <div id="carrerAlert"></div>
+
+    <!-- 별명 최소 2자리 이상, 중복 불가 -->
+    <input id="nickName" placeholder="별명을 입력해 주세요." />
+    <div id="nickNameAlert"></div>
+
+    <!-- 데이터가 없거나 15자리, 2자리, 데이터타입 등이 없으면 input창 아래에 중복입니다, 15자리 이상을 이볅해주세요. 나오게 함 if문 -->
+    <!-- 그 이후에 이름, 나이, 경력사항, 별명이 테이블에 추가됨 -->
+    <button id="btnSelect" onclick="data()" disabled = true > 저장 </button>
+  </div>
+  <div class="main-wrap"></div>
+
+  <script src="./test1.js"></script>
+</body>
+</html>
