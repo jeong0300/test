@@ -1,13 +1,18 @@
 // table 추가 (+thead)
 const table = document.createElement("table");
+
 const headTr = document.createElement("tr");
+
 document.querySelector(".main-wrap").appendChild(table);
-const headData = ["이름", "나이", "별명", "커리어"];
+
+const headData = ["이름", "나이", "커리어", "별명", "관리"];
+
 headData.map(head => {
   const th = document.createElement("th");
   th.innerText = head;
   headTr.appendChild(th);
 });
+
 table.appendChild(headTr);
 
 let userInfoAll = [];
@@ -24,41 +29,53 @@ const nameAlert = document.getElementById("nameAlert");
 const ageAlert = document.getElementById("ageAlert");
 const carrerAlert = document.getElementById("carrerAlert");
 const nickNameAlert = document.getElementById("nickNameAlert");
+// button
+const modifyBtn = document.createElement("button");
+const deleteBtn = document.createElement("button");
+
+const saveData = JSON.parse(window.localStorage.getItem("saveData")) || [];
+
+window.onload = function() {
+
+  addTr();
+
+}
 
 function addTr(){
-  userInfoAll.push(userInfo);
-  window.localStorage.setItem("userInfo", JSON.stringify(userInfoAll));
-  const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
 
-  const tr = document.createElement("tr");
+  const rows = saveData.map((data) => {
+    const tr = document.createElement("tr");
 
-  infoKey.shift(); // 아이디는 출력 안함
-  console.log(infoKey);
+    const keys = Object.keys(data);
 
-  infoKey.map(info => {
-    const td = document.createElement("td");
-    td.innerText = info;
-    tr.appendChild(td);
+    keys.shift(); // 아이디 없애기
+
+    keys.map((key) => {
+      const td = document.createElement("td");
+      td.innerText = data[key];
+      tr.appendChild(td);
+    });
+
+    return tr;
   });
 
-  table.appendChild(tr);
+  rows.map((tr) => table.appendChild(tr));
 }
 
 // 클릭 시 데이터 테이블에 추가
 function data(){
 
-  const storedData = JSON.parse(window.localStorage.getItem("userInfo")) || [];
   let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
 
-  const infoRepeat = storedData.filter(user => user.id === userInfo.id || user.nickName === userInfo.nickName || 
-    userInfo.name.length === 0 || userInfo.id.length === 0 || userInfo.age.value < 5 || userInfo.age.value >= 110 ||
-    userInfo.carrer.length < 15 || userInfo.nickName.length < 2 );
-  const idRepeat = storedData.filter(user => user.id === userInfo.id);
-  const nickRepeat = storedData.filter(user => user.nickName === userInfo.nickName);
+  const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
 
-  console.log("중복:", idRepeat);
+  const infoRepeat = infoKey.filter ( info => info === "" );
+  const idRepeat = saveData.filter(user => user.id === userInfo.id);
+  const nickRepeat = saveData.filter(user => user.nickName === userInfo.nickName);
 
-  if( infoRepeat.length === 1 ){
+  if( infoRepeat.length >= 1 || idRepeat.length === 1 || Number(age.value) < 5 || 
+  Number(age.value) >= 150 || carrer.value.length < 15 || nickName.value.length < 2 || nickRepeat.length === 1){
+
     if(idRepeat.length === 1){
       idAlert.innerText = "중복된 아이디입니다.";
     } else if ( idNum.value.length === 0 ){
@@ -75,10 +92,10 @@ function data(){
     
     if ( age.value.length === 0 ) {
       ageAlert.innerText = "나이가 비어있습니다.";
-    } else if ( age.value < 5 ){
+    } else if ( Number(age.value) < 5 ){
       ageAlert.innerText = "5세 이상부터 가입이 가능합니다.";
-    } else if ( age.value >= 110 ){
-      ageAlert.innerText = "110세 이상은 가입이 불가능합니다.";
+    } else if ( Number(age.value) >= 150 ){
+      ageAlert.innerText = "150세 이상은 가입이 불가능합니다.";
     } else {
       ageAlert.innerText = "";
     }
@@ -88,7 +105,7 @@ function data(){
     } else {
       carrerAlert.innerText = "";
     }
-    
+
     if ( nickName.value.length < 2 ){
       nickNameAlert.innerText = "별명은 최소 2자 이상 작성하여주세요.";
     } else if ( nickRepeat.length === 1 ) {
@@ -97,23 +114,21 @@ function data(){
       nickNameAlert.innerText = "";
     }
 
-  } else {
+  }
 
-    idAlert.innerText = "";
-    nameAlert.innerText = "";
-    ageAlert.innerText = "";
-    carrerAlert.innerText = "";
-    nickNameAlert.innerText = "";
+  if ( infoRepeat.length === 0 && idRepeat.length === 0 && Number(age.value) >= 5 && 
+  Number(age.value) < 150 && carrer.value.length >= 15 && nickName.value.length >= 2 && nickRepeat.length === 0) {
 
     // 테이블 추가 함수 호출
-    userInfoAll.push(userInfo);
-    window.localStorage.setItem("userInfo", JSON.stringify(userInfoAll));
-    const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
+    saveData.push(userInfo);
+    window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
     const tr = document.createElement("tr");
 
     infoKey.shift(); // 아이디는 출력 안함
     console.log(infoKey);
+    console.log("info", userInfo);
+    console.log("all", userInfoAll);
 
     infoKey.map(info => {
       const td = document.createElement("td");
@@ -129,24 +144,11 @@ function data(){
     age.value="";
     carrer.value="";
     nickName.value="";
+
+    idAlert.innerText = "";
+    nameAlert.innerText = "";
+    ageAlert.innerText = "";
+    carrerAlert.innerText = "";
+    nickNameAlert.innerText = "";
   }
 }
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   userInfoAll.push(userInfo);
-//   window.localStorage.setItem("userInfo", JSON.stringify(userInfoAll));
-//   const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
-//   const tr = document.createElement("tr");
-//   infoKey.shift();
-//   console.log(infoKey);
-//   infoKey.map(info => {
-//     const td = document.createElement("td");
-//     td.innerText = info;
-//     tr.appendChild(td);
-//   });
-//   tr.addEventListener("click", () => {
-//     const adult = userInfo.age >= 20 ? "성인" : "미성년자";
-//     alert(`해당하는 사람의 이름은 "${person.name}"이고, 나이는 "${person.age}세"이며, "${adult}"입니다. 커리어에는 "${person.carrer}"가 있으며, 별명으로는 "${person.nickName}"이 있습니다.`);
-//   });
-//   table.appendChild(tr);
-// });
