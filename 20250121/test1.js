@@ -31,8 +31,6 @@ const carrerAlert = document.getElementById("carrerAlert");
 const nickNameAlert = document.getElementById("nickNameAlert");
 // button
 const btn = document.getElementById("btnSelect");
-const modifyBtn = document.createElement("button");
-const deleteBtn = document.createElement("button");
 // 버튼 활성화
 let idComplete = false;
 let nameComplete = false;
@@ -40,7 +38,7 @@ let ageComplete = false;
 let carrerComplete = false;
 let nickNameComplete = false;
 
-const saveData = JSON.parse(window.localStorage.getItem("saveData")) || [];
+let saveData = JSON.parse(window.localStorage.getItem("saveData")) || [];
 
 // 새로고침에도 테이블 유지
 window.onload = function() { addTr(); }
@@ -59,6 +57,11 @@ function addTr(){
       td.innerText = data[key];
       tr.appendChild(td);
     });
+
+    const td = document.createElement("td");
+    td.innerHTML = `<button onclick="modifyList(event)" data-id="${data.nickName}"> 수정 </button> <button onclick="deleteList(event)" data-id="${data.id}"> 삭제 </button>`
+
+    tr.appendChild(td);
 
     return tr;
   });
@@ -171,12 +174,8 @@ nickName.addEventListener("input", function(){
 function complete (){
   if( idComplete && nameComplete && ageComplete && carrerComplete && nickNameComplete ){
     btn.disabled = false;
-
-    // console.log("버튼 활성화");
   } else {
     btn.disabled = true;
-
-    // console.log("버튼 비활성화");
   }
 }
 
@@ -195,14 +194,20 @@ function data(){
 
   infoKey.shift(); // 아이디는 출력 안함
 
+  // 테이블 데이터에 값 넣기
   infoKey.map(info => {
     const td = document.createElement("td");
     td.innerText = info;
     
     tr.appendChild(td);
 
-    // td.innerHTML = `<button> 수정 </button> <button> 삭제 </button>`
   });
+
+  // 테이블 뒤에 버튼 넣기
+  const td = document.createElement("td");
+  td.innerHTML = `<button onclick="modifyList(event)" data-id="${userInfo.nickName}"> 수정 </button> <button onclick="deleteList(event)" data-id="${userInfo.id}"> 삭제 </button>`
+
+  tr.appendChild(td);
 
   table.appendChild(tr);
 
@@ -225,4 +230,25 @@ function data(){
   carrerComplete = false;
   nickNameComplete = false;
   complete();
+}
+
+//삭제 버튼
+function deleteList(){
+
+  const id = event.target.getAttribute("data-id");
+
+  saveData = saveData.filter((user) => user.id !== id);
+
+  window.localStorage.setItem("saveData", JSON.stringify(saveData));
+
+  const targetRow = event.target.closest("tr");
+  targetRow.remove();
+
+}
+
+//수정 버튼
+function modifyList(){
+  const nickName = event.target.getAttribute("data-id");
+
+  
 }
