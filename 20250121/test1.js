@@ -15,8 +15,6 @@ headData.map(head => {
 
 table.appendChild(headTr);
 
-let userInfoAll = [];
-
 // input 값
 const idNum = document.getElementById("idNum");
 const name = document.getElementById("name");
@@ -37,45 +35,13 @@ let nameComplete = false;
 let ageComplete = false;
 let carrerComplete = false;
 let nickNameComplete = false;
-
+// 로컬 스토리지
 let saveData = JSON.parse(window.localStorage.getItem("saveData")) || [];
-
-// 새로고침에도 테이블 유지
-
-function addTr(){
-
-  const rows = saveData.map((data) => {
-
-    const tr = document.createElement("tr");
-    const tbody = document.createElement("tbody");
-
-    tbody.innerHTML = `
-    <tr data-id="${data.id}">
-      <td class="name"><div> ${data.name} </div></td> 
-      <td><div> ${data.age} </div></td>
-      <td><div> ${data.carrer} </div></td> 
-      <td><div> ${data.nickName} </div></td>
-      <td><button onclick="modifyList()" data-id="${data.id}"> 수정 </button> <button onclick="deleteList()" data-id="${data.id}"> 삭제 </button></td>
-    </tr>`;
-
-    table.appendChild(tbody);
-
-    return tr;
-  });
-
-  rows.map((tr) => table.appendChild(tr));
-  
-}
-
-window.onload = function() { addTr(); }
-
 
 // input 실시간 감지
 idNum.addEventListener("input", function(){
 
   let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
-
-  const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
 
   const idRepeat = saveData.filter(user => user.id === userInfo.id);
 
@@ -150,8 +116,6 @@ nickName.addEventListener("input", function(){
 
   let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
 
-  const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
-
   const nickRepeat = saveData.filter(user => user.nickName === userInfo.nickName);
 
   if ( nickName.value.length < 2 ){
@@ -170,19 +134,8 @@ nickName.addEventListener("input", function(){
   
 });
 
-// 활성화 시키기
-function complete (){
-  if( idComplete && nameComplete && ageComplete && carrerComplete && nickNameComplete ){
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
-}
-
 //삭제 버튼
 function deleteList(){
-
-  console.log("...");
 
   const id = event.target.getAttribute("data-id");
 
@@ -197,63 +150,113 @@ function deleteList(){
 
 //수정 버튼
 function modifyList() {
-  const id = event.target.getAttribute("data-id");
-  const row = document.querySelector(`tr[data-id="${id}"]`);
+  const btn = event.target;
+  const row = btn.closest('tr');
+  const id = row.getAttribute("data-id");
   const cells = row.querySelectorAll("td div");
+  const user = saveData.find(user => user.id === id);
 
-  // td의 div를 input으로 변환
-  cells.forEach((cell, index) => {
-    const input = document.createElement("input");
-    input.value = cell.textContent.trim();
-    input.setAttribute("data-index", index); // 각 td의 인덱스를 저장
-    cell.replaceWith(input);
-  });
+  // console.log(user);
 
-  // 수정 버튼을 수정 완료 버튼으로 변경
-  const modifyBtn = row.querySelector("button[onclick='modifyList()']");
-  modifyBtn.setAttribute("onclick", "modifyCom(event)");
-  modifyBtn.textContent = "수정 완료";
+  const name = user.name;
+  const age = user.age;
+  const carrer = user.carrer;
+  const nickName = user.nickName;
+
+  // 기존 값으로 input을 생성하고 div를 숨김
+  cells[0].innerHTML = `<input id='name' value=${name} /><div></div>`;
+  cells[1].innerHTML = `<input id='age' type='number' value=${age} /><div></div>`;
+  cells[2].innerHTML = `<input id='carrer' value=${carrer} /><div></div>`;
+  cells[3].innerHTML = `<input id='nickName' value=${nickName} /><div></div>`;
+
+  btn.innerText = "수정완료";
+  btn.setAttribute("onclick", "modifyCom()");
+
+  const nameInput = cells[0].querySelector('input');
+  const ageInput = cells[1].querySelector('input');
+  const carrerInput = cells[2].querySelector('input');
+  const nickInput = cells[3].querySelector('input');
+
+  nameInput.addEventListener('input', modifyInput);
+  ageInput.addEventListener('input', modifyInput);
+  carrerInput.addEventListener('input', modifyInput);
+  nickInput.addEventListener('input', modifyInput);
 }
 
+// 수정 버튼 -> input 실시간 감지
+function modifyInput() {
+  const inputTarget = event.target;
+  const alertDiv = inputTarget.nextElementSibling;
+
+  // console.log(inputTarget);
+  
+  if (inputTarget.id === "name" && inputTarget.value.length === 0) {
+
+    alertDiv.innerText = "이름이 비어있습니다.";
+
+  } else if (inputTarget.id === "age") {
+
+    if (inputTarget.value.length === 0) {
+
+      alertDiv.innerText = "나이가 비어있습니다.";
+
+    } else if (Number(inputTarget.value) < 5) {
+
+      alertDiv.innerText = "5세 이상부터 가입이 가능합니다.";
+
+    } else if (Number(inputTarget.value) >= 150) {
+
+      alertDiv.innerText = "150세 이상은 가입이 불가능합니다.";
+
+    } else {
+
+      alertDiv.innerText = "";
+
+    }
+
+  } else if (inputTarget.id === "carrer" && inputTarget.value.length < 15) {
+
+    alertDiv.innerText = "경력 사항은 15자 이상 작성하여주세요.";
+
+  } else if (inputTarget.id === "nickName") {
+
+    if (inputTarget.value.length < 2) {
+
+      alertDiv.innerText = "별명은 최소 2자 이상 작성하여주세요.";
+
+    } else {
+
+      alertDiv.innerText = "";
+
+    }
+  } else {
+
+    alertDiv.innerText = "";
+    
+  }
+}
+
+
 //수정 완료 버튼
-function modifyCom(event) {
+function modifyCom() {
   const id = event.target.getAttribute("data-id");
   const row = document.querySelector(`tr[data-id="${id}"]`);
   const inputs = row.querySelectorAll("td input");
-
-  // 수정된 값 가져오기
-  const updatedData = {};
-  inputs.forEach((input) => {
-    const index = input.getAttribute("data-index");
-    const value = input.value.trim();
-
-    switch (Number(index)) {
-      case 0: updatedData.name = value; break;
-      case 1: updatedData.age = value; break;
-      case 2: updatedData.carrer = value; break;
-      case 3: updatedData.nickName = value; break;
-    }
-
-    // input을 다시 div로 변환
-    const div = document.createElement("div");
-    div.textContent = value;
-    input.replaceWith(div);
-  });
-
-  // 로컬 스토리지 업데이트
-  saveData = saveData.map((user) => {
-    if (user.id === id) {
-      return { ...user, ...updatedData };
-    }
-    return user;
-  });
+  const btn = event.target;
 
   window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
-  // 수정 완료 버튼을 다시 수정 버튼으로 변경
-  const modifyBtn = row.querySelector("button[onclick='modifyCom(event)']");
-  modifyBtn.setAttribute("onclick", "modifyList()");
-  modifyBtn.textContent = "수정";
+  btn.innerText = "수정";
+  btn.setAttribute("onclick", "modifyList(event)");
+}
+
+// 활성화 시키기
+function complete (){
+  if( idComplete && nameComplete && ageComplete && carrerComplete && nickNameComplete ){
+    btn.disabled = false;
+  } else {
+    btn.disabled = true;
+  }
 }
 
 // 클릭 시 데이터 테이블에 추가
@@ -263,7 +266,7 @@ function data(){
   
   const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
   
-  // 테이블 추가 함수 호출
+  // 테이블 추가 후 저장
   saveData.push(userInfo);
   window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
@@ -275,11 +278,11 @@ function data(){
   // 테이블 데이터에 값 넣기
   tbody.innerHTML = `
   <tr data-id="${userInfo.id}">
-    <td class="name"><div> ${infoKey[0]} </div></td> 
+    <td><div> ${infoKey[0]} </div></td> 
     <td><div> ${infoKey[1]} </div></td>
     <td><div> ${infoKey[2]} </div></td> 
     <td><div> ${infoKey[3]} </div></td>
-    <td><button onclick="modifyList()" data-id="${userInfo.id}"> 수정 </button> <button onclick="deleteList()" data-id="${userInfo.id}"> 삭제 </button></td>
+    <td><button onclick="modifyList()"> 수정 </button> <button onclick="deleteList()" data-id="${userInfo.id}"> 삭제 </button></td>
   </tr>`;
 
   table.appendChild(tbody);
@@ -304,3 +307,31 @@ function data(){
   nickNameComplete = false;
   complete();
 }
+
+// 새로고침에도 테이블 유지
+function addTr(){
+
+  const rows = saveData.map((data) => {
+
+    const tr = document.createElement("tr");
+    const tbody = document.createElement("tbody");
+
+    tbody.innerHTML = `
+    <tr data-id="${data.id}">
+      <td><div> ${data.name} </div></td> 
+      <td><div> ${data.age} </div></td>
+      <td><div> ${data.carrer} </div></td> 
+      <td><div> ${data.nickName} </div></td>
+      <td><button onclick="modifyList()"> 수정 </button> <button onclick="deleteList()" data-id="${data.id}"> 삭제 </button></td>
+    </tr>`;
+
+    table.appendChild(tbody);
+
+    return tr;
+  });
+
+  rows.map((tr) => table.appendChild(tr));
+  
+}
+
+window.onload = function() { addTr(); }
