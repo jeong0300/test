@@ -28,6 +28,14 @@ body {
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.input-wrap input.edited {
+  border-color: #ffcf40; /* 수정된 입력 필드 테두리 색 */
+  background-color: #fff3cd; /* 수정된 배경색 */
+  font-weight: bold; /* 수정된 텍스트 스타일 */
+  color: #856404; /* 텍스트 색상 */
 }
 
 .input-wrap div {
@@ -37,8 +45,18 @@ body {
   position: relative;
   height: 1rem;
   line-height: 1rem;
+  transition: all 0.3s ease;
 }
 
+.input-wrap div.show {
+  color: #856404; /* 수정 메시지 텍스트 색상 */
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 5px;
+  font-style: italic; /* 이탤릭체로 강조 */
+}
+
+/* 수정 버튼 스타일 */
 .input-wrap button {
   padding: 10px;
   font-size: 1rem;
@@ -57,18 +75,6 @@ body {
 
 .input-wrap button:hover:enabled {
   background-color: #6e8fb1;
-}
-
-.main-wrap {
-  margin: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* 테이블 스타일 */

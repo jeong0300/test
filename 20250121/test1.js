@@ -164,10 +164,10 @@ function modifyList() {
   const nickName = user.nickName;
 
   // 기존 값으로 input을 생성하고 div를 숨김
-  cells[0].innerHTML = `<input id='name' value=${name} /><div></div>`;
-  cells[1].innerHTML = `<input id='age' type='number' value=${age} /><div></div>`;
-  cells[2].innerHTML = `<input id='carrer' value=${carrer} /><div></div>`;
-  cells[3].innerHTML = `<input id='nickName' value=${nickName} /><div></div>`;
+  cells[0].innerHTML = `<input id='name' class='input-field edited' value=${name} /><div class="show"></div>`;
+  cells[1].innerHTML = `<input id='age' class='input-field edited' type='number' value=${age} /><div class="show"></div>`;
+  cells[2].innerHTML = `<input id='carrer' class='input-field edited' value=${carrer} /><div class="show"></div>`;
+  cells[3].innerHTML = `<input id='nickName' class='input-field edited' value=${nickName} /><div class="show"></div>`;
 
   btn.innerText = "수정완료";
   btn.setAttribute("onclick", "modifyCom()");
@@ -180,7 +180,7 @@ function modifyList() {
   nameInput.addEventListener('input', modifyInput);
   ageInput.addEventListener('input', modifyInput);
   carrerInput.addEventListener('input', modifyInput);
-  nickInput.addEventListener('input', modifyInput);
+  nickInput.addEventListener('input', modifyNickNameInput);
 }
 
 // 수정 버튼 -> input 실시간 감지
@@ -191,44 +191,21 @@ function modifyInput() {
   // console.log(inputTarget);
   
   if (inputTarget.id === "name" && inputTarget.value.length === 0) {
-
     alertDiv.innerText = "이름이 비어있습니다.";
-
   } else if (inputTarget.id === "age") {
 
     if (inputTarget.value.length === 0) {
-
       alertDiv.innerText = "나이가 비어있습니다.";
-
     } else if (Number(inputTarget.value) < 5) {
-
       alertDiv.innerText = "5세 이상부터 가입이 가능합니다.";
-
     } else if (Number(inputTarget.value) >= 150) {
-
       alertDiv.innerText = "150세 이상은 가입이 불가능합니다.";
-
     } else {
-
       alertDiv.innerText = "";
-
     }
 
   } else if (inputTarget.id === "carrer" && inputTarget.value.length < 15) {
-
     alertDiv.innerText = "경력 사항은 15자 이상 작성하여주세요.";
-
-  } else if (inputTarget.id === "nickName") {
-
-    if (inputTarget.value.length < 2) {
-
-      alertDiv.innerText = "별명은 최소 2자 이상 작성하여주세요.";
-
-    } else {
-
-      alertDiv.innerText = "";
-
-    }
   } else {
 
     alertDiv.innerText = "";
@@ -236,18 +213,39 @@ function modifyInput() {
   }
 }
 
+function modifyNickNameInput() {
+  const inputTarget = event.target;
+  const alertDiv = inputTarget.nextElementSibling;
+
+  if (inputTarget.value.length < 2) {
+    alertDiv.innerText = "별명은 최소 2자 이상 작성하여주세요.";
+  } else {
+    const userInfo = { id: idNum.value, name: name.value, age: age.value, carrer: carrer.value, nickName: inputTarget.value };
+
+    const nickRepeat = saveData.filter(user => user.nickName === userInfo.nickName && user.id !== userInfo.id);
+
+    if (nickRepeat.length === 1) {
+      alertDiv.innerText = "중복된 별명입니다.";
+    } else {
+      alertDiv.innerText = "";
+    }
+  }
+}
 
 //수정 완료 버튼
 function modifyCom() {
-  const id = event.target.getAttribute("data-id");
-  const row = document.querySelector(`tr[data-id="${id}"]`);
-  const inputs = row.querySelectorAll("td input");
   const btn = event.target;
+  const row = btn.closest('tr');
+  const id = row.getAttribute("data-id");
+  const inputs = row.querySelectorAll("td div");
+  const user = saveData.find(user => user.id === id);
+
+  console.log(inputs);
 
   window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
   btn.innerText = "수정";
-  btn.setAttribute("onclick", "modifyList(event)");
+  btn.setAttribute("onclick", "modifyList()");
 }
 
 // 활성화 시키기
