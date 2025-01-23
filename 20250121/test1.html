@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="stylesheet" href="./test1.css"/>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div class="input-wrap">
+  <head>
+    <link rel="stylesheet" href="./test1.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="input-wrap">
+      <input type="number" id="idNum" placeholder="아이디를 입력해 주세요." />
+      <div id="idAlert"></div>
 
-    <input type = "number" id = "idNum" placeholder="아이디를 입력해 주세요." />
-    <div id="idAlert"></div>
+      <input id="name" placeholder="이름을 입력해 주세요." />
+      <div id="nameAlert"></div>
 
-    <input id ="name" placeholder="이름을 입력해 주세요." />
-    <div id="nameAlert"></div>
+      <input type="number" id="age" placeholder="나이를 입력해 주세요." />
+      <div id="ageAlert"></div>
 
-    <input type = "number" id="age" placeholder="나이를 입력해 주세요." />
-    <div id="ageAlert"></div>
+      <input id="carrer" placeholder="경력을 입력해 주세요." />
+      <div id="carrerAlert"></div>
 
-    <input id="carrer" placeholder="경력을 입력해 주세요." />
-    <div id="carrerAlert"></div>
+      <input id="nickName" placeholder="별명을 입력해 주세요." />
+      <div id="nickNameAlert"></div>
 
-    <input id="nickName" placeholder="별명을 입력해 주세요." />
-    <div id="nickNameAlert"></div>
+      <button id="btnSelect" onclick="data()" disabled="true">저장</button>
+    </div>
+    <div class="main-wrap"></div>
 
-    <button id="btnSelect" onclick="data()" disabled = true > 저장 </button>
-  </div>
-  <div class="main-wrap"></div>
-
-  <script src="./test1.js"></script>
-</body>
+    <script src="./test1.js"></script>
+  </body>
 </html>

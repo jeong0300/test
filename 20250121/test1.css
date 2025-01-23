@@ -56,7 +56,7 @@ body {
   font-style: italic; /* 이탤릭체로 강조 */
 }
 
-/* 수정 버튼 스타일 */
+/* 저장 버튼 스타일 */
 .input-wrap button {
   padding: 10px;
   font-size: 1rem;
@@ -177,8 +177,7 @@ table button:last-child:hover {
   table {
     font-size: 0.8rem;
   }
-
-  table th,
+  s table th,
   table td {
     padding: 6px;
   }

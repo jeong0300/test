@@ -7,7 +7,7 @@ document.querySelector(".main-wrap").appendChild(table);
 
 const headData = ["이름", "나이", "커리어", "별명", "관리"];
 
-headData.map(head => {
+headData.map((head) => {
   const th = document.createElement("th");
   th.innerText = head;
   headTr.appendChild(th);
@@ -38,33 +38,59 @@ let nickNameComplete = false;
 // 로컬 스토리지
 let saveData = JSON.parse(window.localStorage.getItem("saveData")) || [];
 
+// 저장 버튼 활성화
+function complete() {
+  if (
+    idComplete &&
+    nameComplete &&
+    ageComplete &&
+    carrerComplete &&
+    nickNameComplete
+  ) {
+    btn.disabled = false;
+  } else {
+    btn.disabled = true;
+  }
+}
+
+// 수정 버튼 활성화
+function com() {
+  if (nameCom && ageCom && carrerCom) {
+    modiBtn.disabled = false;
+  } else {
+    modiBtn.disabled = true;
+  }
+}
+
 // input 실시간 감지
-idNum.addEventListener("input", function(){
+idNum.addEventListener("input", function () {
+  let userInfo = {
+    id: idNum.value,
+    name: name.value,
+    age: age.value,
+    carrer: carrer.value,
+    nickName: nickName.value,
+  };
 
-  let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
+  const idRepeat = saveData.filter((user) => user.id === userInfo.id);
 
-  const idRepeat = saveData.filter(user => user.id === userInfo.id);
-
-  if(idRepeat.length === 1){
+  if (idRepeat.length === 1) {
     idAlert.innerText = "중복된 아이디입니다.";
     idComplete = false;
     complete();
-  } else if ( idNum.value.length === 0 ){
-    idAlert.innerText = "아이디가 비어있습니다."
+  } else if (idNum.value.length === 0) {
+    idAlert.innerText = "아이디가 비어있습니다.";
     idComplete = false;
     complete();
   } else {
-    idAlert.
-    innerText = "";
+    idAlert.innerText = "";
     idComplete = true;
     complete();
   }
-
 });
 
-name.addEventListener("input", function(){
-
-  if ( name.value.length === 0 ) {
+name.addEventListener("input", function () {
+  if (name.value.length === 0) {
     nameAlert.innerText = "이름이 비어있습니다.";
     nameComplete = false;
     complete();
@@ -73,20 +99,18 @@ name.addEventListener("input", function(){
     nameComplete = true;
     complete();
   }
-  
 });
 
-age.addEventListener("input", function(){
-
-  if ( age.value.length === 0 ) {
+age.addEventListener("input", function () {
+  if (age.value.length === 0) {
     ageAlert.innerText = "나이가 비어있습니다.";
     ageComplete = false;
     complete();
-  } else if ( Number(age.value) < 5 ){
+  } else if (Number(age.value) < 5) {
     ageAlert.innerText = "5세 이상부터 가입이 가능합니다.";
     ageComplete = false;
     complete();
-  } else if ( Number(age.value) >= 150 ){
+  } else if (Number(age.value) >= 150) {
     ageAlert.innerText = "150세 이상은 가입이 불가능합니다.";
     ageComplete = false;
     complete();
@@ -95,12 +119,10 @@ age.addEventListener("input", function(){
     ageComplete = true;
     complete();
   }
-  
 });
 
-carrer.addEventListener("input", function(){
-
-  if ( carrer.value.length < 15 ) {
+carrer.addEventListener("input", function () {
+  if (carrer.value.length < 15) {
     carrerAlert.innerText = "경력 사항은 15자 이상 작성하여주세요.";
     carrerComplete = false;
     complete();
@@ -109,20 +131,26 @@ carrer.addEventListener("input", function(){
     carrerComplete = true;
     complete();
   }
-  
 });
 
-nickName.addEventListener("input", function(){
+nickName.addEventListener("input", function () {
+  let userInfo = {
+    id: idNum.value,
+    name: name.value,
+    age: age.value,
+    carrer: carrer.value,
+    nickName: nickName.value,
+  };
 
-  let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
+  const nickRepeat = saveData.filter(
+    (user) => user.nickName === userInfo.nickName
+  );
 
-  const nickRepeat = saveData.filter(user => user.nickName === userInfo.nickName);
-
-  if ( nickName.value.length < 2 ){
+  if (nickName.value.length < 2) {
     nickNameAlert.innerText = "별명은 최소 2자 이상 작성하여주세요.";
     nickNameComplete = false;
     complete();
-  } else if ( nickRepeat.length === 1 ) {
+  } else if (nickRepeat.length === 1) {
     nickNameAlert.innerText = "중복된 별명입니다.";
     nickNameComplete = false;
     complete();
@@ -131,12 +159,10 @@ nickName.addEventListener("input", function(){
     nickNameComplete = true;
     complete();
   }
-  
 });
 
 //삭제 버튼
-function deleteList(){
-
+function deleteList() {
   const id = event.target.getAttribute("data-id");
 
   saveData = saveData.filter((user) => user.id !== id);
@@ -145,152 +171,156 @@ function deleteList(){
 
   const targetRow = event.target.closest("tr");
   targetRow.remove();
-
 }
 
 //수정 버튼
-function modifyList() {
-  const btn = event.target;
-  const row = btn.closest('tr');
-  const id = row.getAttribute("data-id");
-  const cells = row.querySelectorAll("td div");
-  const user = saveData.find(user => user.id === id);
-
-  // console.log(user);
+function modifyList(id) {
+  const modiBtn = event.target;
+  const tr = document.querySelector(`tr[data-id="${id}"]`);
+  const cells = tr.querySelectorAll("td div");
+  const user = saveData.find((user) => user.id === String(id));
 
   const name = user.name;
   const age = user.age;
   const carrer = user.carrer;
-  const nickName = user.nickName;
 
-  // 기존 값으로 input을 생성하고 div를 숨김
-  cells[0].innerHTML = `<input id='name' class='input-field edited' value=${name} /><div class="show"></div>`;
-  cells[1].innerHTML = `<input id='age' class='input-field edited' type='number' value=${age} /><div class="show"></div>`;
-  cells[2].innerHTML = `<input id='carrer' class='input-field edited' value=${carrer} /><div class="show"></div>`;
-  cells[3].innerHTML = `<input id='nickName' class='input-field edited' value=${nickName} /><div class="show"></div>`;
+  cells[0].innerHTML = `<input id='name' value=${name} /><div></div>`;
+  cells[1].innerHTML = `<input id='age' type='number' value=${age} /><div></div>`;
+  cells[2].innerHTML = `<input id='carrer' value=${carrer} /><div></div>`;
 
-  btn.innerText = "수정완료";
-  btn.setAttribute("onclick", "modifyCom()");
+  modiBtn.innerText = "수정완료";
+  modiBtn.setAttribute("onclick", `modifyCom(${id})`);
+  modiBtn.disabled = false;
 
-  const nameInput = cells[0].querySelector('input');
-  const ageInput = cells[1].querySelector('input');
-  const carrerInput = cells[2].querySelector('input');
-  const nickInput = cells[3].querySelector('input');
+  const nameInput = cells[0].querySelector("input");
+  const ageInput = cells[1].querySelector("input");
+  const carrerInput = cells[2].querySelector("input");
 
-  nameInput.addEventListener('input', modifyInput);
-  ageInput.addEventListener('input', modifyInput);
-  carrerInput.addEventListener('input', modifyInput);
-  nickInput.addEventListener('input', modifyNickNameInput);
+  nameInput.addEventListener("input", modifyInput);
+  ageInput.addEventListener("input", modifyInput);
+  carrerInput.addEventListener("input", modifyInput);
 }
 
-// 수정 버튼 -> input 실시간 감지
+let nameCom = true;
+let ageCom = true;
+let carrerCom = true;
+
+// 수정 버튼의 input 실시간 감지
 function modifyInput() {
   const inputTarget = event.target;
   const alertDiv = inputTarget.nextElementSibling;
 
   // console.log(inputTarget);
-  
+
   if (inputTarget.id === "name" && inputTarget.value.length === 0) {
     alertDiv.innerText = "이름이 비어있습니다.";
+    nameCom = false;
+    com();
   } else if (inputTarget.id === "age") {
-
     if (inputTarget.value.length === 0) {
       alertDiv.innerText = "나이가 비어있습니다.";
+      ageCom = false;
+      com();
     } else if (Number(inputTarget.value) < 5) {
       alertDiv.innerText = "5세 이상부터 가입이 가능합니다.";
+      ageCom = false;
+      com();
     } else if (Number(inputTarget.value) >= 150) {
       alertDiv.innerText = "150세 이상은 가입이 불가능합니다.";
+      ageCom = false;
+      com();
     } else {
       alertDiv.innerText = "";
+      ageCom = true;
+      com();
     }
-
-  } else if (inputTarget.id === "carrer" && inputTarget.value.length < 15) {
-    alertDiv.innerText = "경력 사항은 15자 이상 작성하여주세요.";
+  } else if (inputTarget.id === "carrer") {
+    if (inputTarget.value.length < 15) {
+      alertDiv.innerText = "경력 사항은 15자 이상 작성하여주세요.";
+      carrerCom = false;
+      com();
+    } else {
+      alertDiv.innerText = "";
+      carrerCom = true;
+      com();
+    }
   } else {
-
     alertDiv.innerText = "";
-    
-  }
-}
-
-function modifyNickNameInput() {
-  const inputTarget = event.target;
-  const alertDiv = inputTarget.nextElementSibling;
-
-  if (inputTarget.value.length < 2) {
-    alertDiv.innerText = "별명은 최소 2자 이상 작성하여주세요.";
-  } else {
-    const userInfo = { id: idNum.value, name: name.value, age: age.value, carrer: carrer.value, nickName: inputTarget.value };
-
-    const nickRepeat = saveData.filter(user => user.nickName === userInfo.nickName && user.id !== userInfo.id);
-
-    if (nickRepeat.length === 1) {
-      alertDiv.innerText = "중복된 별명입니다.";
-    } else {
-      alertDiv.innerText = "";
-    }
+    nameCom = true;
+    com();
   }
 }
 
 //수정 완료 버튼
 function modifyCom() {
-  const btn = event.target;
-  const row = btn.closest('tr');
+  const modiBtn = event.target;
+  const row = modiBtn.closest("tr");
   const id = row.getAttribute("data-id");
-  const inputs = row.querySelectorAll("td div");
-  const user = saveData.find(user => user.id === id);
+  const tdAll = row.querySelectorAll("td");
+  const inputs = row.querySelectorAll("td input");
+  const user = saveData.find((user) => user.id === id);
 
-  console.log(inputs);
+  const name = inputs[0].value;
+  const age = inputs[1].value;
+  const carrer = inputs[2].value;
+
+  const nameInp = tdAll[0];
+  const ageInp = tdAll[1];
+  const carrerInp = tdAll[2];
+
+  nameInp.innerHTML = `<div> ${name} </div>`;
+  ageInp.innerHTML = `<div> ${age} </div>`;
+  carrerInp.innerHTML = `<div> ${carrer} </div>`;
+
+  saveData = saveData.map((user) => {
+    if (user.id === id) {
+      return { ...user, name, age, carrer };
+    }
+    return user;
+  });
 
   window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
-  btn.innerText = "수정";
-  btn.setAttribute("onclick", "modifyList()");
-}
-
-// 활성화 시키기
-function complete (){
-  if( idComplete && nameComplete && ageComplete && carrerComplete && nickNameComplete ){
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
+  modiBtn.innerText = "수정";
+  modiBtn.setAttribute("onclick", `modifyList(${user.id})`);
 }
 
 // 클릭 시 데이터 테이블에 추가
-function data(){
+function data() {
+  let userInfo = {
+    id: idNum.value,
+    name: name.value,
+    age: age.value,
+    carrer: carrer.value,
+    nickName: nickName.value,
+  };
 
-  let userInfo = { id: idNum.value, name : name.value, age : age.value, carrer : carrer.value, nickName : nickName.value };
-  
-  const infoKey = Object.keys(userInfo).map(info => userInfo[info]);
-  
+  const infoKey = Object.keys(userInfo).map((info) => userInfo[info]);
+
   // 테이블 추가 후 저장
   saveData.push(userInfo);
   window.localStorage.setItem("saveData", JSON.stringify(saveData));
 
   const tbody = document.createElement("tbody");
-  const tr = document.createElement("tr");
-
-  infoKey.shift(); // 아이디는 출력 안함
 
   // 테이블 데이터에 값 넣기
   tbody.innerHTML = `
-  <tr data-id="${userInfo.id}">
-    <td><div> ${infoKey[0]} </div></td> 
-    <td><div> ${infoKey[1]} </div></td>
-    <td><div> ${infoKey[2]} </div></td> 
-    <td><div> ${infoKey[3]} </div></td>
-    <td><button onclick="modifyList()"> 수정 </button> <button onclick="deleteList()" data-id="${userInfo.id}"> 삭제 </button></td>
+  <tr id="${infoKey[0]}" data-id="${infoKey[0]}">
+    <td><div> ${infoKey[1]} </div></td> 
+    <td><div> ${infoKey[2]} </div></td>
+    <td><div> ${infoKey[3]} </div></td> 
+    <td><div> ${infoKey[4]} </div></td>
+    <td><button onclick="modifyList(${infoKey[0]})" id="modiBtn"> 수정 </button> <button onclick="deleteList()" data-id="${userInfo.id}"> 삭제 </button></td>
   </tr>`;
 
   table.appendChild(tbody);
 
   // 초기화
-  idNum.value="";
-  name.value="";
-  age.value="";
-  carrer.value="";
-  nickName.value="";
+  idNum.value = "";
+  name.value = "";
+  age.value = "";
+  carrer.value = "";
+  nickName.value = "";
 
   idAlert.innerText = "";
   nameAlert.innerText = "";
@@ -307,20 +337,18 @@ function data(){
 }
 
 // 새로고침에도 테이블 유지
-function addTr(){
-
+function addTr() {
   const rows = saveData.map((data) => {
-
     const tr = document.createElement("tr");
     const tbody = document.createElement("tbody");
 
     tbody.innerHTML = `
-    <tr data-id="${data.id}">
+    <tr id="${data.id}" data-id="${data.id}">
       <td><div> ${data.name} </div></td> 
       <td><div> ${data.age} </div></td>
       <td><div> ${data.carrer} </div></td> 
       <td><div> ${data.nickName} </div></td>
-      <td><button onclick="modifyList()"> 수정 </button> <button onclick="deleteList()" data-id="${data.id}"> 삭제 </button></td>
+      <td><button onclick="modifyList(${data.id})" id="modiBtn"> 수정 </button> <button onclick="deleteList()" data-id="${data.id}"> 삭제 </button></td>
     </tr>`;
 
     table.appendChild(tbody);
@@ -329,7 +357,8 @@ function addTr(){
   });
 
   rows.map((tr) => table.appendChild(tr));
-  
 }
 
-window.onload = function() { addTr(); }
+window.onload = function () {
+  addTr();
+};
