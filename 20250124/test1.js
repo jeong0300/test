@@ -184,35 +184,6 @@ function deleteList() {
   targetRow.remove();
 }
 
-//수정 버튼
-function modifyList(id) {
-  const modiBtn = event.target;
-  const tr = document.querySelector(`tr[data-id="${id}"]`);
-  const cells = tr.querySelectorAll("td div");
-  const user = saveData.find((user) => user.id === String(id));
-
-  const userId = user.id;
-  const name = user.name;
-  const age = user.age;
-  const carrer = user.carrer;
-
-  cells[0].innerHTML = `<input id='name' value=${name} /><div></div>`;
-  cells[1].innerHTML = `<input id='age' type='number' value=${age} /><div></div>`;
-  cells[2].innerHTML = `<input id='carrer' value=${carrer} /><div></div>`;
-
-  modiBtn.innerText = "수정완료";
-  modiBtn.setAttribute("onclick", `modifyCom(${id})`);
-  modiBtn.disabled = false;
-
-  const nameInput = cells[0].querySelector("input");
-  const ageInput = cells[1].querySelector("input");
-  const carrerInput = cells[2].querySelector("input");
-
-  nameInput.addEventListener("input", () => modifyInput(userId));
-  ageInput.addEventListener("input", () => modifyInput(userId));
-  carrerInput.addEventListener("input", () => modifyInput(userId));
-}
-
 // 수정 버튼의 input 실시간 감지
 function modifyInput(userId) {
   const inputTarget = event.target;
@@ -257,6 +228,35 @@ function modifyInput(userId) {
     nameCom = true;
     com(userId);
   }
+}
+
+//수정 버튼
+function modifyList(id) {
+  const modiBtn = event.target;
+  const tr = document.querySelector(`tr[data-id="${id}"]`);
+  const cells = tr.querySelectorAll("td div");
+  const user = saveData.find((user) => user.id === String(id));
+
+  const userId = user.id;
+  const name = user.name;
+  const age = user.age;
+  const carrer = user.carrer;
+
+  cells[0].innerHTML = `<input id='name' value=${name} /><div></div>`;
+  cells[1].innerHTML = `<input id='age' type='number' value=${age} /><div></div>`;
+  cells[2].innerHTML = `<input id='carrer' value=${carrer} /><div></div>`;
+
+  modiBtn.innerText = "수정완료";
+  modiBtn.setAttribute("onclick", `modifyCom(${id})`);
+  modiBtn.disabled = false;
+
+  const nameInput = cells[0].querySelector("input");
+  const ageInput = cells[1].querySelector("input");
+  const carrerInput = cells[2].querySelector("input");
+
+  nameInput.addEventListener("input", () => modifyInput(userId));
+  ageInput.addEventListener("input", () => modifyInput(userId));
+  carrerInput.addEventListener("input", () => modifyInput(userId));
 }
 
 //수정 완료 버튼
