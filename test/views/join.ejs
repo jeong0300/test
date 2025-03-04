@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="login-box">
+      <h2>회원가입</h2>
+      <form>
+        이메일
+        <input type="email" name="id" id="id" required />
+        <div class="check-btn" onclick="check()">중복확인</div>
+        <br />
+        이름
+        <input
+          type="text"
+          name="name"
+          placeholder="이름을 입력해 주세요"
+          required
+        />
+        <br />
+
+        비밀번호
+        <input
+          type="password"
+          name="pass"
+          id="pass"
+          placeholder="비밀번호를 입력해 주세요"
+          required
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$"
+          title="비밀번호는 8자 이상, 대소문자 하나씩 포함, 특수문자 하나 이상 포함해야 합니다."
+        />
+
+        <br />
+
+        비밀번호 재확인
+        <input
+          type="password"
+          name="passCheck"
+          id="passCheck"
+          placeholder="비밀번호를 확인해 주세요"
+          required
+        />
+        <div id="alret"></div>
+        <div onclick="passCheck()" class="check-btn">비밀번호 확인</div>
+
+        <br />
+        <div class="gender">
+          성별
+          <input type="radio" name="gender" value="man" checked /> 남자
+          <input type="radio" name="gender" value="woman" /> 여자
+        </div>
+
+        전화번호
+        <div class="input-group">
+          <input
+            type="number"
+            name="areaCode"
+            maxlength="3"
+            required
+            pattern="^(01[0-9])$"
+            title="010, 011 등 올바른 형식을 입력해주세요."
+            placeholder="010"
+          />
+          -
+          <input
+            type="number"
+            name="middleNumber"
+            maxlength="4"
+            required
+            pattern="^\d{4}$"
+            title="4자리"
+            placeholder="xxxx"
+          />
+          -
+          <input
+            type="number"
+            name="lastNumber"
+            maxlength="4"
+            required
+            pattern="^\d{4}$"
+            title="4자리"
+            placeholder="xxxx"
+          />
+        </div>
+
+        <div class="birth">
+          생년월일
+          <select class="box" id="birth-year">
+            <option disabled selected>출생 연도</option>
+          </select>
+          <select class="box" id="birth-month">
+            <option disabled selected>월</option>
+          </select>
+          <select class="box" id="birth-day">
+            <option disabled selected>일</option>
+          </select>
+        </div>
+        <button type="button" onclick="join()">회원가입</button>
+        <a href="/postit/login">로그인하러 가기</a>
+      </form>
+    </div>
+  </body>
+</html>
