@@ -1,0 +1,409 @@
+body {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.login-box {
+  position: relative;
+}
+
+.carosel {
+  display: flex;
+  width: 100%;
+  position: relative;
+  top: 0;
+}
+
+.logo {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: -200px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: moveUpLogo 1s forwards;
+  z-index: 2;
+}
+
+@keyframes moveUpLogo {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo img {
+  max-width: 400px;
+  margin-left: -20px;
+}
+
+.caroselContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.caroselImg {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.489) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* 로그인 폼 */
+.join-box {
+  position: absolute;
+  top: 125%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 550px;
+  width: 90%;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.551);
+  border: 1px solid rgb(121, 121, 121);
+  border-radius: 10px;
+  padding: 50px;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  animation: slideDownLogin 1s ease-out 0.5s forwards;
+
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@keyframes slideDownLogin {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 17px;
+  color: rgb(255, 255, 255);
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.259);
+  font-size: 16px;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+
+.input-group input::placeholder {
+  color: rgba(96, 96, 96, 0.675);
+}
+
+input:focus {
+  outline: none;
+}
+
+input:active {
+  outline: none;
+}
+
+.check-btn {
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  padding: 7px 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.check-btn:hover {
+  background-color: rgba(0, 0, 0, 0.508);
+  transform: scale(1.1);
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+}
+
+input[type="number"]:focus {
+  outline: none;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.input-group input::placeholder {
+  color: rgba(96, 96, 96, 0.675);
+}
+
+.joinBtn {
+  width: 100%;
+  padding: 12px 0;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+  color: #444;
+  background-color: #e7e2ed;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.joinBtn:hover {
+  background-color: #bfb9c7;
+  transform: scale(1.05);
+  color: white;
+}
+
+.joinBtn:active {
+  background-color: rgb(156, 145, 168);
+  transform: scale(0.98);
+}
+
+/* 성별, 전화번호, 생일 그룹 */
+.gender,
+.birth,
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.birth select {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.adress {
+  margin-top: 10px;
+}
+
+#alret {
+  color: red;
+}
+.gender {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+  position: relative;
+}
+
+.gender .label {
+  font-weight: bold;
+  position: absolute;
+}
+
+.gender .label:first-child {
+  left: 10px; /* 남자 */
+}
+
+.gender .label:last-child {
+  right: 10px; /* 여자 */
+}
+
+/* 스위치 스타일 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e7e2ed;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  border-radius: 50px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #ffffff;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #bfb9c7;
+}
+
+input:checked + .slider:before {
+  transform: translateX(66px);
+}
+
+.link-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+  position: relative;
+}
+
+.link-group a {
+  display: inline-block;
+  color: rgb(84, 84, 84);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.link-group a:hover {
+  color: #cb2b2b;
+}
+
+.link-group a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #cb2b2b;
+  transition: width 0.3s ease;
+}
+
+.link-group a:hover::after {
+  width: 100%;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  form {
+    width: 100%;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    max-width: 300px;
+  }
+
+  .login-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  form {
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .input-group {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .input-group input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .input-group label {
+    width: 100%;
+  }
+
+  .check-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  a {
+    margin-top: 10px;
+  }
+}

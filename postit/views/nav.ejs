@@ -71,28 +71,56 @@
               <hr />
               <br />
               <li class="nav-item remove">
-                <div class="bottom">
-                  <a href="/postit/login" class="flex">
-                    <img src="/static/images/loginIcon.png" alt="login icon" />
-                    <p>로그인</p>
-                  </a>
+                <div class="loginBefore">
+                  <div class="bottom">
+                    <a href="#" onclick="moveUrl('login')" class="flex">
+                      <img
+                        src="/static/images/loginIcon.png"
+                        alt="login icon"
+                      />
+                      <p>로그인</p>
+                    </a>
+                  </div>
+                  <br />
+                  <div class="bottom">
+                    <a href="#" onclick="moveUrl('join')" class="flex">
+                      <img src="/static/images/joinIcon.png" alt="join icon" />
+                      <p>회원가입</p>
+                    </a>
+                  </div>
+                  <br />
                 </div>
-                <br />
-                <div class="bottom">
-                  <a href="/postit/join" class="flex">
-                    <img src="/static/images/joinIcon.png" alt="join icon" />
-                    <p>회원가입</p>
-                  </a>
-                </div>
-                <br />
-                <div class="bottom">
-                  <a href="/postit" class="flex">
-                    <img
-                      src="/static/images/accountIcon.png"
-                      alt="account icon"
-                    />
-                    <h6>내 계정</h6>
-                  </a>
+                <div class="loginAfter">
+                  <div class="bottom">
+                    <a href="#" class="flex">
+                      <img
+                        src="/static/images/accountIcon.png"
+                        alt="account icon"
+                      />
+                      <p>내 계정</p>
+                    </a>
+                  </div>
+                  <br />
+                  <div class="bottom">
+                    <a href="#" class="flex">
+                      <img
+                        src="/static/images/favoriteIcon.png"
+                        alt="account icon"
+                      />
+                      <p>즐겨찾기</p>
+                    </a>
+                  </div>
+                  <br />
+                  <div class="bottom">
+                    <a href="#" class="flex">
+                      <img
+                        src="/static/images/contentIcon.png"
+                        alt="account icon"
+                      />
+                      <p>내 글 보기</p>
+                    </a>
+                  </div>
+                  <br />
                 </div>
               </li>
             </ul>
@@ -102,19 +130,18 @@
 
       <div class="logoImg">
         <div class="mainLogo">
-          <a href="/muuji">
-            <!-- <img src="/static/images/muujiLogo.png" /> -->
+          <a href="/">
+            <img src="/static/images/postitLogo.png" alt="postit logo" />
           </a>
         </div>
       </div>
 
-      <!-- 네비게이션(반응형일 때 사라짐) -->
       <div class="joinBox">
-        <div class="join" onclick="move()">
-          <a href="/postit/login">로그인</a>
+        <div class="join">
+          <a href="#" onclick="moveUrl('login')">로그인</a>
         </div>
-        <div class="join" onclick="move()">
-          <a href="/postit/join">회원가입</a>
+        <div class="join">
+          <a href="#" onclick="moveUrl('join')">회원가입</a>
         </div>
       </div>
     </div>

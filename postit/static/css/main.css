@@ -1,3 +1,8 @@
+body {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 /* 맨 위 이미지 */
 .topContainer {
   position: relative;
@@ -18,6 +23,21 @@
   width: 100%;
   height: 100%;
   top: -30px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: moveUpLogo 1s forwards;
+  z-index: 2;
+}
+
+@keyframes moveUpLogo {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .logo img {
@@ -58,6 +78,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 10px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: moveUp 1s forwards;
+}
+
+.category:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.category:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.category:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.category:nth-child(4) {
+  animation-delay: 1.2s;
+}
+
+.category:nth-child(5) {
+  animation-delay: 1.5s;
+}
+
+@keyframes moveUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .category img {

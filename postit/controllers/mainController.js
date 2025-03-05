@@ -1,13 +1,8 @@
 // const products = require("../models/mainModel");
 
-const moveLogin = (req, res) => {
-  console.log("login");
-  res.render("login");
-};
-
-const moveJoin = (req, res) => {
-  console.log("join");
-  res.render("join");
+const moveUrl = (req, res) => {
+  const url = req.params.url;
+  res.render(url);
 };
 
 const move = async (req, res) => {
@@ -17,4 +12,4 @@ const move = async (req, res) => {
   // res.render(url, { product });
 };
 
-module.exports = { moveLogin, moveJoin, move };
+module.exports = { moveUrl, move };
