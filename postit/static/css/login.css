@@ -83,7 +83,7 @@ body {
 /* 로그인 폼 */
 .loginBox {
   position: absolute;
-  top: 60%;
+  top: 67%;
   left: 49%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -99,7 +99,7 @@ body {
   justify-content: center;
   z-index: 5;
   opacity: 0;
-  animation: slideDownLogin 1s ease-out 0.5s forwards;
+  animation: slideDownLogin 0.6s ease-out 0.5s forwards;
 
   font-family: "Gothic A1", sans-serif;
   font-weight: 400;
@@ -140,6 +140,7 @@ body {
   border: none;
   background-color: rgba(255, 255, 255, 0.259);
   font-size: 16px;
+  font-weight: bold;
   max-width: 80%;
   width: 80%;
   color: white;
@@ -147,7 +148,7 @@ body {
 }
 
 .input-group input::placeholder {
-  color: rgba(96, 96, 96, 0.675);
+  color: rgba(62, 62, 62, 0.734);
 }
 
 input:focus {
@@ -202,7 +203,7 @@ input:active {
 }
 
 .link-group a:hover {
-  color: #ffd7d7;
+  color: #ff6868;
 }
 
 .link-group a::after {
@@ -212,7 +213,7 @@ input:active {
   left: 0;
   width: 0;
   height: 1.5px;
-  background-color: #ffd7d7;
+  background-color: #ff6868;
   transition: width 0.3s ease;
 }
 
@@ -223,8 +224,13 @@ input:active {
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .loginBox {
-    width: 100%;
     padding: 30px;
+    margin: 0 7px;
+    overflow: hidden;
+  }
+
+  .logo img {
+    margin: 0 7px;
   }
 }
 
@@ -241,12 +247,6 @@ input:active {
     height: 100vh;
     min-height: 100vh;
     flex-direction: column;
-  }
-
-  .loginBox {
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
   }
 
   .input-group {

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/css/myPage.css" />
+    <!-- 다음 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <!-- 경고창 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account</title>
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="carosel">
+      <div class="caroselContainer">
+        <img
+          class="caroselImg"
+          src="/static/images/mainCarosel.jpg"
+          alt="carosel image"
+        />
+        <div class="overlay"></div>
+      </div>
+      <div class="logo">
+        <img src="/static/images/myPageIcon.png" alt="signUp logo" />
+      </div>
+
+      <form>
+        <div class="profileGroup">
+          <h3>프로필 사진 변경</h3>
+          <hr />
+          <div
+            class="image-upload"
+            onclick="document.getElementById('imageInput').click()"
+          >
+            <span id="imageLabel">이미지 선택</span>
+            <input
+              type="file"
+              id="imageInput"
+              name="image"
+              onchange="previewImage(event)"
+            />
+            <img
+              id="preview"
+              src=""
+              alt="이미지 미리보기"
+              style="display: block"
+            />
+          </div>
+
+          <button onclick="deleteProfile()">삭제</button>
+        </div>
+        <div class="passwordGroup">
+          <h3>비밀번호 변경</h3>
+          <hr />
+          <div class="passChange">
+            <label for="password">비밀번호</label>
+            <input
+              type="password"
+              name="pass"
+              id="pass"
+              placeholder="비밀번호를 입력해 주세요"
+              required
+            />
+          </div>
+          <div class="check"></div>
+          <div class="passCheck">
+            <label for="password">비밀번호 재확인</label>
+            <input
+              type="password"
+              name="passCheck"
+              id="passCheck"
+              placeholder="비밀번호를 확인해 주세요"
+              oninput="pwCheck()"
+              required
+            />
+          </div>
+          <div id="alret"></div>
+        </div>
+        <br />
+
+        <br />
+        <div class="addrGroup">
+          <h3>주소 변경</h3>
+          <hr />
+          <div class="adress">
+            <div class="flexCode">
+              <input type="text" id="sample6_postcode" placeholder="우편번호" />
+              <input
+                type="button"
+                onclick="sample6_execDaumPostcode()"
+                value="우편번호 찾기"
+              /><br />
+            </div>
+            <input type="text" id="address" placeholder="주소" /><br />
+            <div class="flexDetail">
+              <input type="text" id="detailAddress" placeholder="상세주소" />
+              <input
+                type="text"
+                id="sample6_extraAddress"
+                placeholder="참고항목"
+              />
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <button type="button" class="changeBtn" onclick="changeInfo()">
+          변경하기
+        </button>
+        <button type="button" class="secession" onclick="deleteUser()">
+          탈퇴하기
+        </button>
+      </form>
+    </div>
+
+    <%- include("footer") %>
+
+    <script src="/static/js/myPage.js"></script>
+  </body>
+</html>

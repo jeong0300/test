@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/static/css/login.css" />
+    <link rel="stylesheet" href="/static/css/findId.css" />
     <!-- 경고창 -->
     <link
       rel="stylesheet"
@@ -19,7 +19,10 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Find Id</title>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <%- include("nav") %>
@@ -41,38 +44,58 @@
       <div class="loginBox">
         <form>
           <div class="input-group">
-            <label for="id">아이디</label>
+            <label for="username">이름</label>
             <input
-              type="email"
-              name="email"
-              placeholder="이메일을 입력하여 주세요."
-              id="email"
+              type="text"
+              name="username"
+              placeholder="이름을 입력하여 주세요."
+              id="username"
               required
             />
           </div>
           <br />
-          <div class="input-group">
-            <label for="pass">비밀번호</label>
-            <input
-              type="password"
-              name="pass"
-              id="pass"
-              placeholder="비밀번호를 입력해 주세요"
-              required
-            />
+          <div class="phoneBox">
+            전화번호
+            <div class="phoneInputs">
+              <input
+                type="number"
+                name="areaCode"
+                maxlength="3"
+                required
+                placeholder="010"
+                oninput="handleOnInput(this, 3)"
+              />
+              <p>-</p>
+              <input
+                type="number"
+                name="middleNumber"
+                maxlength="4"
+                required
+                placeholder="0000"
+                oninput="handleOnInput(this, 4)"
+              />
+              <p>-</p>
+              <input
+                type="number"
+                name="lastNumber"
+                maxlength="4"
+                required
+                placeholder="0000"
+                oninput="handleOnInput(this, 4)"
+              />
+            </div>
           </div>
           <br />
           <button type="button" class="loginBtn" onclick="loginCheck()">
-            로그인
+            아이디 찾기
           </button>
         </form>
         <div class="link-group">
-          <a href="#" onclick="moveUrl('findId')">아이디 찾기</a>
           <a href="#" onclick="moveUrl('findPw')">비밀번호 찾기</a>
           <a href="#" onclick="moveUrl('join')">회원가입</a>
         </div>
       </div>
     </div>
-    <script src="/static/js/login.js"></script>
+    <script src="/static/js/findId.js"></script>
   </body>
 </html>

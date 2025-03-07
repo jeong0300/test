@@ -11,10 +11,20 @@ module.exports = (sequelize, DataTypes) => {
       user_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
+        onDelete: "SET NULL",
       },
       category_id: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
+        allowNull: true,
+        references: {
+          model: "Category",
+          key: "id",
+        },
+        onDelete: "SET NULL",
       },
       title: {
         type: DataTypes.STRING(255),
@@ -25,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       image_url: {
-        type: DataTypes.STRING(255), // 대표 사진 저장
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
       like_count: {

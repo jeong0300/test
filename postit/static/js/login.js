@@ -1,39 +1,38 @@
 const loginCheck = () => {
-  const id = document.getElementById("id").value;
+  const email = document.getElementById("email").value;
   const pass = document.getElementById("pass").value;
-  const data = { id, pass };
-  // 라우터 연결
-  axios({
-    method: "post",
-    url: `/user/loginUser`,
-    data: data,
-  })
+
+  if (!email || !pass) {
+    Swal.fire({
+      text: "아이디와 비밀번호를 모두 입력하세요.",
+      icon: "error",
+    });
+    return;
+  }
+
+  const data = { email, pass };
+
+  axios
+    .post("/user/loginUser", data)
     .then((res) => {
-      if (res.data.token) {
+      if (res.status === 200 && res.data.token) {
         localStorage.setItem("token", res.data.token);
-        axios
-          .get("/")
-          .then((response) => {
-            if (response.status === 200) {
-              window.location.href = "/";
-            }
-          })
-          .catch((error) => {
-            Swal.fire({
-              title: "페이지 로드 오류",
-              icon: "error",
-            });
-          });
+        window.location.href = "/";
       } else {
         Swal.fire({
-          title: res.data,
+          text: res.data.message || "잘못된 로그인 정보입니다.",
           icon: "error",
         });
       }
     })
-    .catch((e) => {
+    .catch((error) => {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : "서버 오류가 발생했습니다.";
       Swal.fire({
-        title: "서버 오류 발생",
+        title: "로그인 실패",
+        text: message,
         icon: "error",
       });
     });
@@ -43,3 +42,12 @@ const loginCheck = () => {
 function moveUrl(url) {
   window.location.href = `/postit/${url}`;
 }
+
+// 네이버 로그인
+var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
+var state = naver_id_login.getUniqState();
+naver_id_login.setButton("white", 2, 40);
+naver_id_login.setDomain("YOUR_SERVICE_URL");
+naver_id_login.setState(state);
+naver_id_login.setPopup();
+naver_id_login.init_naver_id_login();

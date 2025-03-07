@@ -20,6 +20,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 네이버 로그인 -->
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+      charset="utf-8"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.11.3.min.js"
+    ></script>
   </head>
   <body>
     <%- include("nav") %>
@@ -38,6 +51,7 @@
           <img src="/static/images/loginLogo.png" alt="login logo" />
         </div>
       </div>
+
       <div class="loginBox">
         <form>
           <div class="input-group">
@@ -61,11 +75,19 @@
               required
             />
           </div>
+
+          <hr />
+          <div id="naver_id_login"></div>
+
           <br />
           <button type="button" class="loginBtn" onclick="loginCheck()">
             로그인
           </button>
         </form>
+        <hr />
+
+        <div class="naverLogin"></div>
+
         <div class="link-group">
           <a href="#" onclick="moveUrl('findId')">아이디 찾기</a>
           <a href="#" onclick="moveUrl('findPw')">비밀번호 찾기</a>

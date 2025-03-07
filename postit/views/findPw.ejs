@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/static/css/login.css" />
+    <link rel="stylesheet" href="/static/css/findPw.css" />
     <!-- 경고창 -->
     <link
       rel="stylesheet"
@@ -19,7 +19,10 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Find Password</title>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <%- include("nav") %>
@@ -51,7 +54,7 @@
             />
           </div>
           <br />
-          <div class="input-group">
+          <div class="passInput">
             <label for="pass">비밀번호</label>
             <input
               type="password"
@@ -61,18 +64,34 @@
               required
             />
           </div>
+          <div class="alret"></div>
+
           <br />
-          <button type="button" class="loginBtn" onclick="loginCheck()">
-            로그인
+
+          <div class="passInput">
+            <label for="password">비밀번호 <br />재확인</label>
+            <input
+              type="password"
+              name="passCheck"
+              id="passCheck"
+              placeholder="비밀번호를 확인해 주세요"
+              required
+            />
+          </div>
+          <div id="alretCheck"></div>
+          <br />
+          <button type="button" class="check-btn"></button>
+          <br />
+          <button type="button" class="loginBtn">
+            <div class="checkBtn" onclick="idCheck()">아이디 확인</div>
           </button>
         </form>
         <div class="link-group">
           <a href="#" onclick="moveUrl('findId')">아이디 찾기</a>
-          <a href="#" onclick="moveUrl('findPw')">비밀번호 찾기</a>
           <a href="#" onclick="moveUrl('join')">회원가입</a>
         </div>
       </div>
     </div>
-    <script src="/static/js/login.js"></script>
+    <script src="/static/js/findPw.js"></script>
   </body>
 </html>

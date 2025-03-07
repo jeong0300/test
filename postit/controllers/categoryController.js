@@ -1,7 +1,7 @@
 const db = require("../models");
 require("dotenv").config();
 
-const Category = db.categories;
+const Category = db.Category;
 
 // 모든 카테고리
 const getAllCategories = async (req, res) => {

@@ -17,12 +17,14 @@ body {
 
 .logo {
   display: flex;
+  flex-direction: column;
   position: absolute;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   top: -30px;
+  gap: 30px;
   opacity: 0;
   transform: translateY(50px);
   animation: moveUpLogo 1s forwards;
@@ -42,6 +44,23 @@ body {
 
 .logo img {
   max-width: 100%;
+}
+
+.write {
+  display: flex;
+  width: 300px;
+  height: 50px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.7) 30%,
+    rgba(255, 255, 255, 0.7) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .caroselImg {
@@ -68,7 +87,7 @@ body {
   justify-content: center;
   width: 100%;
   height: 100%;
-  top: 200px;
+  top: 300px;
   z-index: 1;
 }
 
@@ -82,6 +101,7 @@ body {
   opacity: 0;
   transform: translateY(50px);
   animation: moveUp 1s forwards;
+  cursor: pointer;
 }
 
 .category:nth-child(1) {
@@ -115,10 +135,19 @@ body {
   }
 }
 
-.category img {
+.imgContainer {
+  position: relative;
   width: 100%;
   height: auto;
-  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: auto;
+  max-width: 280px;
   max-height: 350px;
   object-fit: contain;
   margin: 0 auto;
@@ -131,6 +160,60 @@ body {
   );
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
 .text {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.text h4 {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.mainContainer {
+  max-width: 1280px;
+  height: 1000px; /* 임의. db 연결하고 auto로 수정*/
+}
+
+.ProfileContainer {
+  position: sticky;
+  width: 30%;
+}
+
+.write {
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: rgb(101, 100, 100);
+}
+
+@media screen and (max-width: 900px) {
+  .categorys {
+    top: 220px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .categorys {
+    display: none;
+  }
 }

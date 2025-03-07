@@ -20,12 +20,23 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>POSTIT</title>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <%- include("nav") %>
+
     <div class="topContainer">
       <div class="carosel">
         <img
@@ -35,43 +46,73 @@
         />
         <div class="logo">
           <img src="/static/images/postitLogo.png" alt="postit logo" />
+          <div class="write" onclick="moveWrite('write')">글 작성하기</div>
         </div>
       </div>
 
       <div class="categorys">
         <div class="category">
-          <img src="/static/images/category1.jpg" alt="trip image" />
-          <div class="text">
-            <h6>여행 후기 & 정보</h6>
+          <div class="imgContainer">
+            <img src="/static/images/category1.jpg" alt="trip image" />
+            <div class="overlay"></div>
+            <div class="text">
+              <h4>
+                Travel Reviews <br />
+                & <br />
+                Information
+              </h4>
+            </div>
           </div>
         </div>
         <div class="category">
-          <img src="/static/images/category2.jpg" alt="trip image" />
-          <div class="text">
-            <h6>숙박 정보</h6>
+          <div class="imgContainer">
+            <img src="/static/images/category2.jpg" alt="trip image" />
+            <div class="overlay"></div>
+            <div class="text">
+              <h4>
+                Accommodation <br />
+                Information
+              </h4>
+            </div>
           </div>
         </div>
         <div class="category">
-          <img src="/static/images/category3.jpg" alt="trip image" />
-          <div class="text">
-            <h6>맛집 & 카페</h6>
+          <div class="imgContainer">
+            <img src="/static/images/category3.jpg" alt="trip image" />
+            <div class="overlay"></div>
+            <div class="text">
+              <h4>Restaurant & Cafe</h4>
+            </div>
           </div>
         </div>
         <div class="category">
-          <img src="/static/images/category4.jpg" alt="trip image" />
-          <div class="text">
-            <h6>자유 게시판</h6>
+          <div class="imgContainer">
+            <img src="/static/images/category4.jpg" alt="trip image" />
+            <div class="overlay"></div>
+            <div class="text">
+              <h4>Free Bulletin Board</h4>
+            </div>
           </div>
         </div>
         <div class="category">
-          <img src="/static/images/category5.jpg" alt="trip image" />
-          <div class="text">
-            <h6>사진 갤러리</h6>
+          <div class="imgContainer">
+            <img src="/static/images/category5.jpg" alt="trip image" />
+            <div class="overlay"></div>
+            <div class="text">
+              <h4>Photo Gallery</h4>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="mainContainer">
+      <div class="ProfileContainer"></div>
+      <div class="postContainer"></div>
+    </div>
+
     <%- include("footer") %>
+
+    <script src="/static/js/main.js"></script>
   </body>
 </html>

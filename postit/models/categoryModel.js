@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     Category.hasMany(models.Post, {
       foreignKey: "category_id",
       onDelete: "SET NULL",
+      constraints: false,
     });
   };
 

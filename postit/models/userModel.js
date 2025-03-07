@@ -19,42 +19,52 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING(255),
         allowNull: false,
-        validate: {
-          len: [8, 255],
-          isStrongPassword(value) {
-            const regex =
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            if (!regex.test(value)) {
-              throw new Error(
-                "비밀번호는 최소 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다."
-              );
-            }
-          },
-        },
+        // validate: {
+        //   len: [8, 255],
+        //   isStrongPassword(value) {
+        //     const regex =
+        //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        //     if (!regex.test(value)) {
+        //       throw new Error(
+        //         "비밀번호는 최소 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다."
+        //       );
+        //     }
+        //   },
+        // },
       },
       username: {
         type: DataTypes.STRING(35),
         allowNull: false,
       },
-      address: {
+      address_main: {
+        // 도로명 주소
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      address_detail: {
+        // 상세주소
         type: DataTypes.STRING(255),
         allowNull: true,
       },
       gender: {
-        type: DataTypes.ENUM("남", "여"),
+        type: DataTypes.ENUM("man", "woman"),
         allowNull: false,
       },
-      birthdate: {
+      birthDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
       phone: {
-        type: DataTypes.STRING(15),
+        type: DataTypes.STRING(13),
         allowNull: false,
         unique: true,
         validate: {
-          is: /^[0-9]{10,11}$/,
+          is: /^01[0-9]-\d{3,4}-\d{4}$/,
         },
+      },
+      image_url: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
       },
     },
     {

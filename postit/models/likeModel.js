@@ -11,10 +11,20 @@ module.exports = (sequelize, DataTypes) => {
       user_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       post_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        references: {
+          model: "Post",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
     },
     {

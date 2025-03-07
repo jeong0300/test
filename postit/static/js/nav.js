@@ -2,7 +2,7 @@ window.addEventListener("scroll", function () {
   let header = document.querySelector(".header");
   if (window.scrollY > 0) {
     header.style.position = "fixed";
-    header.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+    header.style.backgroundColor = "rgba(74, 68, 113, 0.7)";
   } else {
     header.style.position = "absolute";
     header.style.backgroundColor = "transparent";
@@ -33,6 +33,11 @@ function moveUrl(url) {
   window.location.href = `/postit/${url}`;
 }
 
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "/";
+}
+
 // 로그인, 로그아웃
 document.addEventListener("DOMContentLoaded", async function () {
   const joinBox = document.querySelector(".joinBox");
@@ -42,56 +47,48 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const token = localStorage.getItem("token");
 
-  // 토글 안 아이콘들
   if (token) {
-    loginBefore.style.display = "block";
-    loginAfter.style.display = "none";
-  } else {
     loginBefore.style.display = "none";
     loginAfter.style.display = "block";
-  }
 
-  // 네비게이션 로그인, 로그아웃 버튼
-  if (token) {
     try {
-      // 토큰 검증 따로 만드는 게 좋을 것 같음
-      const response = await axios("/user/", {
-        method: "POST",
+      const response = await axios(`/user/getUser`, {
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (!response.ok) {
-        throw new Error("유저 정보를 불러올 수 없음");
-      }
-
-      const { username } = await response.json();
 
       // 기존 버튼들 삭제
       joinBox.innerHTML = "";
 
       // 유저 이름 추가
       const userNameElem = document.createElement("span");
-      userNameElem.textContent = `${username} 님`;
+      userNameElem.classList.add("white");
+      userNameElem.textContent = `${response.data.username} 님`;
       userNameElem.style.marginRight = "10px";
 
       const logoutDiv = document.createElement("div");
-      logoutDiv.classList.add("join");
+      logoutDiv.classList.add("logout");
+
       const logoutBtn = document.createElement("a");
       logoutBtn.href = "#";
       logoutBtn.textContent = "로그아웃";
 
       logoutBtn.addEventListener("click", function () {
         localStorage.removeItem("token");
-        location.reload();
+        window.location.href = "/";
       });
 
+      logoutDiv.appendChild(logoutBtn);
+
       joinBox.appendChild(userNameElem);
-      joinBox.appendChild(logoutBtn);
+      joinBox.appendChild(logoutDiv);
     } catch (error) {
       console.error(error);
     }
+  } else {
+    loginBefore.style.display = "block";
+    loginAfter.style.display = "none";
   }
 });

@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/static/css/join.css" />
+
     <!-- 경고창 -->
     <link
       rel="stylesheet"
@@ -17,14 +18,12 @@
       rel="stylesheet"
     />
 
-    <!-- 다음 api -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Join</title>
+    <title>SignUp</title>
   </head>
   <body>
     <%- include("nav") %>
@@ -58,6 +57,8 @@
           <div class="check-btn" onclick="idCheck()">중복확인</div>
 
           <br />
+          <hr />
+
           <div class="input-group">
             <label for="name">이름</label>
             <input
@@ -69,6 +70,7 @@
           </div>
           <br />
 
+          <hr />
           <div class="input-group">
             <label for="password">비밀번호</label>
             <input
@@ -77,10 +79,10 @@
               id="pass"
               placeholder="비밀번호를 입력해 주세요"
               required
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$"
-              title="비밀번호는 8자 이상, 대소문자 하나씩 포함, 특수문자 하나 이상 포함해야 합니다."
             />
           </div>
+
+          <div class="alret"></div>
 
           <br />
 
@@ -91,90 +93,93 @@
               name="passCheck"
               id="passCheck"
               placeholder="비밀번호를 확인해 주세요"
+              oninput="pwCheck()"
               required
             />
           </div>
           <div id="alret"></div>
-          <div onclick="passCheck()" class="check-btn">비밀번호 확인</div>
+          <br />
+
+          <hr />
+          <div class="gender">
+            성별
+            <div class="genderContainer">
+              <label class="custom-radio">
+                <input type="radio" name="gender" value="man" checked />
+                <span>남자</span>
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="gender" value="woman" />
+                <span>여자</span>
+              </label>
+            </div>
+          </div>
+
+          <hr />
+          <br />
+
+          <div class="phoneBox">
+            전화번호
+            <div class="phoneInputs">
+              <input
+                type="number"
+                name="areaCode"
+                maxlength="3"
+                required
+                placeholder="010"
+                oninput="handleOnInput(this, 3)"
+              />
+              <p>-</p>
+              <input
+                type="number"
+                name="middleNumber"
+                maxlength="4"
+                required
+                placeholder="0000"
+                oninput="handleOnInput(this, 4)"
+              />
+              <p>-</p>
+              <input
+                type="number"
+                name="lastNumber"
+                maxlength="4"
+                required
+                placeholder="0000"
+                oninput="handleOnInput(this, 4)"
+              />
+            </div>
+          </div>
+          <div class="alret"></div>
+          <div onclick="phoneCheck()" class="check-btn">전화번호 확인</div>
 
           <br />
-          <div class="gender">
-            <label class="switch">
-              <input type="radio" name="gender" value="man" checked />
-              <span class="slider"></span>
-            </label>
-            <span>남자</span>
-            <span>여자</span>
-          </div>
-
-          전화번호
-          <div class="input-group">
-            <input
-              type="number"
-              name="areaCode"
-              maxlength="3"
-              required
-              pattern="^(01[0-9])$"
-              title="010, 011 등 올바른 형식을 입력해주세요."
-              placeholder="010"
-            />
-            -
-            <input
-              type="number"
-              name="middleNumber"
-              maxlength="4"
-              required
-              pattern="^\d{4}$"
-              title="4자리"
-              placeholder="xxxx"
-            />
-            -
-            <input
-              type="number"
-              name="lastNumber"
-              maxlength="4"
-              required
-              pattern="^\d{4}$"
-              title="4자리"
-              placeholder="xxxx"
-            />
-          </div>
+          <hr />
 
           <div class="birth">
             생년월일
-            <select class="box" id="birth-year">
-              <option disabled selected>출생 연도</option>
-            </select>
-            <select class="box" id="birth-month">
-              <option disabled selected>월</option>
-            </select>
-            <select class="box" id="birth-day">
-              <option disabled selected>일</option>
-            </select>
+            <div class="birthInputs">
+              <select class="box" id="birth-year">
+                <option disabled selected>출생 연도</option>
+              </select>
+              <select class="box" id="birth-month">
+                <option disabled selected>월</option>
+              </select>
+              <select class="box" id="birth-day">
+                <option disabled selected>일</option>
+              </select>
+            </div>
           </div>
 
-          <div class="adress">
-            <input type="text" id="sample6_postcode" placeholder="우편번호" />
-            <input
-              type="button"
-              onclick="sample6_execDaumPostcode()"
-              value="우편번호 찾기"
-            /><br />
-            <input type="text" id="sample6_address" placeholder="주소" /><br />
-            <input
-              type="text"
-              id="sample6_detailAddress"
-              placeholder="상세주소"
-            />
-            <input
-              type="text"
-              id="sample6_extraAddress"
-              placeholder="참고항목"
-            />
-          </div>
-          <button type="button" class="joinBtn" onclick="join()">
+          <br />
+          <button
+            type="button"
+            class="joinBtn"
+            onclick="join()"
+            disabled="disabled"
+          >
             회원가입
           </button>
+
           <div class="link-group">
             <a href="/postit/login">로그인하러 가기</a>
           </div>
