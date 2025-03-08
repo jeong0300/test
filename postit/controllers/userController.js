@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
+const axios = require("axios");
 require("dotenv").config();
 
 const User = db.User;
@@ -128,8 +129,6 @@ const loginUser = async (req, res) => {
 const authenticateToken = (req, res, next) => {
   const authHeader = req.header("Authorization");
 
-  console.log(authHeader);
-
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(403).json({ message: "유효한 토큰이 필요합니다" });
   }
@@ -150,6 +149,7 @@ const authenticateToken = (req, res, next) => {
 // 로그인 후
 const getUserByIdNav = async (req, res) => {
   try {
+    console.log(req.user);
     const username = req.user.username;
     const user = await User.findOne({ where: { username: username } });
 
@@ -159,6 +159,7 @@ const getUserByIdNav = async (req, res) => {
 
     res.status(200).json({
       username: user.username,
+      password: user.password,
     });
   } catch (err) {
     console.error(err);
@@ -372,6 +373,81 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+// 네이버 로그인
+const naverLogin = (req, res) => {
+  res.json({
+    clientId: process.env.NAVER_CLIENT_ID,
+    callbackUrl: process.env.NAVER_CALLBACK_URL,
+    serviceUrl: process.env.NAVER_SERVICE_URL,
+  });
+};
+
+// 콜백 요청
+const callBack = async (req, res) => {
+  const { access_token, state } = req.query;
+
+  if (!access_token || !state) {
+    return res.render("callback");
+  }
+
+  try {
+    const response = await axios.get("https://openapi.naver.com/v1/nid/me", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    const profile = response.data.response;
+    if (!profile.email) {
+      return res
+        .status(400)
+        .json({ error: "Naver profile does not contain email" });
+    }
+
+    let user = await User.findOne({ where: { email: profile.email } });
+
+    const phoneNumber = profile.mobile.replace(/[^0-9]/g, "");
+    const formattedPhone = phoneNumber.replace(
+      /(\d{3})(\d{4})(\d{4})/,
+      "$1-$2-$3"
+    );
+
+    if (!user) {
+      user = await User.create({
+        email: profile.email,
+        password: "",
+        username: profile.nickname || "NaverUser",
+        gender: profile.gender === "M" ? "man" : "woman",
+        birthDate: profile.birthyear ? `${profile.birthyear}-01-01` : null,
+        phone: formattedPhone,
+        image_url: profile.profile_image || null,
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        provider: "naver",
+        username: user.username,
+        phone: user.phone,
+        image_url: user.image_url,
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "1h" }
+    );
+
+    res.json({
+      success: true,
+      token,
+      message: "Login successful",
+    });
+  } catch (error) {
+    console.error("Error processing Naver callback", error);
+    res.status(500).json({ error: "Failed to process Naver callback" });
+  }
+};
+
 // 컨트롤러 내보내기
 module.exports = {
   checkEmail,
@@ -391,4 +467,6 @@ module.exports = {
   changePass,
   upload,
   getUserProfile,
+  naverLogin,
+  callBack,
 };

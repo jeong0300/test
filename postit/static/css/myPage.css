@@ -117,7 +117,7 @@ body {
   text-align: center;
 }
 
-.image-upload input {
+.image-upload #imageInput {
   display: none;
 }
 

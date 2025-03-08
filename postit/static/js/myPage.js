@@ -48,6 +48,36 @@ function sample6_execDaumPostcode() {
   }).open();
 }
 
+// 네이버, 카카오의 경우 비밀번호 변경 막기
+document.addEventListener("DOMContentLoaded", async function () {
+  const token = localStorage.getItem("token");
+  const pass = document.getElementById("pass");
+  const passCheck = document.getElementById("passCheck");
+
+  if (token) {
+    try {
+      const response = await axios(`/user/getUser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const user = response.data;
+
+      if (!user.password || user.password === "" || user.provider === "naver") {
+        pass.disabled = true;
+        passCheck.disabled = true;
+      } else {
+        pass.disabled = false;
+        passCheck.disabled = false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+});
+
 // 페이지 로드 시 이미지 처리
 window.onload = async function () {
   const preview = document.getElementById("preview");
@@ -119,9 +149,6 @@ async function previewImage(event) {
       const uploadedImageUrl = await uploadImage(file);
       if (uploadedImageUrl) {
         preview.src = uploadedImageUrl;
-        preview.style.display = "block";
-        label.style.display = "none";
-        imageUpload.style.border = "2px solid transparent";
         preview.dataset.imageUrl = uploadedImageUrl;
       } else {
         alert("이미지 업로드 실패");
@@ -142,6 +169,22 @@ async function previewImage(event) {
     imageUpload.style.border = "2px dashed #ccc";
   }
 }
+
+// 이미지 삭제
+let imageDeleted = false;
+
+const deleteProfile = () => {
+  const preview = document.getElementById("preview");
+  const imageInput = document.getElementById("imageInput");
+
+  preview.src = "/static/images/profile.png";
+  preview.dataset.imageUrl = "";
+  imageDeleted = true;
+
+  imageInput.value = "";
+  imageInput.type = "text";
+  imageInput.type = "file";
+};
 
 const changeBtn = document.querySelector(".changeBtn");
 // 비밀번호 일치
@@ -179,12 +222,12 @@ document.getElementById("pass").addEventListener("input", function () {
 
 // 버튼 활성화, 비활성화
 function pwCheckCondition() {
-  const check = document.querySelector(".check").innerHTML;
-  const alert = document.getElementById("alret").innerHTML;
-  if (
-    (check === "" && alert === "동일한 비밀번호입니다.") ||
-    (check === "" && alert === "")
-  ) {
+  const check = document.querySelector(".check").textContent.trim();
+  const alert = document.getElementById("alret").textContent.trim();
+
+  console.log(alert);
+  if (check === "" && alert === "동일한 비밀번호입니다.") {
+    console.log("dd");
     changeBtn.disabled = false;
   } else {
     changeBtn.disabled = true;
@@ -192,23 +235,29 @@ function pwCheckCondition() {
 }
 
 // 정보 수정 함수
-const changeInfo = async () => {
+async function changeInfo() {
   const password = document.getElementById("pass").value;
   const address_main = document.getElementById("address").value;
   const address_detail = document.getElementById("detailAddress").value;
   const imageInput = document.getElementById("imageInput");
+  const preview = document.getElementById("preview");
 
   const formData = new FormData();
 
-  if (imageInput.files.length > 0) {
-    console.log("이미지 추가");
+  if (imageDeleted) {
+    formData.append("imageDeleted", true);
+  } else if (imageInput.files.length > 0) {
     formData.append("image", imageInput.files[0]);
+  } else if (
+    preview.dataset.imageUrl &&
+    preview.dataset.imageUrl !== "/static/images/profile.png"
+  ) {
+    formData.append("imageUrl", preview.dataset.imageUrl);
   }
 
   if (password.trim()) {
     formData.append("password", password);
   }
-
   if (address_main.trim()) {
     formData.append("address_main", address_main);
   }
@@ -217,8 +266,6 @@ const changeInfo = async () => {
   }
 
   try {
-    console.log(formData);
-
     const response = await axios.put(`/user/info`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -242,7 +289,7 @@ const changeInfo = async () => {
     });
     console.error("Error:", error);
   }
-};
+}
 
 // 탈퇴 요청
 const deleteUser = () => {};

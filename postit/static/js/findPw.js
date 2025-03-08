@@ -4,7 +4,7 @@ let passwordsOkay = false;
 
 const enableJoinButton = () => {
   const ClearBtn = document.querySelector(".checkBtn");
-  console.log(ClearBtn);
+
   if (passwordsMatch && passwordsOkay) {
     ClearBtn.removeAttribute("disabled");
   } else {
@@ -53,6 +53,40 @@ document.getElementById("pass").addEventListener("input", function () {
   enableJoinButton();
 });
 
+// 비밃번호 변경
+const pwChange = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("pass").value;
+
+  const data = { email, password };
+
+  try {
+    const res = await axios.put("/user/changePass", data);
+
+    if (res.data.success) {
+      Swal.fire({
+        title: `비밀번호가 변경되었습니다.`,
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "확인",
+      }).then((result) => {
+        window.location.href = "/postit/login";
+      });
+    } else {
+      Swal.fire({
+        title: "비밀번호를 다시 변경하여 주세요",
+        icon: "error",
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      title: "서버 오류 발생",
+      icon: "error",
+    });
+    console.error("Error:", error);
+  }
+};
+
 // 비밀번호 찾기
 const idCheck = async () => {
   const email = document.getElementById("email").value;
@@ -93,43 +127,6 @@ const idCheck = async () => {
     } else {
       Swal.fire({
         text: "해당 정보로 가입된 아이디가 없습니다.",
-        icon: "error",
-      });
-    }
-  } catch (error) {
-    Swal.fire({
-      title: "서버 오류 발생",
-      icon: "error",
-    });
-    console.error("Error:", error);
-  }
-};
-
-// 창 크기 변경 시 반응형 처리
-window.addEventListener("resize", updateLayout);
-
-// 비밃번호 변경
-const pwChange = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("pass").value;
-
-  const data = { email, password };
-
-  try {
-    const res = await axios.put("/user/changePass", data);
-
-    if (res.data.success) {
-      Swal.fire({
-        title: `비밀번호가 변경되었습니다.`,
-        icon: "success",
-        showCancelButton: true,
-        confirmButtonText: "확인",
-      }).then((result) => {
-        window.location.href = "/postit/login";
-      });
-    } else {
-      Swal.fire({
-        title: "비밀번호를 다시 변경하여 주세요",
         icon: "error",
       });
     }

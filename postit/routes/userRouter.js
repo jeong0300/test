@@ -41,6 +41,10 @@ router.get(
   userController.getUserProfile
 );
 
+router.get("/naver", userController.naverLogin);
+
+router.get("/callback", userController.callBack);
+
 // 아이디 중복 확인
 router.post("/check", userController.checkEmail);
 

@@ -44,10 +44,24 @@ function moveUrl(url) {
 }
 
 // 네이버 로그인
-var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-var state = naver_id_login.getUniqState();
-naver_id_login.setButton("white", 2, 40);
-naver_id_login.setDomain("YOUR_SERVICE_URL");
-naver_id_login.setState(state);
-naver_id_login.setPopup();
-naver_id_login.init_naver_id_login();
+function initializeNaverLogin() {
+  axios
+    .get("/user/naver")
+    .then((response) => {
+      const config = response.data;
+
+      var naver_id_login = new window.naver_id_login(
+        config.clientId,
+        config.callbackUrl
+      );
+      var state = naver_id_login.getUniqState();
+      naver_id_login.setButton("white", 2, 40);
+      naver_id_login.setDomain(config.serviceUrl);
+      naver_id_login.setState(state);
+      naver_id_login.setPopup();
+      naver_id_login.init_naver_id_login();
+    })
+    .catch((error) => {
+      console.error("Error fetching Naver config:", error);
+    });
+}

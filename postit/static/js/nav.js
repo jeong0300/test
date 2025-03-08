@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const token = localStorage.getItem("token");
 
+  console.log(token);
+
   if (token) {
     loginBefore.style.display = "none";
     loginAfter.style.display = "block";
@@ -66,7 +68,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const userNameElem = document.createElement("span");
       userNameElem.classList.add("white");
       userNameElem.textContent = `${response.data.username} 님`;
-      userNameElem.style.marginRight = "10px";
 
       const logoutDiv = document.createElement("div");
       logoutDiv.classList.add("logout");

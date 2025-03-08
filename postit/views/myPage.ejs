@@ -58,15 +58,11 @@
               name="image"
               onchange="previewImage(event)"
             />
-            <img
-              id="preview"
-              src=""
-              alt="이미지 미리보기"
-              style="display: block"
-            />
+            <img id="preview" alt="이미지 미리보기" style="display: block" />
           </div>
 
-          <button onclick="deleteProfile()">삭제</button>
+          <input type="file" onchange="previewImage(event)" />
+          <button type="button" onclick="deleteProfile()">삭제</button>
         </div>
         <div class="passwordGroup">
           <h3>비밀번호 변경</h3>
@@ -79,6 +75,7 @@
               id="pass"
               placeholder="비밀번호를 입력해 주세요"
               required
+              disabled
             />
           </div>
           <div class="check"></div>
@@ -91,6 +88,7 @@
               placeholder="비밀번호를 확인해 주세요"
               oninput="pwCheck()"
               required
+              disabled
             />
           </div>
           <div id="alret"></div>
@@ -132,7 +130,7 @@
       </form>
     </div>
 
-    <%- include("footer") %>
+    <!-- <%- include("footer") %> -->
 
     <script src="/static/js/myPage.js"></script>
   </body>

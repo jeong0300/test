@@ -2,6 +2,17 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/static/css/login.css" />
+    <!-- 네이버 로그인 -->
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+      charset="utf-8"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.11.3.min.js"
+    ></script>
     <!-- 경고창 -->
     <link
       rel="stylesheet"
@@ -22,17 +33,6 @@
     <title>Login</title>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!-- 네이버 로그인 -->
-    <script
-      type="text/javascript"
-      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-      charset="utf-8"
-    ></script>
-    <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-1.11.3.min.js"
-    ></script>
   </head>
   <body>
     <%- include("nav") %>
@@ -78,6 +78,7 @@
 
           <hr />
           <div id="naver_id_login"></div>
+          <div class="snsLogin"></div>
 
           <br />
           <button type="button" class="loginBtn" onclick="loginCheck()">
@@ -86,8 +87,6 @@
         </form>
         <hr />
 
-        <div class="naverLogin"></div>
-
         <div class="link-group">
           <a href="#" onclick="moveUrl('findId')">아이디 찾기</a>
           <a href="#" onclick="moveUrl('findPw')">비밀번호 찾기</a>
@@ -95,6 +94,11 @@
         </div>
       </div>
     </div>
-    <script src="/static/js/login.js"></script>
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+      charset="utf-8"
+    ></script>
+    <script src="/static/js/login.js" onload="initializeNaverLogin()"></script>
   </body>
 </html>
