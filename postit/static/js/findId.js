@@ -14,18 +14,21 @@ const loginCheck = async () => {
 
     if (res.data.email) {
       Swal.fire({
-        title: `해당 아이디: ${res.data.email}`,
+        title: `${username}님의 아이디`,
+        text: `${res.data.email}`,
         icon: "success",
+      }).then((result) => {
+        window.location.href = "/postit/login";
       });
     } else {
       Swal.fire({
-        title: "해당 정보로 가입된 아이디가 없습니다.",
+        text: "해당 정보로 가입된 아이디가 없습니다.",
         icon: "error",
       });
     }
   } catch (error) {
     Swal.fire({
-      title: "서버 오류 발생",
+      text: "이름 및 전화번호가 맞는지 확인하여 주세요.",
       icon: "error",
     });
     console.error("Error:", error);

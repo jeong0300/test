@@ -74,7 +74,7 @@ const pwChange = async () => {
       });
     } else {
       Swal.fire({
-        title: "비밀번호를 다시 변경하여 주세요",
+        text: "비밀번호를 다시 변경하여 주세요",
         icon: "error",
       });
     }

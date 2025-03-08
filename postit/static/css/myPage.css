@@ -64,6 +64,11 @@ body {
   height: 100vh;
 }
 
+.temporaryBox {
+  width: 100%;
+  position: relative;
+}
+
 .caroselImg {
   width: 100%;
   height: 100vh;
@@ -97,17 +102,17 @@ body {
 /* 이미지 미리보기 */
 .image-upload {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   background-color: #f0f0f0;
   border: 2px dashed #ccc;
-  border-radius: 50%;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   overflow: hidden;
-  margin-right: 20px;
+  margin: 20px 0 0 0;
 }
 
 .image-upload span {
@@ -115,10 +120,6 @@ body {
   font-weight: bold;
   color: #666;
   text-align: center;
-}
-
-.image-upload #imageInput {
-  display: none;
 }
 
 #preview {
@@ -131,37 +132,105 @@ body {
 
 /* 계정 폼 */
 form {
+  position: relative;
+  top: 750px;
+  left: 17%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  z-index: 10;
-  width: 100%;
-  align-items: center;
-  top: 250px;
-  overflow: hidden;
+  margin: 50px auto;
+  max-width: 550px;
+  width: 90%;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.551);
+  border: 1px solid rgb(121, 121, 121);
+  border-radius: 10px;
+  padding: 50px;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  animation: slideDownLogin 0.6s ease-out 0.5s forwards;
+
   font-family: "Gothic A1", sans-serif;
   font-weight: 400;
   font-style: normal;
+  text-align: center;
+}
+
+@keyframes slideDownLogin {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 form h3 {
-  color: white;
-  margin-bottom: 10px;
+  font-size: 20px;
+  color: #ffffff;
 }
 
-form hr {
-  width: 150%;
-  color: white;
-  margin-bottom: 30px;
-  border-width: 3px 0 0 0;
-  display: flex;
-  transform: translate(-17%, -50%);
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.profileGroup {
+/* 주소 입력 */
+.addrGroup {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.flexCode {
   display: flex;
-  flex-direction: column;
-  text-align: center;
+  justify-content: space-between;
+}
+
+.flexCode input {
+  width: 48%;
+}
+
+.flexCode .postBtn {
+  margin-right: -11px;
+}
+
+.flexDetail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexDetail input {
+  width: 48%;
+}
+
+/* 비밀번호 변경 */
+.passCheck input {
+  margin-top: 5px;
+}
+
+/* 반응형 */
+@media screen and (max-width: 768px) {
+  form {
+    top: 780px;
+    margin-left: 7px;
+    padding: 30px;
+  }
+
+  .caroselImg {
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profileGroup {
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 480px) {

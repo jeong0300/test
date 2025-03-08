@@ -1,3 +1,26 @@
+// 네이버 버튼 커스텀
+document.addEventListener("DOMContentLoaded", function () {
+  const targetNode = document.getElementById("naver_id_login");
+
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      const img = document.querySelector("#naver_id_login a img");
+      if (img) {
+        img.src = "/static/images/naver_login.png";
+        img.style.width = "150px";
+        observer.disconnect();
+      }
+    });
+  });
+
+  // 옵션 설정: 자식 노드 변화 감지
+  const config = { childList: true, subtree: true };
+
+  // MutationObserver 시작
+  observer.observe(targetNode, config);
+});
+
+// 로그인
 const loginCheck = () => {
   const email = document.getElementById("email").value;
   const pass = document.getElementById("pass").value;

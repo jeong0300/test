@@ -31,106 +31,111 @@
     <%- include("nav") %>
 
     <div class="carosel">
-      <div class="caroselContainer">
-        <img
-          class="caroselImg"
-          src="/static/images/mainCarosel.jpg"
-          alt="carosel image"
-        />
-        <div class="overlay"></div>
-      </div>
-      <div class="logo">
-        <img src="/static/images/myPageIcon.png" alt="signUp logo" />
-      </div>
+      <div class="temporaryBox">
+        <div class="caroselContainer">
+          <img
+            class="caroselImg"
+            src="/static/images/mainCarosel.jpg"
+            alt="carosel image"
+          />
+          <div class="overlay"></div>
+        </div>
+        <div class="logo">
+          <img src="/static/images/myPageIcon.png" alt="signUp logo" />
+        </div>
 
-      <form>
-        <div class="profileGroup">
-          <h3>프로필 사진 변경</h3>
-          <hr />
-          <div
-            class="image-upload"
-            onclick="document.getElementById('imageInput').click()"
-          >
-            <span id="imageLabel">이미지 선택</span>
+        <form>
+          <div class="profileGroup">
+            <h3>프로필 사진 변경</h3>
+            <hr />
+            <div
+              class="image-upload"
+              onclick="document.getElementById('imageInput').click()"
+            >
+              <span id="imageLabel">이미지 선택</span>
+
+              <img id="preview" alt="이미지 미리보기" style="display: block" />
+            </div>
+
             <input
               type="file"
               id="imageInput"
               name="image"
               onchange="previewImage(event)"
             />
-            <img id="preview" alt="이미지 미리보기" style="display: block" />
+            <button type="button" onclick="deleteProfile()">삭제</button>
           </div>
-
-          <input type="file" onchange="previewImage(event)" />
-          <button type="button" onclick="deleteProfile()">삭제</button>
-        </div>
-        <div class="passwordGroup">
-          <h3>비밀번호 변경</h3>
-          <hr />
-          <div class="passChange">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              name="pass"
-              id="pass"
-              placeholder="비밀번호를 입력해 주세요"
-              required
-              disabled
-            />
-          </div>
-          <div class="check"></div>
-          <div class="passCheck">
-            <label for="password">비밀번호 재확인</label>
-            <input
-              type="password"
-              name="passCheck"
-              id="passCheck"
-              placeholder="비밀번호를 확인해 주세요"
-              oninput="pwCheck()"
-              required
-              disabled
-            />
-          </div>
-          <div id="alret"></div>
-        </div>
-        <br />
-
-        <br />
-        <div class="addrGroup">
-          <h3>주소 변경</h3>
-          <hr />
-          <div class="adress">
-            <div class="flexCode">
-              <input type="text" id="sample6_postcode" placeholder="우편번호" />
+          <div class="passwordGroup">
+            <h3>비밀번호 변경</h3>
+            <hr />
+            <div class="passChange">
+              <label for="password">비밀번호</label>
               <input
-                type="button"
-                onclick="sample6_execDaumPostcode()"
-                value="우편번호 찾기"
-              /><br />
-            </div>
-            <input type="text" id="address" placeholder="주소" /><br />
-            <div class="flexDetail">
-              <input type="text" id="detailAddress" placeholder="상세주소" />
-              <input
-                type="text"
-                id="sample6_extraAddress"
-                placeholder="참고항목"
+                type="password"
+                name="pass"
+                id="pass"
+                placeholder="비밀번호를 입력해 주세요"
+                required
+                disabled
               />
             </div>
+            <div class="check"></div>
+            <div class="passCheck">
+              <label for="password">비밀번호 재확인</label>
+              <input
+                type="password"
+                name="passCheck"
+                id="passCheck"
+                placeholder="비밀번호를 확인해 주세요"
+                oninput="pwCheck()"
+                required
+                disabled
+              />
+            </div>
+            <div id="alret"></div>
           </div>
-        </div>
+          <br />
 
-        <br />
-        <button type="button" class="changeBtn" onclick="changeInfo()">
-          변경하기
-        </button>
-        <button type="button" class="secession" onclick="deleteUser()">
-          탈퇴하기
-        </button>
-      </form>
+          <br />
+          <div class="addrGroup">
+            <h3>주소 변경</h3>
+            <hr />
+            <div class="adress">
+              <div class="flexCode">
+                <input
+                  type="text"
+                  id="sample6_postcode"
+                  placeholder="우편번호"
+                />
+                <input
+                  type="button"
+                  class="postBtn"
+                  onclick="sample6_execDaumPostcode()"
+                  value="우편번호 찾기"
+                /><br />
+              </div>
+              <input type="text" id="address" placeholder="주소" /><br />
+              <div class="flexDetail">
+                <input type="text" id="detailAddress" placeholder="상세주소" />
+                <input
+                  type="text"
+                  id="sample6_extraAddress"
+                  placeholder="참고항목"
+                />
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <button type="button" class="changeBtn" onclick="changeInfo()">
+            변경하기
+          </button>
+          <button type="button" class="secession" onclick="deleteUser()">
+            탈퇴하기
+          </button>
+        </form>
+      </div>
     </div>
-
-    <!-- <%- include("footer") %> -->
 
     <script src="/static/js/myPage.js"></script>
   </body>

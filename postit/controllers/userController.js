@@ -149,7 +149,6 @@ const authenticateToken = (req, res, next) => {
 // 로그인 후
 const getUserByIdNav = async (req, res) => {
   try {
-    console.log(req.user);
     const username = req.user.username;
     const user = await User.findOne({ where: { username: username } });
 
@@ -353,7 +352,6 @@ const uploadImage = (req, res) => {
 const getUserProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log("id", userId);
     const user = await User.findOne({ where: { id: userId } });
 
     if (!user) {

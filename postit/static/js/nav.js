@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const token = localStorage.getItem("token");
 
-  console.log(token);
-
   if (token) {
     loginBefore.style.display = "none";
     loginAfter.style.display = "block";
