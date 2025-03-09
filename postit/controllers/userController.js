@@ -299,6 +299,28 @@ const updateUser = async (req, res) => {
       updateData.password = await bcrypt.hash(updateData.password, 10);
     }
 
+    if (updateData.imageDeleted === "true") {
+      updateData.image_url = "/static/images/profile.png";
+
+      // 기존 이미지 경로가 존재하는지 확인
+      if (
+        req.user.image_url &&
+        req.user.image_url !== "/static/images/profile.png"
+      ) {
+        const oldImagePath = path.join(
+          __dirname,
+          "..",
+          "uploads",
+          req.user.image_url
+        );
+
+        if (fs.existsSync(oldImagePath)) {
+          // 기존 경로 삭제
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+    }
+
     if (req.file) {
       const imageUrl = `/uploads/${req.file.filename}`;
       updateData.image_url = imageUrl;
@@ -324,7 +346,12 @@ const updateUser = async (req, res) => {
 // 사용자 삭제 > 탈퇴로 변경할 것 !!
 const deleteUser = async (req, res) => {
   try {
-    let id = req.params.id;
+    const { id } = req.user;
+
+    if (!id) {
+      return res.status(400).json({ message: "사용자 ID가 필요합니다" });
+    }
+
     const deleted = await User.destroy({ where: { id: id } });
 
     if (!deleted) {
@@ -446,6 +473,95 @@ const callBack = async (req, res) => {
   }
 };
 
+// 카카오 로그인
+const kakaoKey = (req, res) => {
+  res.json({ key: process.env.KAKAO_JAVASCRIPT_KEY });
+};
+
+const kakaoRedirect = (req, res) => {
+  const clientId = process.env.KAKAO_CLIENT_ID;
+  const redirectUri = process.env.KAKAO_REDIRECT_URI;
+
+  if (!clientId || !redirectUri) {
+    return res.status(400).json({
+      error: "카카오 클라이언트 ID 또는 리디렉션 URI가 설정되지 않았습니다.",
+    });
+  }
+
+  res.json({ clientId, redirectUri });
+};
+
+const kakaoCallback = async (req, res) => {
+  const { code } = req.query;
+
+  if (!code) {
+    return res.status(400).json({ error: "No code received from Kakao" });
+  }
+
+  try {
+    const accessTokenResponse = await axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      null,
+      {
+        params: {
+          grant_type: "authorization_code",
+          client_id: process.env.KAKAO_CLIENT_ID,
+          redirect_uri: process.env.KAKAO_REDIRECT_URI,
+          code: code,
+        },
+      }
+    );
+
+    const accessToken = accessTokenResponse.data.access_token;
+
+    const userProfileResponse = await axios.get(
+      "https://kapi.kakao.com/v2/user/me",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    const profile = userProfileResponse.data;
+
+    const email = profile.kakao_account.email;
+    const nickname = profile.properties.nickname;
+
+    let user = await User.findOne({ where: { email: email } });
+
+    if (!user) {
+      user = await User.create({
+        email: email,
+        password: "",
+        username: nickname || "Kakao",
+        gender: "man",
+        birthDate: "2000-01-01",
+        phone: "010-0000-0000",
+        image_url: null,
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        provider: "kakao",
+        username: user.username,
+        phone: user.phone,
+        image_url: user.image_url,
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "1h" }
+    );
+
+    res.redirect(`http://localhost:3000/user/login?token=${token}`);
+  } catch (error) {
+    console.error("Error processing Kakao callback", error);
+    res.status(500).json({ error: "Failed to process Kakao callback" });
+  }
+};
+
 // 컨트롤러 내보내기
 module.exports = {
   checkEmail,
@@ -467,4 +583,7 @@ module.exports = {
   getUserProfile,
   naverLogin,
   callBack,
+  kakaoKey,
+  kakaoRedirect,
+  kakaoCallback,
 };

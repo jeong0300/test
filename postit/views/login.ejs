@@ -13,6 +13,10 @@
       type="text/javascript"
       src="http://code.jquery.com/jquery-1.11.3.min.js"
     ></script>
+
+    <!-- 카톡 로그인 -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"></script>
+
     <!-- 경고창 -->
     <link
       rel="stylesheet"
@@ -94,6 +98,9 @@
 
         <div class="snsLogin">
           <div id="naver_id_login"></div>
+          <a id="kakao-login-btn" href="#" onclick="loginWithKakao()">
+            <img src="/static/images/kakaoLoginIcon.png" alt="kakao Icon" />
+          </a>
         </div>
       </div>
     </div>

@@ -3,9 +3,18 @@ body {
   -webkit-user-drag: none;
 }
 
+.backColor {
+  background-color: rgba(181, 167, 183, 0.59);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 맨 위 이미지 */
 .topContainer {
   position: relative;
+  width: 100%;
 }
 
 .carosel {
@@ -61,6 +70,11 @@ body {
   align-items: center;
   cursor: pointer;
   margin-top: 20px;
+
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: rgb(101, 100, 100);
 }
 
 .caroselImg {
@@ -81,13 +95,13 @@ body {
 
 /* 카테고리 */
 .categorys {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  top: 300px;
+  top: -150px;
   z-index: 1;
 }
 
@@ -142,6 +156,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.imgContainer:hover {
+  transform: scale(1.05);
 }
 
 .imgContainer img {
@@ -189,21 +208,19 @@ body {
   font-style: italic;
 }
 
+/* 게시글 */
 .mainContainer {
+  width: 100%;
   max-width: 1280px;
   height: 1000px; /* 임의. db 연결하고 auto로 수정*/
+  padding: 20px;
+  background-color: red;
 }
 
-.ProfileContainer {
-  position: sticky;
-  width: 30%;
-}
-
-.write {
-  font-family: "Gothic A1", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  color: rgb(101, 100, 100);
+.postContainer {
+  background-color: white;
+  width: 20%;
+  height: 300px;
 }
 
 @media screen and (max-width: 900px) {

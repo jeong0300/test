@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 옵션 설정: 자식 노드 변화 감지
   const config = { childList: true, subtree: true };
 
-  // MutationObserver 시작
   observer.observe(targetNode, config);
 });
 
@@ -88,3 +86,46 @@ function initializeNaverLogin() {
       console.error("Error fetching Naver config:", error);
     });
 }
+
+// 카카오 로그인
+axios
+  .get("/user/kakao-key")
+  .then((response) => {
+    Kakao.init(response.data.key);
+  })
+  .catch((error) => {
+    console.error("카카오 API 키 로드 실패:", error);
+  });
+
+function loginWithKakao() {
+  axios
+    .get("/user/kakao")
+    .then((res) => {
+      const { clientId, redirectUri } = res.data;
+
+      if (!clientId || !redirectUri) {
+        throw new Error("clientId 또는 redirectUri가 응답에 없습니다.");
+      }
+
+      const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&response_type=code`;
+
+      window.location.href = kakaoLoginUrl;
+    })
+    .catch((err) => {
+      console.error("카카오 Redirect URI 불러오기 실패:", err);
+      alert("카카오 로그인을 진행할 수 없습니다. 다시 시도해주세요.");
+    });
+}
+
+window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    localStorage.setItem("token", token);
+
+    window.location.href = "/";
+  }
+};

@@ -37,81 +37,82 @@
   <body>
     <%- include("nav") %>
 
-    <div class="topContainer">
-      <div class="carosel">
-        <img
-          class="caroselImg"
-          src="/static/images/mainCarosel.jpg"
-          alt="carosel image"
-        />
-        <div class="logo">
-          <img src="/static/images/postitLogo.png" alt="postit logo" />
-          <div class="write" onclick="moveWrite('write')">글 작성하기</div>
+    <div class="backColor">
+      <div class="topContainer">
+        <div class="carosel">
+          <img
+            class="caroselImg"
+            src="/static/images/mainCarosel.jpg"
+            alt="carosel image"
+          />
+          <div class="logo">
+            <img src="/static/images/postitLogo.png" alt="postit logo" />
+            <div class="write" onclick="moveWrite('write')">글 작성하기</div>
+          </div>
+        </div>
+
+        <div class="categorys">
+          <div class="category">
+            <div class="imgContainer" onclick="moveCategory('trip')">
+              <img src="/static/images/category1.jpg" alt="trip image" />
+              <div class="overlay"></div>
+              <div class="text">
+                <h4>
+                  Travel Reviews <br />
+                  & <br />
+                  Information
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <div class="imgContainer" onclick="moveCategory('info')">
+              <img src="/static/images/category2.jpg" alt="trip image" />
+              <div class="overlay"></div>
+              <div class="text">
+                <h4>
+                  Accommodation <br />
+                  Information
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <div class="imgContainer" onclick="moveCategory('food')">
+              <img src="/static/images/category3.jpg" alt="trip image" />
+              <div class="overlay"></div>
+              <div class="text">
+                <h4>Restaurant & Cafe</h4>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <div class="imgContainer" onclick="moveCategory('free')">
+              <img src="/static/images/category4.jpg" alt="trip image" />
+              <div class="overlay"></div>
+              <div class="text">
+                <h4>Free Bulletin Board</h4>
+              </div>
+            </div>
+          </div>
+          <div class="category">
+            <div class="imgContainer" onclick="moveCategory('photo')">
+              <img src="/static/images/category5.jpg" alt="trip image" />
+              <div class="overlay"></div>
+              <div class="text">
+                <h4>Photo Gallery</h4>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="categorys">
-        <div class="category">
-          <div class="imgContainer">
-            <img src="/static/images/category1.jpg" alt="trip image" />
-            <div class="overlay"></div>
-            <div class="text">
-              <h4>
-                Travel Reviews <br />
-                & <br />
-                Information
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div class="category">
-          <div class="imgContainer">
-            <img src="/static/images/category2.jpg" alt="trip image" />
-            <div class="overlay"></div>
-            <div class="text">
-              <h4>
-                Accommodation <br />
-                Information
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div class="category">
-          <div class="imgContainer">
-            <img src="/static/images/category3.jpg" alt="trip image" />
-            <div class="overlay"></div>
-            <div class="text">
-              <h4>Restaurant & Cafe</h4>
-            </div>
-          </div>
-        </div>
-        <div class="category">
-          <div class="imgContainer">
-            <img src="/static/images/category4.jpg" alt="trip image" />
-            <div class="overlay"></div>
-            <div class="text">
-              <h4>Free Bulletin Board</h4>
-            </div>
-          </div>
-        </div>
-        <div class="category">
-          <div class="imgContainer">
-            <img src="/static/images/category5.jpg" alt="trip image" />
-            <div class="overlay"></div>
-            <div class="text">
-              <h4>Photo Gallery</h4>
-            </div>
-          </div>
-        </div>
+      <div class="mainContainer">
+        <div class="postContainer"></div>
       </div>
-    </div>
 
-    <div class="mainContainer">
-      <div class="ProfileContainer"></div>
-      <div class="postContainer"></div>
+      <%- include("footer") %>
     </div>
-
-    <%- include("footer") %>
 
     <script src="/static/js/main.js"></script>
   </body>

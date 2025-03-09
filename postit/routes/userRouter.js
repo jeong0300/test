@@ -41,9 +41,21 @@ router.get(
   userController.getUserProfile
 );
 
+// 네이버 로그인
 router.get("/naver", userController.naverLogin);
 
 router.get("/callback", userController.callBack);
+
+// 카카오톡 로그인
+router.get("/kakao-key", userController.kakaoKey);
+
+router.get("/kakao", userController.kakaoRedirect);
+
+router.get("/kakao/callback", userController.kakaoCallback);
+
+router.get("/login", (req, res) => {
+  res.render("login");
+});
 
 // 아이디 중복 확인
 router.post("/check", userController.checkEmail);
@@ -85,7 +97,7 @@ router.put(
 
 // 유저 정보 삭제
 router.delete(
-  "/:id",
+  "/deleteUser",
   userController.authenticateToken,
   userController.deleteUser
 );

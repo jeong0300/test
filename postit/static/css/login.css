@@ -247,6 +247,11 @@ input:active {
   justify-content: center;
 }
 
+#kakao-login-btn img {
+  width: 150px;
+  height: 42 px;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .loginBox {
@@ -264,6 +269,7 @@ input:active {
   .loginBox {
     top: 530px;
   }
+
   .logo img {
     max-width: 300px;
   }
@@ -302,5 +308,10 @@ input:active {
   .separator::before,
   .separator::after {
     width: 38%;
+  }
+
+  .snsLogin {
+    flex-direction: column;
+    align-items: center;
   }
 }

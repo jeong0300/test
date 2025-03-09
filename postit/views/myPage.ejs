@@ -31,19 +31,19 @@
     <%- include("nav") %>
 
     <div class="carosel">
-      <div class="temporaryBox">
-        <div class="caroselContainer">
-          <img
-            class="caroselImg"
-            src="/static/images/mainCarosel.jpg"
-            alt="carosel image"
-          />
-          <div class="overlay"></div>
-        </div>
-        <div class="logo">
-          <img src="/static/images/myPageIcon.png" alt="signUp logo" />
-        </div>
+      <div class="caroselContainer">
+        <img
+          class="caroselImg"
+          src="/static/images/mainCarosel.jpg"
+          alt="carosel image"
+        />
+        <div class="overlay"></div>
+      </div>
+      <div class="logo">
+        <img src="/static/images/myPageIcon.png" alt="signUp logo" />
+      </div>
 
+      <div class="temporaryBox">
         <form>
           <div class="profileGroup">
             <h3>프로필 사진 변경</h3>
@@ -62,8 +62,12 @@
               id="imageInput"
               name="image"
               onchange="previewImage(event)"
+              hidden
             />
-            <button type="button" onclick="deleteProfile()">삭제</button>
+            <label for="imageInput" class="check-btn">프로필 사진 변경</label>
+            <button type="button" class="check-btn" onclick="deleteProfile()">
+              사진 삭제
+            </button>
           </div>
           <div class="passwordGroup">
             <h3>비밀번호 변경</h3>
@@ -94,18 +98,16 @@
             </div>
             <div id="alret"></div>
           </div>
-          <br />
-
-          <br />
           <div class="addrGroup">
             <h3>주소 변경</h3>
             <hr />
-            <div class="adress">
+            <div class="address">
               <div class="flexCode">
                 <input
                   type="text"
                   id="sample6_postcode"
                   placeholder="우편번호"
+                  disabled
                 />
                 <input
                   type="button"
@@ -130,6 +132,7 @@
           <button type="button" class="changeBtn" onclick="changeInfo()">
             변경하기
           </button>
+          <hr />
           <button type="button" class="secession" onclick="deleteUser()">
             탈퇴하기
           </button>

@@ -5,11 +5,11 @@ const moveUrl = (req, res) => {
   res.render(url);
 };
 
-const move = async (req, res) => {
+const moveCategory = async (req, res) => {
   const url = req.params.url;
   // 카테고리 별 페이지 이동
   // const product = await products.move(url);
   // res.render(url, { product });
 };
 
-module.exports = { moveUrl, move };
+module.exports = { moveUrl, moveCategory };

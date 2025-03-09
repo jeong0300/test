@@ -50,7 +50,6 @@ function sample6_execDaumPostcode() {
 
 // 네이버, 카카오의 경우 비밀번호 변경 막기
 document.addEventListener("DOMContentLoaded", async function () {
-  const token = localStorage.getItem("token");
   const pass = document.getElementById("pass");
   const passCheck = document.getElementById("passCheck");
 
@@ -117,27 +116,68 @@ window.onload = async function () {
 };
 
 // 이미지 업로드 함수
-async function uploadImage(file) {
-  const formData = new FormData();
-  formData.append("image", file);
-  try {
-    const res = await axios.post("/user/uploadImage", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    if (res.data.imageUrl) {
-      return res.data.imageUrl;
-    } else {
-      alert("이미지 업로드 실패");
-      return "";
-    }
-  } catch (error) {
-    console.error("이미지 업로드 에러:", error);
-    alert("이미지 업로드 중 오류 발생");
-    return "";
-  }
-}
+// async function uploadImage(file) {
+//   const formData = new FormData();
+//   formData.append("image", file);
+//   try {
+//     const res = await axios.post("/user/uploadImage", formData, {
+//       headers: { "Content-Type": "multipart/form-data" },
+//     });
+//     if (res.data.imageUrl) {
+//       return res.data.imageUrl;
+//     } else {
+//       alert("이미지 업로드 실패");
+//       return "";
+//     }
+//   } catch (error) {
+//     console.error("이미지 업로드 에러:", error);
+//     alert("이미지 업로드 중 오류 발생");
+//     return "";
+//   }
+// }
 
-// 파일 선택 후 미리보기 & 업로드 기능
+// async function previewImage(event) {
+//   const file = event.target.files[0];
+//   const preview = document.getElementById("preview");
+//   const label = document.querySelector(".image-upload span");
+//   const imageUpload = document.querySelector(".image-upload");
+
+//   if (file) {
+//     try {
+//       const uploadedImageUrl = await uploadImage(file);
+//       if (uploadedImageUrl) {
+//         preview.src = uploadedImageUrl;
+//         preview.dataset.imageUrl = uploadedImageUrl;
+//       } else {
+//         alert("이미지 업로드 실패");
+//       }
+//     } catch (error) {
+//       console.error("이미지 업로드 중 오류 발생", error);
+//       alert("이미지 업로드 실패");
+//     }
+
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
+//       preview.src = e.target.result;
+//     };
+//     reader.readAsDataURL(file);
+
+//     preview.style.display = "block";
+//     label.style.display = "none";
+//     imageUpload.style.border = "none";
+//   } else {
+//     preview.style.display = "none";
+//     label.style.display = "none";
+//     imageUpload.style.border = "none";
+
+//     const defaultImageUrl =
+//       preview.dataset.imageUrl || "/path/to/default/image.jpg";
+//     preview.src = defaultImageUrl;
+//     preview.style.display = "block";
+//   }
+// }
+
+// 파일 선택 후 미리보기
 async function previewImage(event) {
   const file = event.target.files[0];
   const preview = document.getElementById("preview");
@@ -145,28 +185,24 @@ async function previewImage(event) {
   const imageUpload = document.querySelector(".image-upload");
 
   if (file) {
-    try {
-      const uploadedImageUrl = await uploadImage(file);
-      if (uploadedImageUrl) {
-        preview.src = uploadedImageUrl;
-        preview.dataset.imageUrl = uploadedImageUrl;
-      } else {
-        alert("이미지 업로드 실패");
-      }
-    } catch (error) {
-      console.error("이미지 업로드 중 오류 발생", error);
-      alert("이미지 업로드 실패");
-    }
-
     const reader = new FileReader();
     reader.onload = function (e) {
       preview.src = e.target.result;
     };
     reader.readAsDataURL(file);
+
+    preview.style.display = "block";
+    label.style.display = "none";
+    imageUpload.style.border = "none";
   } else {
     preview.style.display = "none";
-    label.style.display = "block";
-    imageUpload.style.border = "2px dashed #ccc";
+    label.style.display = "none";
+    imageUpload.style.border = "none";
+
+    const defaultImageUrl =
+      preview.dataset.imageUrl || "/static/images/profile.png";
+    preview.src = defaultImageUrl;
+    preview.style.display = "block";
   }
 }
 
@@ -178,9 +214,11 @@ const deleteProfile = () => {
   const imageInput = document.getElementById("imageInput");
 
   preview.src = "/static/images/profile.png";
-  preview.dataset.imageUrl = "";
+  preview.dataset.imageUrl = "/static/images/profile.png";
+
   imageDeleted = true;
 
+  // 파일 input 값 초기화
   imageInput.value = "";
   imageInput.type = "text";
   imageInput.type = "file";
@@ -292,4 +330,46 @@ async function changeInfo() {
 }
 
 // 탈퇴 요청
-const deleteUser = () => {};
+const deleteUser = async () => {
+  // 탈퇴 확인
+  const result = await Swal.fire({
+    title: "탈퇴하시겠습니까?",
+    text: "탈퇴 후 복구가 불가능합니다.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "확인",
+    cancelButtonText: "취소",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const response = await axios.delete("/user/deleteUser", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      Swal.fire({
+        title: "탈퇴가 완료되었습니다.",
+        text: "메인으로 이동됩니다.",
+        icon: "success",
+        confirmButtonText: "확인",
+      }).then(() => {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+      });
+    } catch (error) {
+      console.error("탈퇴 오류", error);
+      Swal.fire({
+        title: "탈퇴 실패",
+        text: "문제가 발생했습니다. 다시 시도해 주세요.",
+        icon: "error",
+      });
+    }
+  } else {
+    Swal.fire({
+      title: "탈퇴가 취소되었습니다.",
+      icon: "info",
+    });
+  }
+};
