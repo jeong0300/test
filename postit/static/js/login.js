@@ -1,23 +1,3 @@
-// 네이버 버튼 커스텀
-document.addEventListener("DOMContentLoaded", function () {
-  const targetNode = document.getElementById("naver_id_login");
-
-  const observer = new MutationObserver(function (mutations) {
-    mutations.forEach(function (mutation) {
-      const img = document.querySelector("#naver_id_login a img");
-      if (img) {
-        img.src = "/static/images/naver_login.png";
-        img.style.width = "150px";
-        observer.disconnect();
-      }
-    });
-  });
-
-  const config = { childList: true, subtree: true };
-
-  observer.observe(targetNode, config);
-});
-
 // 로그인
 const loginCheck = () => {
   const email = document.getElementById("email").value;
@@ -34,10 +14,13 @@ const loginCheck = () => {
   const data = { email, pass };
 
   axios
-    .post("/user/loginUser", data)
+    .post("/user/loginUser", data, { withCredentials: true })
     .then((res) => {
-      if (res.status === 200 && res.data.token) {
-        localStorage.setItem("token", res.data.token);
+      if (res.status === 200) {
+        const token = res.data.token;
+        document.cookie = `token=${token}; path=/; max-age=${
+          24 * 60 * 60
+        }; secure; SameSite=Strict`;
         window.location.href = "/";
       } else {
         Swal.fire({
@@ -65,27 +48,23 @@ function moveUrl(url) {
 }
 
 // 네이버 로그인
-function initializeNaverLogin() {
-  axios
-    .get("/user/naver")
-    .then((response) => {
-      const config = response.data;
+document
+  .getElementById("naverLoginBtn")
+  .addEventListener("click", async function () {
+    await axios
+      .get("/user/naver", { withCredentials: true })
+      .then((response) => {
+        const { clientId, callbackUrl, state } = response.data;
 
-      var naver_id_login = new window.naver_id_login(
-        config.clientId,
-        config.callbackUrl
-      );
-      var state = naver_id_login.getUniqState();
-      naver_id_login.setButton("white", 2, 40);
-      naver_id_login.setDomain(config.serviceUrl);
-      naver_id_login.setState(state);
-      naver_id_login.setPopup();
-      naver_id_login.init_naver_id_login();
-    })
-    .catch((error) => {
-      console.error("Error fetching Naver config:", error);
-    });
-}
+        const loginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackUrl}&state=${state}`;
+
+        window.location.href = loginUrl;
+      })
+      .catch((error) => {
+        console.error("네이버 로그인 설정 불러오기 실패:", error);
+        alert("네이버 로그인 설정을 불러오는 중 문제가 발생했습니다.");
+      });
+  });
 
 // 카카오 로그인
 axios
@@ -99,7 +78,7 @@ axios
 
 function loginWithKakao() {
   axios
-    .get("/user/kakao")
+    .get("/user/kakao", { withCredentials: true })
     .then((res) => {
       const { clientId, redirectUri } = res.data;
 
@@ -124,8 +103,9 @@ window.onload = function () {
   const token = urlParams.get("token");
 
   if (token) {
-    localStorage.setItem("token", token);
-
+    document.cookie = `token=${token}; path=/; max-age=${
+      24 * 60 * 60
+    }; secure; SameSite=Strict`;
     window.location.href = "/";
   }
 };

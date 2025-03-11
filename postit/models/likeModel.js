@@ -29,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: true,
+      indexes: [
+        {
+          unique: true,
+          // 중복 좋아요 방지
+          fields: ["user_id", "post_id"],
+        },
+      ],
     }
   );
 

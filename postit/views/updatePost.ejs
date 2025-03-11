@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 경고창 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 토스트 에디터 -->
+    <link
+      rel="stylesheet"
+      href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"
+    />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>update</title>
+    <link rel="stylesheet" href="/static/css/updatePost.css" />
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="carosel">
+      <img
+        class="caroselImg"
+        src="/static/images/mainCarosel.jpg"
+        alt="carosel image"
+      />
+    </div>
+
+    <div class="formContainer">
+      <div class="titleBox">
+        <span id="titleName">제목</span>
+        <input type="text" name="title" required />
+      </div>
+
+      <div class="radioAll">
+        <select name="category" required>
+          <option value="1">여행 후기 & 정보</option>
+          <option value="2">숙박 정보</option>
+          <option value="3">맛집 & 카페</option>
+          <option value="4">자유 게시판</option>
+          <option value="5">사진 갤러리</option>
+        </select>
+      </div>
+
+      <div class="flexContainer">
+        <div
+          class="image-upload"
+          onclick="document.getElementById('imageInput').click()"
+        >
+          <span>대표 이미지 선택</span>
+          <input
+            type="file"
+            id="imageInput"
+            name="image"
+            accept="image/*"
+            onchange="previewImage(event)"
+          />
+          <img
+            id="preview"
+            src=""
+            alt="이미지 미리보기"
+            style="display: none"
+          />
+        </div>
+
+        <div class="editor-container">
+          <div id="detailEditor"></div>
+        </div>
+      </div>
+
+      <button class="saveBtn" onclick="addWrite()" disabled="disabled">
+        발행
+      </button>
+    </div>
+  </body>
+  <script src="/static/js/updatePost.js"></script>
+</html>

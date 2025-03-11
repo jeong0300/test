@@ -34,6 +34,12 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
+    // 한 사용자의 좋아요 중복을 막음
+    await queryInterface.addConstraint("likes", {
+      fields: ["user_id", "post_id"],
+      type: "unique",
+      name: "unique_user_post_like",
+    });
   },
 
   async down(queryInterface, Sequelize) {

@@ -3,6 +3,6 @@ const router = require("express").Router();
 
 router.get("/allCategories", categoryController.getAllCategories);
 
-router.get("/:name", categoryController.getCategoryByName);
+router.get("/:categoryId", categoryController.getPostByCategoryId);
 
 module.exports = router;

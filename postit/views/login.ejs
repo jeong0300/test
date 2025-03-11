@@ -97,7 +97,10 @@
         <div class="separator">or</div>
 
         <div class="snsLogin">
-          <div id="naver_id_login"></div>
+          <!-- <div id="naver_id_login"></div> -->
+          <div id="naverLoginBtn">
+            <img src="/static/images/naver_login.png" style="width: 150px" />
+          </div>
           <a id="kakao-login-btn" href="#" onclick="loginWithKakao()">
             <img src="/static/images/kakaoLoginIcon.png" alt="kakao Icon" />
           </a>
@@ -109,6 +112,6 @@
       src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
       charset="utf-8"
     ></script>
-    <script src="/static/js/login.js" onload="initializeNaverLogin()"></script>
+    <script src="/static/js/login.js"></script>
   </body>
 </html>

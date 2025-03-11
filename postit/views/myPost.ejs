@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내가 쓴 게시글</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="container">
+      <h1>내가 작성한 게시글</h1>
+
+      <% if (!posts || posts.length === 0) { %>
+      <p>작성한 게시글이 없습니다.</p>
+      <% } else { %>
+      <div class="post-list">
+        <% posts.forEach(function(post) { %>
+        <div class="post">
+          <h3>
+            <a href="#" onclick="viewPost('<%= post.id %>')"
+              ><%= post.title %></a
+            >
+          </h3>
+          <p>
+            <%= post.content.length > 100 ? post.content.substring(0, 100) +
+            "..." : post.content %>
+          </p>
+          <small
+            >🕒 작성 날짜: <%= new Date(post.createdAt).toLocaleDateString()
+            %></small
+          >
+          <p>❤️ 좋아요: <%= post.like_count || 0 %></p>
+        </div>
+        <% }); %>
+      </div>
+      <% } %>
+    </div>
+
+    <%- include("footer") %>
+  </body>
+  <script src="/static/js/myPost.js"></script>
+</html>

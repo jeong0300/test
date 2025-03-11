@@ -1,8 +1,16 @@
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+const token = getCookie("token");
+
 window.addEventListener("scroll", function () {
   let header = document.querySelector(".header");
   if (window.scrollY > 0) {
     header.style.position = "fixed";
-    header.style.backgroundColor = "rgba(74, 68, 113, 0.7)";
+    header.style.backgroundColor = "rgb(74, 68, 113)";
   } else {
     header.style.position = "absolute";
     header.style.backgroundColor = "transparent";
@@ -17,46 +25,59 @@ function showAlert() {
   });
 }
 
-// 페이지 이동
-function move(url) {
-  axios
-    .get(`/postit/${url}`)
-    .then((res) => {
-      window.location.href = `/postit/${url}`;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+// 게시글 보기
+// const viewPost = (userId, postId) => {
+//   axios
+//     .get(`/post/${categoryName}/${postId}`, { withCredentials: true })
+//     .then((response) => {
+//       console.log(response);
+//       window.location.href = `/postit/${categoryName}/${postId}`;
+//     })
+//     .catch((error) => {
+//       console.error("게시글 조회 실패:", error);
+//     });
+// };
 
 function moveUrl(url) {
   window.location.href = `/postit/${url}`;
 }
 
+// 내가 쓴 글 보기
+const goToMyPost = async (url) => {
+  try {
+    const idResponse = await axios.get("/user/getUserId", {
+      withCredentials: true,
+    });
+
+    const userId = idResponse.data.id;
+
+    if (url === "myPost") {
+      window.location.href = `/post/myPost/${userId}`;
+    } else {
+      window.location.href = `/postit/${url}`;
+    }
+  } catch (error) {
+    console.error("사용자 ID 가져오기 실패:", error);
+  }
+};
+
 function logout() {
-  localStorage.removeItem("token");
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   window.location.href = "/";
 }
 
 // 로그인, 로그아웃
 document.addEventListener("DOMContentLoaded", async function () {
   const joinBox = document.querySelector(".joinBox");
-
   const loginBefore = document.querySelector(".loginBefore");
   const loginAfter = document.querySelector(".loginAfter");
-
-  const token = localStorage.getItem("token");
 
   if (token) {
     loginBefore.style.display = "none";
     loginAfter.style.display = "block";
-
     try {
-      const response = await axios(`/user/getUser`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const response = await axios.get("/user/getUser", {
+        withCredentials: true,
       });
 
       // 기존 버튼들 삭제
@@ -75,19 +96,27 @@ document.addEventListener("DOMContentLoaded", async function () {
       logoutBtn.textContent = "로그아웃";
 
       logoutBtn.addEventListener("click", function () {
-        localStorage.removeItem("token");
+        document.cookie = "token=; Max-Age=0; path=/";
         window.location.href = "/";
       });
 
       logoutDiv.appendChild(logoutBtn);
-
       joinBox.appendChild(userNameElem);
       joinBox.appendChild(logoutDiv);
     } catch (error) {
-      console.error(error);
+      console.error("사용자 정보 가져오기 실패:", error);
     }
   } else {
     loginBefore.style.display = "block";
     loginAfter.style.display = "none";
   }
 });
+
+// 카테고리별 게시글로 이동하기
+const moveToCategory = (categoryId) => {
+  if (token) {
+    window.location.href = `/category/${categoryId}`;
+  } else {
+    window.location.href = "/postit/login";
+  }
+};

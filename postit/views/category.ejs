@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/category.css" />
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+
+    <title><%= categoryName %> 게시글</title>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="backColor">
+      <div class="carosel">
+        <div class="caroselContainer">
+          <img
+            class="caroselImg"
+            src="/static/images/mainCarosel.jpg"
+            alt="carosel image"
+          />
+          <div class="overlay"></div>
+        </div>
+        <div class="logo">
+          <% let categoryImage = ""; if (categoryName === "맛집 & 카페") {
+          categoryImage = "/static/images/foodCafe.png"; } else if (categoryName
+          === "사진 갤러리") { categoryImage =
+          "/static/images/photoGallery.png"; } else if (categoryName === "숙박")
+          { categoryImage = "/static/images/information.png"; } else if
+          (categoryName === "여행 후기 및 정보") { categoryImage =
+          "/static/images/review_information.png"; } else if (categoryName ===
+          "자유 게시판") { categoryImage = "/static/images/freeBoard.png"; } %>
+          <img
+            class="caroselImg"
+            src="<%= categoryImage %>"
+            alt="category image"
+          />
+          <h3><%= categoryName %></h3>
+        </div>
+      </div>
+
+      <div class="categoryBox">
+        <div class="mainContainer">
+          <div class="postsBox">
+            <% if(posts.length > 0) { %> <% for (let i = 0; i < posts.length;
+            i++) { %>
+            <div class="postContainer">
+              <div class="post-card">
+                <img
+                  src="<%= posts[i].image_url %>"
+                  alt="Post Image"
+                  class="post-image"
+                  onclick="viewPost('<%= posts[i].id %>')"
+                  data-id="<%= posts[i].id %>"
+                />
+                <div class="post-info">
+                  <div
+                    class="favoriteIcon"
+                    onclick="heart(event)"
+                    data-fav="<%= posts[i].favorite ? '1' : '0' %>"
+                    data-id="<%= posts[i].id %>"
+                  >
+                    <img
+                      src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
+                    />
+                  </div>
+                  <%= posts[i].like_count %>
+                </div>
+              </div>
+              <div
+                class="contentBox"
+                onclick="moveToPost('<%= posts[i].id %>')"
+              >
+                <h5><%= posts[i].title.substring(0, 10) %></h5>
+                <hr />
+                <p><%= posts[i].content.substring(0, 30) %>...</p>
+              </div>
+            </div>
+            <% } %> <% } else { %>
+            <div class="emptyImg">
+              <img src="/static/images/emptyPost.png" alt="empty image" />
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <%- include("footer") %>
+    </div>
+  </body>
+  <script src="/static/js/category.js"></script>
+</html>

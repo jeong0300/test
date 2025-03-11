@@ -1,0 +1,173 @@
+body {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 이미지 헤더 */
+.allContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.carosel {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.caroselContainer {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+.caroselImg {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.489) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* 게시글 */
+.detailContainer {
+  width: 100%;
+  max-width: 1280px;
+  padding: 50px;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 100px;
+  border-radius: 10px;
+}
+
+.detailBox {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.profileContainer hr {
+  width: 100%;
+  margin: 0 auto;
+  color: white;
+  border: 1px solid white;
+}
+
+.detailBox hr {
+  width: 95%;
+  margin: 0 auto;
+  color: white;
+  border: 1px solid white;
+}
+
+.detailBox .modifiedPost-image {
+  width: 1000px;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.topContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileContainer {
+  display: flex;
+  padding: 20px 30px;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profile img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.post-actions {
+  display: flex;
+}
+
+.post-actions button {
+  width: 100px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  font-size: 16px;
+  text-align: center;
+  color: #444;
+  background-color: #e7e2ed;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.post-actions button:hover {
+  background-color: #bfb9c7;
+  transform: scale(1.05);
+  color: white;
+}
+
+.post-actions button:active {
+  background-color: rgb(156, 145, 168);
+  transform: scale(0.98);
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.nameText {
+  margin: 5px;
+}
+
+.textContainer {
+  padding: 20px 50px;
+}

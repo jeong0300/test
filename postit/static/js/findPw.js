@@ -1,3 +1,5 @@
+const token = getCookie("token");
+
 // 버튼 활성화, 비활성화
 let passwordsMatch = false;
 let passwordsOkay = false;
@@ -61,7 +63,11 @@ const pwChange = async () => {
   const data = { email, password };
 
   try {
-    const res = await axios.put("/user/changePass", data);
+    const res = await axios.put("/user/changePass", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (res.data.success) {
       Swal.fire({
@@ -94,7 +100,11 @@ const idCheck = async () => {
   const data = { email };
 
   try {
-    const res = await axios.post("/user/findPw", data);
+    const res = await axios.post("/user/findPw", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (res.data.email) {
       Swal.fire({

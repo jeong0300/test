@@ -43,31 +43,38 @@
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
-          <div class="offcanvas-header">
-            <h4 class="offcanvas-title" id="offcanvasNavbarLabel">Postit</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-
           <div class="offcanvas-body">
+            <div class="offcanvas-header">
+              <h4 class="offcanvas-title" id="offcanvasNavbarLabel">Postit</h4>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <hr />
               <br />
-              <li class="nav-item" onclick="move('')">
+              <li class="nav-item" onclick="moveToCategory('1')">
                 <p>여행 후기 & 정보</p>
               </li>
               <br />
-              <li class="nav-item" onclick="move('')"><p>숙박 정보</p></li>
+              <li class="nav-item" onclick="moveToCategory('2')">
+                <p>숙박 정보</p>
+              </li>
               <br />
-              <li class="nav-item" onclick="move('')"><p>맛집 & 카페</p></li>
+              <li class="nav-item" onclick="moveToCategory('3')">
+                <p>맛집 & 카페</p>
+              </li>
               <br />
-              <li class="nav-item" onclick="move('')"><p>자유 게시판</p></li>
+              <li class="nav-item" onclick="moveToCategory('4')">
+                <p>자유 게시판</p>
+              </li>
               <br />
-              <li class="nav-item" onclick="move('')"><p>사진 갤러리</p></li>
+              <li class="nav-item" onclick="moveToCategory('5')">
+                <p>사진 갤러리</p>
+              </li>
               <hr />
               <br />
               <li class="nav-item remove">
@@ -112,7 +119,7 @@
                   </div>
                   <br />
                   <div class="bottom">
-                    <a href="#" class="flex">
+                    <a href="#" class="flex" onclick="goToMyPost('myPost')">
                       <img
                         src="/static/images/contentIcon.png"
                         alt="account icon"

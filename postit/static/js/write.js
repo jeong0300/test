@@ -5,6 +5,12 @@ const editor = new toastui.Editor({
   initialEditType: "wysiwyg",
   previewStyle: "vertical",
   initialValue: "상세 정보를 입력해주세요.",
+  hooks: {
+    addImageBlobHook(blob, callback) {
+      console.log(blob);
+      console.log(callback);
+    },
+  },
 });
 
 const saveButton = document.querySelector(".saveBtn");
@@ -37,9 +43,7 @@ const getUserId = async (token) => {
   if (!token) return null;
   try {
     const response = await axios.get("/user/getUserId", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      withCredentials: true,
     });
 
     if (response.status === 200) {
@@ -107,7 +111,7 @@ async function previewImage(event) {
       img.onload = function () {
         preview.style.display = "block";
         label.style.display = "none";
-        imageUpload.style.border = "2px solid transparent";
+        imageUpload.style.border = "none";
       };
       img.onerror = function () {
         alert("이미지 로드에 실패했습니다.");
@@ -131,23 +135,22 @@ const addWrite = async () => {
   const title = document.querySelector("input[name='title']").value.trim();
   const category = document.querySelector("select[name='category']").value;
   const content = editor.getHTML();
-  const token = localStorage.getItem("token");
   const image = document.getElementById("preview").dataset.imageUrl || null;
 
   try {
+    const userId = await getUserId(token);
+
     const response = await axios.post(
       "/post/create",
       {
-        userId: getUserId(token),
+        user_id: userId,
         title,
-        category,
+        category_id: category,
         content,
-        image,
+        image_url: image,
       },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       }
     );
 

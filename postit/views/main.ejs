@@ -53,7 +53,7 @@
 
         <div class="categorys">
           <div class="category">
-            <div class="imgContainer" onclick="moveCategory('trip')">
+            <div class="imgContainer" onclick="moveToCategory(1)">
               <img src="/static/images/category1.jpg" alt="trip image" />
               <div class="overlay"></div>
               <div class="text">
@@ -66,7 +66,7 @@
             </div>
           </div>
           <div class="category">
-            <div class="imgContainer" onclick="moveCategory('info')">
+            <div class="imgContainer" onclick="moveToCategory(2)">
               <img src="/static/images/category2.jpg" alt="trip image" />
               <div class="overlay"></div>
               <div class="text">
@@ -78,7 +78,7 @@
             </div>
           </div>
           <div class="category">
-            <div class="imgContainer" onclick="moveCategory('food')">
+            <div class="imgContainer" onclick="moveToCategory(3)">
               <img src="/static/images/category3.jpg" alt="trip image" />
               <div class="overlay"></div>
               <div class="text">
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="category">
-            <div class="imgContainer" onclick="moveCategory('free')">
+            <div class="imgContainer" onclick="moveToCategory(4)">
               <img src="/static/images/category4.jpg" alt="trip image" />
               <div class="overlay"></div>
               <div class="text">
@@ -96,7 +96,7 @@
             </div>
           </div>
           <div class="category">
-            <div class="imgContainer" onclick="moveCategory('photo')">
+            <div class="imgContainer" onclick="moveToCategory(5)">
               <img src="/static/images/category5.jpg" alt="trip image" />
               <div class="overlay"></div>
               <div class="text">
@@ -108,7 +108,82 @@
       </div>
 
       <div class="mainContainer">
-        <div class="postContainer"></div>
+        <h1>Recent Post</h1>
+        <div class="postsBox">
+          <% for (let i = 0; i < 5; i++) { %>
+          <div class="postContainer">
+            <div class="post-card">
+              <img
+                src="<%= posts[i].image_url %>"
+                alt="Post Image"
+                class="post-image"
+                onclick="moveToPost('<%= posts[i].id %>')"
+                data-id="<%= posts[i].id %>"
+              />
+              <div class="post-info">
+                <div
+                  class="favoriteIcon"
+                  onclick="heart(event)"
+                  data-fav="<%= posts[i].favorite ? '1' : '0' %>"
+                  data-id="<%= posts[i].id %>"
+                >
+                  <img
+                    src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
+                  />
+                </div>
+                <%= posts[i].like_count %>
+              </div>
+            </div>
+            <div class="contentBox" onclick="moveToPost('<%= posts[i].id %>')">
+              <h5><%= posts[i].title.substring(0, 10) %></h5>
+              <hr />
+              <p><%= posts[i].content.substring(0, 30) %>...</p>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="allPostsBox">
+          <% for (let i = 0; i < posts.length; i++) { %>
+          <div class="allPostContainer">
+            <div class="all-post-card">
+              <div class="allContentBox">
+                <div class="textBox" onclick="moveToPost('<%= posts[i].id %>')">
+                  <h5><%= posts[i].title.substring(0, 20) %></h5>
+
+                  <p>
+                    🕒 작성일: <%= new
+                    Date(posts[i].createdAt).toLocaleDateString() %>
+                  </p>
+
+                  <p><%= posts[i].content.substring(0, 50) %>...</p>
+                </div>
+
+                <div class="favoriteContainer">
+                  <div
+                    class="favoriteIcon"
+                    onclick="heart(event)"
+                    data-fav="<%= posts[i].favorite ? '1' : '0' %>"
+                    data-id="<%= posts[i].id %>"
+                  >
+                    <img
+                      src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
+                    />
+                  </div>
+                  <%= posts[i].like_count %>
+                </div>
+              </div>
+              <img
+                src="<%= posts[i].image_url %>"
+                alt="Post Image"
+                class="post-image"
+                onclick="moveToPost('<%= posts[i].id %>')"
+                data-id="<%= posts[i].id %>"
+              />
+            </div>
+          </div>
+          <% } %>
+        </div>
       </div>
 
       <%- include("footer") %>

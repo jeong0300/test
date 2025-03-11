@@ -1,6 +1,8 @@
 const multer = require("multer");
 const userController = require("../controllers/userController");
 const router = require("express").Router();
+const cookieParser = require("cookie-parser");
+const authMiddleware = require("../middleware/userMiddleware");
 const path = require("path");
 
 // Multer 설정 (파일 업로드)
@@ -18,26 +20,26 @@ const upload = multer({ storage });
 
 router.get(
   "/allUsers",
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.getAllUsers
 );
 
 router.get(
   "/getUserId",
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.getUserByIdWrite
 );
 
 // 특정 유저 확인 (id)
 router.get(
   "/getUser",
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.getUserByIdNav
 );
 
 router.get(
   "/profile",
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.getUserProfile
 );
 
@@ -79,11 +81,7 @@ router.post(
 );
 
 // 특정 유저 확인 (id)
-router.get(
-  "/:id",
-  userController.authenticateToken,
-  userController.getUserById
-);
+router.get("/:id", userController.getUserById);
 
 router.put("/changePass", userController.changePass);
 
@@ -91,14 +89,14 @@ router.put("/changePass", userController.changePass);
 router.put(
   "/info",
   upload.single("image"),
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.updateUser
 );
 
 // 유저 정보 삭제
 router.delete(
   "/deleteUser",
-  userController.authenticateToken,
+  authMiddleware.authenticateToken,
   userController.deleteUser
 );
 
