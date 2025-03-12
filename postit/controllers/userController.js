@@ -272,7 +272,6 @@ const getUserById = async (req, res) => {
   try {
     let id = req.params.id;
 
-    console.log("params", req.params);
     let user = await User.findOne({ where: { id: id } });
 
     if (!user) {
@@ -289,7 +288,8 @@ const getUserById = async (req, res) => {
 // 사용자 정보 수정
 const updateUser = async (req, res) => {
   try {
-    let userId = req.user.id;
+    let userId = req.user.userId;
+
     let updateData = req.body;
 
     if (updateData.password) {
@@ -312,7 +312,6 @@ const updateUser = async (req, res) => {
         );
 
         if (fs.existsSync(oldImagePath)) {
-          // 기존 경로 삭제
           fs.unlinkSync(oldImagePath);
         }
       }
@@ -340,7 +339,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-// 사용자 삭제 > 탈퇴로 변경할 것 !!
+// 사용자 탈퇴
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.user;
@@ -352,13 +351,13 @@ const deleteUser = async (req, res) => {
     const deleted = await User.destroy({ where: { id: id } });
 
     if (!deleted) {
-      return res.status(404).json({ message: "삭제할 사용자 없음" });
+      return res.status(404).json({ message: "탈퇴할 사용자 없음" });
     }
 
-    res.status(200).json({ message: "사용자 삭제 완료" });
+    res.status(200).json({ message: "사용자 탈퇴 완료" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "사용자 삭제 실패", error: err.message });
+    res.status(500).json({ message: "사용자 탈퇴 실패", error: err.message });
   }
 };
 

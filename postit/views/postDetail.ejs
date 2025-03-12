@@ -48,10 +48,14 @@
               <h1><%= modifiedPost.title %></h1>
               <div class="profile">
                 <div class="userInfo">
-                  <img src="" alt="profile image" />
+                  <img
+                    src="<%= author.image_url ? author.image_url : '/static/images/profile.png' %>"
+                    alt="profile image"
+                  />
+
                   <!-- 포스터 유저 이미지 넣기 -->
                   <div class="flexColumn">
-                    <p class="nameText">dd</p>
+                    <p class="nameText"><%= author.username %></p>
                     <!-- 포스터 유저 이름 넣기 -->
                     <p>
                       🕒 작성일: <%= new
@@ -64,8 +68,18 @@
                   data-current-user-id="<%= currentUserId %>"
                   data-post-id="<%= postId %>"
                 >
-                  <button class="edit-btn">수정</button>
-                  <button class="delete-btn">삭제</button>
+                  <button
+                    class="edit-btn"
+                    onclick="moveToModify('<%= modifiedPost.id %>')"
+                  >
+                    수정
+                  </button>
+                  <button
+                    class="delete-btn"
+                    onclick="deletePost('<%= modifiedPost.id %>')"
+                  >
+                    삭제
+                  </button>
                 </div>
               </div>
             </div>

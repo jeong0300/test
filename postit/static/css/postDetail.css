@@ -41,6 +41,7 @@ body {
     rgba(0, 0, 0, 1) 70%,
     rgba(0, 0, 0, 0)
   );
+  position: fixed;
 }
 
 .overlay {
@@ -72,7 +73,7 @@ body {
 
 .detailBox {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
 }
 
@@ -90,11 +91,16 @@ body {
   border: 1px solid white;
 }
 
-.detailBox .modifiedPost-image {
+.modifiedPost-image {
   width: 1000px;
-  max-height: 500px;
+  max-width: 1500px;
+  max-height: 400px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
+}
+
+.modifiedPost-image {
+  opacity: 0.9;
 }
 
 .topContainer {
@@ -170,4 +176,49 @@ body {
 
 .textContainer {
   padding: 20px 50px;
+}
+
+@media screen and (max-width: 1020px) {
+  .detailBox {
+    width: 100%;
+    max-width: 1280px;
+  }
+
+  .modifiedPost-image {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .detailContainer {
+    padding: 30px;
+  }
+  .profile {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .post-actions {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .detailContainer {
+    padding: 15px;
+  }
+
+  .profile {
+    align-items: center;
+  }
+
+  .flexColumn {
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .userInfo {
+    flex-direction: column;
+  }
 }

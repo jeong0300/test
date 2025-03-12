@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/css/favorite.css" />
+    <!-- 경고창 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Favorite</title>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <%- include("nav") %>
+
+    <div class="backColor">
+      <div class="carosel">
+        <div class="caroselContainer">
+          <img
+            class="caroselImg"
+            src="/static/images/mainCarosel.jpg"
+            alt="carosel image"
+          />
+          <div class="overlay"></div>
+        </div>
+        <div class="logo">
+          <img
+            class="caroselImg"
+            src="/static/images/Bookmark.png"
+            alt="bookmark image"
+          />
+        </div>
+      </div>
+
+      <div class="mainContainer">
+        <% if (likedPostIds.length > 0) { %>
+        <div class="allPostsBox">
+          <% modifiedPosts.forEach(post => { %>
+          <div class="allPostContainer">
+            <div class="all-post-card">
+              <div class="allContentBox">
+                <div class="textBox" onclick="moveToPost('<%= post.id %>')">
+                  <h2><%= post.title.substring(0, 20) %></h2>
+                  <p>
+                    작성일: <%= new Date(post.createdAt).toLocaleDateString() %>
+                  </p>
+                  <%= post.content ? post.content.substring(0, 50) : '내용 없음'
+                  | escape %>...
+                </div>
+                <div class="favoriteContainer">
+                  <div class="post-info">
+                    <div
+                      class="favoriteIcon"
+                      onclick="heart(event)"
+                      data-fav="<%= post.favorite !== undefined ? (post.favorite ? '1' : '0') : '0' %>"
+                      data-id="<%= post.id %>"
+                    >
+                      <img
+                        src="<%= post.favorite ? '/static/images/favoriteFillIcon.png' : '/static/images/favoriteIcon.png' %>"
+                      />
+                    </div>
+                    <span class="like-count"><%= post.like_count || 0 %> </span>
+                  </div>
+                </div>
+              </div>
+              <img
+                src="<%= post && post.image_url ? post.image_url : '/static/images/default-image.png' %>"
+                alt="Post Image"
+                class="postImage"
+                onclick="moveToPost('<%= post.id %>')"
+                data-id="<%= post.id %>"
+              />
+            </div>
+          </div>
+          <% }); %><% } else { %>
+          <div class="emptyImg">
+            <img src="/static/images/postEmpty(white).png" alt="empty image" />
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <%- include("footer") %>
+
+    <script src="/static/js/favorite.js"></script>
+  </body>
+</html>

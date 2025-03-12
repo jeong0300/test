@@ -20,7 +20,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,7 +35,6 @@
   </head>
   <body>
     <%- include("nav") %>
-
     <div class="backColor">
       <div class="topContainer">
         <div class="carosel">
@@ -45,12 +43,26 @@
             src="/static/images/mainCarosel.jpg"
             alt="carosel image"
           />
+
           <div class="logo">
-            <img src="/static/images/postitLogo.png" alt="postit logo" />
+            <a href="/">
+              <img src="/static/images/postitLogo.png" alt="postit logo" />
+            </a>
+
+            <form action="/postit/search" method="GET">
+              <div class="searchBox">
+                <input
+                  class="search"
+                  placeholder="검색 키워드를 작성하여 주세요."
+                  name="name"
+                />
+                <button type="submit">검색</button>
+              </div>
+            </form>
+
             <div class="write" onclick="moveWrite('write')">글 작성하기</div>
           </div>
         </div>
-
         <div class="categorys">
           <div class="category">
             <div class="imgContainer" onclick="moveToCategory(1)">
@@ -106,20 +118,22 @@
           </div>
         </div>
       </div>
-
       <div class="mainContainer">
-        <h1>Recent Post</h1>
+        <h1>Recent Posts</h1>
+        <% if (Array.isArray(posts) && posts.length > 0) { %>
         <div class="postsBox">
-          <% for (let i = 0; i < 5; i++) { %>
+          <% for (let i = 0; i < Math.min(5, posts.length); i++) { %> <% if
+          (posts[i]) { %>
           <div class="postContainer">
             <div class="post-card">
               <img
-                src="<%= posts[i].image_url %>"
+                src="<%= posts[i] && posts[i].image_url ? posts[i].image_url : '/static/images/default-image.png' %>"
                 alt="Post Image"
                 class="post-image"
                 onclick="moveToPost('<%= posts[i].id %>')"
                 data-id="<%= posts[i].id %>"
               />
+
               <div class="post-info">
                 <div
                   class="favoriteIcon"
@@ -131,64 +145,78 @@
                     src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
                   />
                 </div>
-                <%= posts[i].like_count %>
+                <span class="like-count"><%= posts[i].like_count || 0 %> </span>
               </div>
             </div>
+
             <div class="contentBox" onclick="moveToPost('<%= posts[i].id %>')">
               <h5><%= posts[i].title.substring(0, 10) %></h5>
               <hr />
-              <p><%= posts[i].content.substring(0, 30) %>...</p>
+              <p>
+                <%= posts[i].content ? posts[i].content.substring(0, 30) :
+                "내용없음" %>
+              </p>
             </div>
           </div>
-          <% } %>
+          <% } %> <% } %>
         </div>
-
+        <% } else { %>
+        <div class="emptyImg">
+          <img src="/static/images/emptyPost.png" alt="No Posts" />
+        </div>
+        <% } %> <% if (Array.isArray(posts) && posts.length > 5) { %>
         <div class="allPostsBox">
-          <% for (let i = 0; i < posts.length; i++) { %>
+          <h1>All Posts</h1>
+          <% for (let i = 5; i < posts.length; i++) { %> <% if (posts[i]) { %>
           <div class="allPostContainer">
             <div class="all-post-card">
               <div class="allContentBox">
                 <div class="textBox" onclick="moveToPost('<%= posts[i].id %>')">
-                  <h5><%= posts[i].title.substring(0, 20) %></h5>
-
+                  <h5><%= posts[i].title.substring(0, 10) %></h5>
                   <p>
-                    🕒 작성일: <%= new
+                    작성일: <%= new
                     Date(posts[i].createdAt).toLocaleDateString() %>
                   </p>
-
-                  <p><%= posts[i].content.substring(0, 50) %>...</p>
+                  <p class="content">
+                    <%= posts[i].content ? posts[i].content.substring(0, 50) :
+                    "내용 없음" %>...
+                  </p>
                 </div>
-
                 <div class="favoriteContainer">
-                  <div
-                    class="favoriteIcon"
-                    onclick="heart(event)"
-                    data-fav="<%= posts[i].favorite ? '1' : '0' %>"
-                    data-id="<%= posts[i].id %>"
-                  >
-                    <img
-                      src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
-                    />
+                  <div class="post-info">
+                    <div
+                      class="favoriteIcon"
+                      onclick="heart(event)"
+                      data-fav="<%= posts[i].favorite ? '1' : '0' %>"
+                      data-id="<%= posts[i].id %>"
+                    >
+                      <img
+                        src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
+                      />
+                    </div>
+                    <span class="like-count"
+                      ><%= posts[i].like_count || 0 %>
+                    </span>
                   </div>
-                  <%= posts[i].like_count %>
                 </div>
               </div>
-              <img
-                src="<%= posts[i].image_url %>"
-                alt="Post Image"
-                class="post-image"
-                onclick="moveToPost('<%= posts[i].id %>')"
-                data-id="<%= posts[i].id %>"
-              />
+              <div class="postImg">
+                <img
+                  src="<%= posts[i] && posts[i].image_url ? posts[i].image_url : '/static/images/default-image.png' %>"
+                  alt="Post Image"
+                  class="postImage"
+                  onclick="moveToPost('<%= posts[i].id %>')"
+                  data-id="<%= posts[i].id %>"
+                />
+              </div>
             </div>
           </div>
-          <% } %>
+          <% } %> <% } %>
         </div>
+        <% } %>
       </div>
-
       <%- include("footer") %>
     </div>
-
     <script src="/static/js/main.js"></script>
   </body>
 </html>

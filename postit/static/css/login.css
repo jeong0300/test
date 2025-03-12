@@ -247,6 +247,14 @@ input:active {
   justify-content: center;
 }
 
+#naverLoginBtn {
+  cursor: pointer;
+}
+
+#naverLoginBtn img {
+  width: 150px;
+}
+
 #kakao-login-btn img {
   width: 150px;
   height: 42 px;

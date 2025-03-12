@@ -1,0 +1,488 @@
+body {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.backColor {
+  background-color: rgba(181, 167, 183, 0.59);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carosel {
+  display: flex;
+  width: 100%;
+  position: relative;
+  top: 0;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 30px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: moveUpLogo 1s forwards;
+  z-index: 2;
+  margin-bottom: 10px;
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@keyframes moveUpLogo {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo img {
+  width: 50%;
+  max-width: 800px;
+  height: auto;
+}
+
+.logo h3 {
+  color: white;
+}
+
+.caroselContainer {
+  position: relative;
+  width: 100%;
+}
+
+.caroselImg {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.489) 70%,
+    rgba(0, 0, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* 게시글 */
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+  height: auto;
+  margin-top: -50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.postsBox {
+  display: flex;
+  width: 100%;
+  max-width: 95%;
+  gap: 15px;
+  height: auto;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.postContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.478);
+  border-radius: 10px;
+  width: 230px;
+  max-width: 230px;
+  height: 300px;
+  max-height: 300px;
+  align-items: center;
+  transition: background-color 0.3s ease-in;
+}
+
+.postContainer img {
+  opacity: 0.8;
+  transition: opacity 0.5s ease-in;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
+
+.postContainer:hover {
+  background-color: rgba(255, 255, 255, 0.801);
+}
+
+.postContainer:hover img {
+  opacity: 1;
+}
+
+.contentBox {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  padding: 10px 10px 0 10px;
+  border-radius: 0 0 10px 10px;
+  background-color: rgba(64, 60, 91, 0.485);
+  color: white;
+  overflow: hidden;
+  transition: height 0.6s ease-in-out, background-color 0.5s ease-in;
+  cursor: pointer;
+}
+
+.contentBox:hover {
+  height: 140px;
+  background-color: rgba(67, 63, 96, 0.775);
+}
+
+.post-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.postImg {
+  position: relative;
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.post-card .post-image {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.post-image {
+  height: 200px;
+  border-radius: 10px;
+}
+
+.postImage {
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+.post-info,
+.postInfo {
+  display: flex;
+  gap: 10px;
+  padding: 7px 15px 0 0;
+}
+
+/* 좋아요 버튼 */
+.favoriteIcon {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.favoriteIcon img {
+  width: 20px;
+}
+
+/* 모든 게시글 */
+.allPostsBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+  padding: 10px 30px;
+  margin: 30px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.allPostContainer {
+  width: 100%;
+  display: flex;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  justify-content: center;
+  align-items: center;
+}
+
+.allPostContainer.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.allContentBox {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.all-post-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.54);
+  max-width: 1000px;
+  width: 1000px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 20px 0;
+  padding: 20px 0 20px 20px;
+  transition: transform 0.3s ease, background-color 0.3s ease-in;
+  align-items: center;
+  overflow: hidden;
+}
+
+.all-post-card:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.01);
+}
+
+.all-post-card img {
+  max-width: 200px;
+}
+
+.textBox,
+.favoriteIcon,
+.post-image {
+  cursor: pointer;
+}
+
+.textBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 준비 중 이미지 */
+.emptyImg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.emptyImg img {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 1275px) {
+  .postsBox {
+    justify-content: center;
+  }
+  .postContainer {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .postsBox {
+    width: 95%;
+    justify-content: center;
+  }
+
+  .postContainer {
+    max-width: 180px;
+    max-height: 280px;
+  }
+
+  .post-card .post-image {
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .categorys {
+    top: -100px;
+  }
+
+  .postContainer {
+    max-width: 160px;
+    max-height: 260px;
+  }
+
+  .post-card .post-image {
+    height: 160px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .favoriteIcon img {
+    width: 30px;
+  }
+
+  .logo img {
+    max-width: 900px;
+    width: 80%;
+  }
+
+  .postsBox {
+    display: flex;
+    flex-direction: column;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .all-post-card {
+    padding: 0;
+    top: -180px;
+  }
+
+  .mainContainer {
+    margin-top: 10px;
+  }
+
+  .postContainer {
+    max-width: 90%;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .post-card {
+    max-width: 100%;
+  }
+
+  .post-card .post-image {
+    max-height: 100%;
+  }
+
+  .allContentBox {
+    padding: 20px 30px 0 30px;
+  }
+
+  .allContentBox .content {
+    display: none;
+  }
+
+  .allPostsBox {
+    padding: 20px;
+  }
+
+  .post-info {
+    position: relative;
+  }
+
+  .postInfo {
+    position: relative;
+    top: 120px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .categorys {
+    display: none;
+  }
+
+  .mainContainer {
+    margin-top: 40px;
+  }
+
+  .all-post-card {
+    flex-direction: column;
+    position: relative;
+    height: 300px;
+  }
+
+  .textBox {
+    text-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .all-post-card img {
+    max-width: 100%;
+    max-height: 120px;
+  }
+
+  .allContentBox {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .allPostsBox {
+    padding: 30px;
+  }
+
+  .postInfo {
+    top: 0px;
+  }
+
+  .allPostContainer {
+    width: 100%;
+  }
+
+  .postImg {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .postImage {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .favoriteIcon img {
+    width: 35px;
+  }
+
+  .postsBox {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

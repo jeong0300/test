@@ -48,49 +48,56 @@
         </div>
       </div>
 
-      <div class="categoryBox">
-        <div class="mainContainer">
-          <div class="postsBox">
-            <% if(posts.length > 0) { %> <% for (let i = 0; i < posts.length;
-            i++) { %>
-            <div class="postContainer">
-              <div class="post-card">
-                <img
-                  src="<%= posts[i].image_url %>"
-                  alt="Post Image"
-                  class="post-image"
-                  onclick="viewPost('<%= posts[i].id %>')"
-                  data-id="<%= posts[i].id %>"
-                />
-                <div class="post-info">
-                  <div
-                    class="favoriteIcon"
-                    onclick="heart(event)"
-                    data-fav="<%= posts[i].favorite ? '1' : '0' %>"
-                    data-id="<%= posts[i].id %>"
-                  >
-                    <img
-                      src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
-                    />
+      <div class="mainContainer">
+        <% if (Array.isArray(posts) && posts.length > 0) { %>
+        <div class="allPostsBox">
+          <% for (let i = 0; i < posts.length; i++) { %>
+          <div class="allPostContainer">
+            <div class="all-post-card">
+              <div class="allContentBox">
+                <div class="textBox" onclick="moveToPost('<%= posts[i].id %>')">
+                  <h2><%= posts[i].title.substring(0, 20) %></h2>
+                  <p>
+                    작성일: <%= new
+                    Date(posts[i].createdAt).toLocaleDateString() %>
+                  </p>
+                  <p>
+                    <%= posts[i].content ? posts[i].content.substring(0, 50) :
+                    "내용 없음" %>...
+                  </p>
+                </div>
+                <div class="favoriteContainer">
+                  <div class="post-info">
+                    <div
+                      class="favoriteIcon"
+                      onclick="heart(event)"
+                      data-fav="<%= posts[i].favorite ? '1' : '0' %>"
+                      data-id="<%= posts[i].id %>"
+                    >
+                      <img
+                        src="<%= posts[i].favorite ? '../static/images/favoriteFillIcon.png' : '../static/images/favoriteIcon.png' %>"
+                      />
+                    </div>
+                    <span class="like-count"
+                      ><%= posts[i].like_count || 0 %>
+                    </span>
                   </div>
-                  <%= posts[i].like_count %>
                 </div>
               </div>
-              <div
-                class="contentBox"
+              <img
+                src="<%= posts[i] && posts[i].image_url ? posts[i].image_url : '/static/images/default-image.png' %>"
+                alt="Post Image"
+                class="postImage"
                 onclick="moveToPost('<%= posts[i].id %>')"
-              >
-                <h5><%= posts[i].title.substring(0, 10) %></h5>
-                <hr />
-                <p><%= posts[i].content.substring(0, 30) %>...</p>
-              </div>
+                data-id="<%= posts[i].id %>"
+              />
             </div>
-            <% } %> <% } else { %>
-            <div class="emptyImg">
-              <img src="/static/images/emptyPost.png" alt="empty image" />
-            </div>
-            <% } %>
           </div>
+          <% } %> <% } else { %>
+          <div class="emptyImg">
+            <img src="/static/images/postEmpty(white).png" alt="empty image" />
+          </div>
+          <% } %>
         </div>
       </div>
 

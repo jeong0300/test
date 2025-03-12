@@ -1,10 +1,3 @@
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
-  return null;
-}
-
 // 카카오 앱 키
 axios
   .get("/get-kakao-api-key")
@@ -203,9 +196,7 @@ function pwCheckCondition() {
   const check = document.querySelector(".check").textContent.trim();
   const alert = document.getElementById("alret").textContent.trim();
 
-  console.log(alert);
   if (check === "" && alert === "동일한 비밀번호입니다.") {
-    console.log("dd");
     changeBtn.disabled = false;
   } else {
     changeBtn.disabled = true;
@@ -285,9 +276,7 @@ const deleteUser = async () => {
   if (result.isConfirmed) {
     try {
       const response = await axios.delete("/user/deleteUser", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
 
       Swal.fire({
@@ -296,7 +285,8 @@ const deleteUser = async () => {
         icon: "success",
         confirmButtonText: "확인",
       }).then(() => {
-        localStorage.removeItem("token");
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.href = "/";
       });
     } catch (error) {

@@ -1,19 +1,26 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middleware/userMiddleware");
 const likeController = require("../controllers/likeController");
 
 router.post(
-  "/:postId/like",
-  likeController.authenticateToken,
+  "/:postId",
+  authMiddleware.authenticateToken,
   likeController.toggleLike
 );
 
-router.get("/:postId/likes", likeController.getLikeCount);
+router.get("/count/:postId", likeController.getLikeCount);
 
 router.get(
-  "/:postId/liked",
-  likeController.authenticateToken,
-  likeController.checkIfLiked
+  "/likedPosts",
+  authMiddleware.authenticateToken,
+  likeController.getUserLikedPosts
+);
+
+router.get(
+  "/favoritePosts",
+  authMiddleware.authenticateToken,
+  likeController.userPosts
 );
 
 module.exports = router;

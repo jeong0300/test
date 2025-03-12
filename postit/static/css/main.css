@@ -32,12 +32,13 @@ body {
   align-items: center;
   width: 100%;
   height: 100%;
-  top: -30px;
   gap: 30px;
   opacity: 0;
   transform: translateY(50px);
   animation: moveUpLogo 1s forwards;
   z-index: 2;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 @keyframes moveUpLogo {
@@ -52,7 +53,60 @@ body {
 }
 
 .logo img {
+  max-width: 98%;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBox {
+  width: 100%;
+  max-width: 1280px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  padding: 10px 15px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.259);
+  font-size: 16px;
   max-width: 100%;
+  width: 45%;
+  color: white;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.search::placeholder {
+  color: rgba(255, 255, 255, 0.596);
+}
+
+.searchBox button {
+  width: 100px;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #444;
+  background-color: #ffffffd4;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.searchBox button:hover {
+  background-color: #ffffff;
+  transform: scale(1.05);
+}
+
+input:focus {
+  outline: none;
 }
 
 .write {
@@ -69,7 +123,6 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-top: 20px;
 
   font-family: "Gothic A1", sans-serif;
   font-weight: 600;
@@ -101,7 +154,7 @@ body {
   justify-content: center;
   width: 100%;
   height: 100%;
-  top: -150px;
+  top: -100px;
   z-index: 1;
 }
 
@@ -197,7 +250,7 @@ body {
   color: white;
   text-align: center;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   z-index: 2;
 }
@@ -220,7 +273,8 @@ body {
   align-items: center;
 }
 
-.mainContainer h1 {
+.mainContainer h1,
+.allPostsBox h1 {
   color: white;
   margin-bottom: 20px;
 
@@ -231,8 +285,10 @@ body {
 
 .postsBox {
   display: flex;
-  width: 95%;
+  width: 100%;
+  max-width: 95%;
   gap: 15px;
+  height: auto;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
@@ -247,6 +303,7 @@ body {
   width: 230px;
   max-width: 230px;
   height: 300px;
+  max-height: 300px;
   align-items: center;
   transition: background-color 0.3s ease-in;
 }
@@ -293,18 +350,37 @@ body {
   align-items: flex-end;
 }
 
+.postImg {
+  position: relative;
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .post-card .post-image {
   width: 100%;
-  height: 200px;
   margin-bottom: 5px;
 }
 
-.post-info {
+.post-image {
+  height: 200px;
+  border-radius: 10px;
+}
+
+.postImage {
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+.post-info,
+.postInfo {
   display: flex;
   gap: 10px;
   padding: 7px 15px 0 0;
 }
 
+/* 좋아요 버튼 */
 .favoriteIcon {
   margin-left: auto;
   display: flex;
@@ -313,7 +389,6 @@ body {
   margin-top: 3px;
 }
 
-/* 좋아요 버튼 */
 .favoriteIcon img {
   width: 20px;
 }
@@ -324,12 +399,34 @@ body {
   flex-direction: column;
   width: 100%;
   max-width: 1280px;
-  padding: 10px;
+  padding: 10px 30px;
+  margin: 30px;
   justify-content: center;
   align-items: center;
 }
 
+.allPostContainer {
+  width: 100%;
+  display: flex;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.allPostContainer.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.allContentBox {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .all-post-card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.54);
@@ -338,7 +435,15 @@ body {
   height: 200px;
   border-radius: 10px;
   margin: 20px 0;
-  padding: 20px;
+  padding: 20px 0 20px 20px;
+  transition: transform 0.3s ease, background-color 0.3s ease-in;
+  align-items: center;
+  overflow: hidden;
+}
+
+.all-post-card:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.01);
 }
 
 .all-post-card img {
@@ -351,33 +456,205 @@ body {
   cursor: pointer;
 }
 
+.textBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 준비 중 이미지 */
+.emptyImg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.emptyImg img {
+  max-width: 100%;
+}
+
 @media screen and (max-width: 1275px) {
   .postsBox {
     justify-content: center;
+  }
+  .postContainer {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .postsBox {
+    width: 95%;
+    justify-content: center;
+  }
+
+  .postContainer {
+    max-width: 180px;
+    max-height: 280px;
+  }
+
+  .post-card .post-image {
+    height: 180px;
   }
 }
 
 @media screen and (max-width: 900px) {
   .categorys {
-    top: -100px;
+    display: none;
+  }
+
+  .searchBox {
+    margin-top: 20px;
+  }
+
+  .write {
+    margin-top: 20px;
+  }
+
+  .mainContainer {
+    margin-top: 30px;
+  }
+
+  .postContainer {
+    max-width: 160px;
+    max-height: 260px;
+  }
+
+  .post-card .post-image {
+    height: 160px;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .allContentBox .favoriteIcon img {
+    width: 30px;
+  }
+
   .postsBox {
-    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .all-post-card {
+    padding: 0;
+  }
+
+  .mainContainer {
+    margin-top: 10px;
   }
 
   .postContainer {
+    max-width: 90%;
     width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .post-card {
+    max-width: 100%;
+  }
+
+  .post-card .post-image {
+    max-height: 100%;
+  }
+
+  .allContentBox {
+    padding: 20px 30px 0 30px;
+  }
+
+  .allContentBox .content {
+    display: none;
+  }
+
+  .allPostsBox {
+    padding: 20px;
+  }
+
+  .post-info {
+    position: relative;
+  }
+
+  .postInfo {
+    position: relative;
+    top: 120px;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .categorys {
-    display: none;
-  }
   .mainContainer {
     margin-top: 40px;
+  }
+
+  .all-post-card {
+    flex-direction: column;
+    position: relative;
+    height: 300px;
+  }
+
+  .all-post-card img {
+    max-width: 100%;
+    max-height: 180px;
+  }
+
+  .allContentBox {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .allPostsBox {
+    padding: 30px;
+  }
+
+  .postInfo {
+    top: 0px;
+  }
+
+  .allPostContainer {
+    width: 100%;
+  }
+
+  .postImg {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .postImage {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .allContentBox .favoriteIcon img {
+    width: 35px;
+  }
+
+  .postsBox {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }

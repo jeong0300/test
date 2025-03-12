@@ -1,5 +1,4 @@
 "use strict";
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -33,6 +32,13 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal(
+          "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+        ),
+      },
     });
     // 한 사용자의 좋아요 중복을 막음
     await queryInterface.addConstraint("likes", {
@@ -41,7 +47,6 @@ module.exports = {
       name: "unique_user_post_like",
     });
   },
-
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("likes");
   },

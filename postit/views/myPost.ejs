@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <link rel="stylesheet" href="/static/css/mypost.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>내가 쓴 게시글</title>
@@ -9,36 +10,84 @@
   <body>
     <%- include("nav") %>
 
-    <div class="container">
-      <h1>내가 작성한 게시글</h1>
-
-      <% if (!posts || posts.length === 0) { %>
-      <p>작성한 게시글이 없습니다.</p>
-      <% } else { %>
-      <div class="post-list">
-        <% posts.forEach(function(post) { %>
-        <div class="post">
-          <h3>
-            <a href="#" onclick="viewPost('<%= post.id %>')"
-              ><%= post.title %></a
-            >
-          </h3>
-          <p>
-            <%= post.content.length > 100 ? post.content.substring(0, 100) +
-            "..." : post.content %>
-          </p>
-          <small
-            >🕒 작성 날짜: <%= new Date(post.createdAt).toLocaleDateString()
-            %></small
-          >
-          <p>❤️ 좋아요: <%= post.like_count || 0 %></p>
+    <div class="backColor">
+      <div class="carosel">
+        <div class="caroselContainer">
+          <img
+            class="caroselImg"
+            src="/static/images/mainCarosel.jpg"
+            alt="carosel image"
+          />
+          <div class="overlay"></div>
         </div>
-        <% }); %>
+        <div class="logo">
+          <img
+            class="caroselImg"
+            src="/static/images/myPost.png"
+            alt="my post image"
+          />
+        </div>
       </div>
-      <% } %>
-    </div>
 
-    <%- include("footer") %>
+      <div class="mainContainer">
+        <% if (Array.isArray(modifiedPosts) && modifiedPosts.length > 0) { %>
+        <div class="allPostsBox">
+          <% for (let i = 0; i < modifiedPosts.length; i++) { %>
+          <div class="allPostContainer">
+            <div class="all-post-card">
+              <div class="allContentBox">
+                <div
+                  class="textBox"
+                  onclick="moveToPost('<%= modifiedPosts[i].id %>')"
+                >
+                  <h2><%= modifiedPosts[i].title.substring(0, 20) %></h2>
+                  <p>
+                    작성일: <%= new
+                    Date(modifiedPosts[i].createdAt).toLocaleDateString() %>
+                  </p>
+                  <p>
+                    <%= modifiedPosts[i].content ?
+                    modifiedPosts[i].content.substring(0, 50) : "내용 없음"
+                    %>...
+                  </p>
+                </div>
+                <div class="favoriteContainer">
+                  <div class="post-info">
+                    <div
+                      class="favoriteIcon"
+                      onclick="heart(event)"
+                      data-fav="<%= modifiedPosts[i].favorite ? '1' : '0' %>"
+                      data-id="<%= modifiedPosts[i].id %>"
+                    >
+                      <img
+                        src="<%= modifiedPosts[i].favorite ? '/static/images/favoriteFillIcon.png' : '/static/images/favoriteIcon.png' %>"
+                      />
+                    </div>
+                    <span class="like-count"
+                      ><%= modifiedPosts[i].like_count || 0 %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <img
+                src="<%= modifiedPosts[i] && modifiedPosts[i].image_url ? modifiedPosts[i].image_url : '/static/images/default-image.png' %>"
+                alt="Post Image"
+                class="postImage"
+                onclick="moveToPost('<%= modifiedPosts[i].id %>')"
+                data-id="<%= modifiedPosts[i].id %>"
+              />
+            </div>
+          </div>
+          <% } %> <% } else { %>
+          <div class="emptyImg">
+            <img src="/static/images/postEmpty(white).png" alt="empty image" />
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <%- include("footer") %>
+    </div>
   </body>
   <script src="/static/js/myPost.js"></script>
 </html>
